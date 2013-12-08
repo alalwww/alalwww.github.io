@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | AwAlog]]></title>
+  <link href="http://alalwww.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://alalwww.github.io/"/>
+  <updated>2013-12-09T03:56:24+09:00</updated>
+  <id>http://alalwww.github.io/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octpress再インストール]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/09/reinstall-octopress/"/>
+    <updated>2013-12-09T02:20:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/09/reinstall-octopress</id>
+    <content type="html"><![CDATA[<p>Octopressを再インストールしたのでその手順をメモしました。</p>
+
+<!-- more -->
+
+
+<p>前回同様に<a href="http://tokkonopapa.github.io/blog/2011/12/30/octopress-on-github-and-bitbucket/">こちらの記事</a>を参考にインストール。</p>
+
+<h1>環境</h1>
+
+<ul>
+<li>CentOS5</li>
+<li>ruby 1.9.3</li>
+</ul>
+
+
+<p>他割愛</p>
+
+<h1>やった事メモ</h1>
+
+<p>手探りと思いつきでやったので、行った順番はバラバラ。</p>
+
+<h2>再インストール</h2>
+
+<h3>GitHubPages用のリポジトリの作成</h3>
+
+<p>GitHubPages用のドメインがgithub.comからgithub.ioに変わってるので、いい機会だしリポジトリも名前を変えて作り直しにしちゃおうと思います。</p>
+
+<p>とりあえず既存のリポジトリはそのまま、新たにalalwww.github.ioリポジトリを作成。手順は割愛。</p>
+
+<h3>Source用リポジトリ(リモート)の作成</h3>
+
+<p>BitBucketに置くことにしました。</p>
+
+<p>さくっとアカウントを作成してメール認証とSSHKey登録。Octopressのリポジトリを非公開で作成。手順は割愛。</p>
+
+<p>GitHubを使ったことが有るからかもだけど、特に迷うこともなく完了。</p>
+
+<h3>サーバーの更新ほったらかしていたのでとりあえず更新</h3>
+
+<pre><code>$ sudo yum update
+</code></pre>
+
+<p>とかとか。いろいろ。</p>
+
+<h3>Gemの更新</h3>
+
+<pre><code>$ sudo gem update --system
+</code></pre>
+
+<p>実際はインストールとかひと通り終わった後に思い出してやりました。特に問題はなかったからよしってことにしました。</p>
+
+<h3>Octopress再インストール</h3>
+
+<p>Octopressをクローンしてきて準備。</p>
+
+<pre><code>$ cd ~/git/
+$ git clone git://github.com/imathis/octopress.git octopress
+$ cd octopress
+$ sudo gem install bundler // 既にインストール済みだし不要だったかも
+$ bundle install           // 同上
+$ bundle update rake
+$ rake install
+</code></pre>
+
+<p><code>bundle update rake</code>は忘れてたのであとでやりなおしました。最初、更新を忘れていたせいか、<code>rake setup_github_pages</code>でブランチがmasterからsourceに変わらないといったハプニングはありましたが、やり直したら問題なくいけたっぽいので気にしないことに。</p>
+
+<p>Octopressのインストール</p>
+
+<pre><code>$ rake setup_github_pages
+Enter the read/write url for your repository
+(For example, 'git@github.com:your_username/your_username.github.io.git)
+           or 'https://github.com/your_username/your_username.github.io')
+Repository url: (GitHubのリポジトリのURLを入力)
+Added remote git@github.com:username/username.github.io.git as origin
+Set origin as default remote
+Master branch renamed to 'source' for committing your blog source files
+rm -rf _deploy
+mkdir _deploy
+cd _deploy
+Initialized empty Git repository in /path/to/git_repos/octopress/_deploy/.git/
+[master (root-commit) 81f3a5e] Octopress init
+ 1 file changed, 1 insertion(+)
+ create mode 100644 index.html
+cd -
+
+---
+## Now you can deploy to (入力したGitHubのリポジトリのURL) with `rake deploy` ##
+</code></pre>
+
+<p>ブランチを確認。やり直したあとはちゃんとmasterからsourceに変わってる事を確認。(先に書いたgemsの更新忘れてたときは、何故かこれができてなくてハマってた。)</p>
+
+<pre><code>$ git branch
+* source
+</code></pre>
+
+<p>変更されたファイルを確認。</p>
+
+<pre><code>$ git status
+# On branch source
+# Changes not staged for commit:
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+#       modified:   Gemfile.lock
+#       modified:   Rakefile
+#       modified:   _config.yml
+#
+# Untracked files:
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
+#
+#       sass/
+#       source/
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+
+<p>とりあえず未編集状態でコミット。</p>
+
+<pre><code>$ git add .
+$ git commit -m 'first commit'
+</code></pre>
+
+<h3>リモートを追加してsourceブランチをpush</h3>
+
+<p>作っておいたBitbucketのリポジトリを追加。</p>
+
+<pre><code>$ git remote add bitbucket git@bitbucket.org:username/octopress.git
+</code></pre>
+
+<p>でもって確認も兼ねてプッシュ。</p>
+
+<pre><code>$ git push bitbucket source
+Enter passphrase for key '/path/to/sshkeydir/keyfile':
+Counting objects: 4724, done.
+Compressing objects: 100% (2027/2027), done.
+Writing objects: 100% (4724/4724), 1.19 MiB, done.
+Total 4724 (delta 2459), reused 4519 (delta 2321)
+To git@bitbucket.org:username/octopress.git
+ * [new branch]      source -&gt; source
+</code></pre>
+
+<p>Bitbucketサイトのコミットログを確認。
+<img src="/images/posts/2013-12-09-reinstall-octopress/bitbucket_log.png" alt="Bitbucketのコミットログ画面" /></p>
+
+<h3>動作の確認など</h3>
+
+<p>最低限の設定を行った後、とりあえず生成してみようと記事をバックアップから復活し、<code>rake generate</code>を実行してみると失敗しました。</p>
+
+<pre><code>$ rake generate
+## Generating Site with Jekyll
+directory source/stylesheets/
+   create source/stylesheets/screen.css
+Configuration from /path/to/git_repos/octopress/_config.yml
+Building site: source -&gt; public
+Liquid Exception: incompatible character encodings: UTF-8 and ASCII-8BIT in 2013-02-19-blog-customization1.markdown
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/block.rb:92:in `join'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/block.rb:92:in `render_all'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/block.rb:82:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/template.rb:124:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/template.rb:132:in `render!'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/convertible.rb:79:in `do_layout'
+/path/to/git_repos/octopress/plugins/post_filters.rb:167:in `do_layout'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/post.rb:195:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:200:in `block in render'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:199:in `each'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:199:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:41:in `process'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/bin/jekyll:264:in `&lt;top (required)&gt;'
+/usr/local/bin/jekyll:23:in `load'
+/usr/local/bin/jekyll:23:in `&lt;main&gt;'
+Build Failed
+</code></pre>
+
+<p>しかしもう一度試してみると発生しなく…。</p>
+
+<pre><code>$ rake generate
+## Generating Site with Jekyll
+identical source/stylesheets/screen.css
+Configuration from /path/to/git_repos/octopress/_config.yml
+Building site: source -&gt; public
+Successfully generated site: source -&gt; public
+</code></pre>
+
+<p>よくわからないけどなんか大丈夫になってしまった。再現性がないのでとりあえず保留。このあとテーマ更新した際にもう一度だけ発生したけど、やっぱりそれ以降再現しないので忘れることに。</p>
+
+<p>とりあえず目についたエラーメッセージをコピって<a href="http://goo.gl/IcRLrp">先生</a>に聞いてみたら、<a href="http://tokkonopapa.github.io/blog/2013/02/23/octopress-toc/">関連しそうな記事</a>はあったんだけれど、この後の記事でもOctopress側に問題があっておきてるような事が書いてあるし、原因調査に割く時間もないので、時が解決してくれることを期待しておきます。</p>
+
+<h2>設定変更など</h2>
+
+<h3>.gitignoreに.preview-modeを追加</h3>
+
+<p><code>git status</code>してみると、新規ファイルが作成されてた。名前的にプレビュー時に生成されたっぽい。コミットは不要な気がするので<code>.gitignore</code>に<code>.preview-mode</code>ファイルを追加してまたコミット。</p>
+
+<p>その他、追加した記事や設定の変更を、何度かに分けてコミット。</p>
+
+<h3>テーマを変更</h3>
+
+<p><a href="/blog/2013/12/05/theme-changed/">先日の記事</a>通りにさくさくっとテーマも変更。ついでにスタイルも少し修正。終わったらまたいくつかにわけてコミット。</p>
+
+<h3>new_postなどのテンプレート変更。</h3>
+
+<p><a href="/blog/2013/12/05/how-to-use-drafts//">先日の記事</a>通りにｒｙ</p>
+
+<h3>ツイッタープラグイン死亡確認</h3>
+
+<p>原因は単純で、OctopressのはAPI1.0系だから。っていうかAPI1.1じゃ認証必須だからどのみち従来のような取得はできない。そんな理由からこのプラグインの更新自体も打ち切られてるみたい。</p>
+
+<p>APIが使えなくなったかわりにTwitter公式が<a href="https://dev.twitter.com/ja/docs/embedded-timelines">埋め込みタイムラインウィジェット</a>を提供しているので、こっちを利用するものを作成。(<a href="http://msaisai.github.io/blog/2013/06/19/octopress-twitter/">参考</a>)</p>
+
+<p><div><script src='https://gist.github.com/7860557.js'></script>
+<noscript><pre><code>&lt;section style=&quot;position:relative&quot;&gt;
+&lt;h1&gt;Twitter&lt;/h1&gt;
+&lt;div style=&quot;position:absolute;top:0;right:16px&quot;&gt;
+&lt;a href=&quot;https://twitter.com/alalwww&quot; class=&quot;twitter-follow-button&quot; data-show-count=&quot;false&quot; data-lang=&quot;ja&quot; data-show-screen-name=&quot;false&quot;&gt;Follow @alalwww&lt;/a&gt;
+&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=&quot;//platform.twitter.com/widgets.js&quot;;fjs.parentNode.insertBefore(js,fjs);}}(document,&quot;script&quot;,&quot;twitter-wjs&quot;);&lt;/script&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;a class=&quot;twitter-timeline&quot; href=&quot;https://twitter.com/alalwww&quot; data-widget-id=&quot;408658474638118912&quot; data-chrome=&quot;noheader nofooter transparent&quot; data-lang=&quot;ja&quot;&gt;@alalwww からのツイート&lt;/a&gt;
+&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&quot;://platform.twitter.com/widgets.js&quot;;fjs.parentNode.insertBefore(js,fjs);}}(document,&quot;script&quot;,&quot;twitter-wjs&quot;);&lt;/script&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+</code></pre></noscript></div>
+</p>
+
+<p>ヘッダーがいまいちだったので消して、自前で用意し、こんな感じに落ち着きました。出来たものは<code>source/_includes/custom/asides/twitter.html</code>に配置して<code>_config.yml</code>の<code>default_aside</code>に追加。</p>
+
+<p>しかしGistのずれは、前から気になってたけどやっぱ気持ち悪い。今度直そう。(<a href="http://rcmdnk.github.io/blog/2013/05/06/blog-octopress/">修正の参考</a>)</p>
+
+<h3>about.htmlを修正し追加</h3>
+
+<p>ブログの概要、というか自己紹介的なやつ。</p>
+
+<p>前はTwitterのプロフィールを取得して表示してたけど、そこもAPI1.0系なので死んでてもう使えない。ので普通に書きます。内容はとりあえずあとで考えるとして適当に形だけ。おなかすいた。</p>
+
+<p>アイコンだけはTwitterから取得するようにしました。Guavaterでもよかったかも。(<a href="https://retrorocket.biz/archives/77">参考</a>)</p>
+
+<p><code>source/_includes/custom/asides/about.html</code> を適当に修正。終わったら<code>_config.yml</code>の<code>default_aside</code>に追加。</p>
+
+<h1>再インストールに至った理由</h1>
+
+<p>そもそも何故再インストールなんてしたかって言いますと、先日間違って<code>~/git/octopress</code>ディレクトリを勘違いで<code>rm -rf</code>してしまったから、だったりします。まるっと全消去です。見る影どころか跡形もありません…。</p>
+
+<p>思えばGitとかをまだ全然理解していない頃に、解説サイトに書いてあるコマンドをコピペしながら作成だけし、そのまま放置しつつ、テーマ弄ったり、記事だけ追加する、みたいなことを繰り返していたので、変更を全くコミットしていませんでした。そのため復旧は早々に諦めましたが、幸いなことに記事だけは直前にバックアップしてあったので、おさらいも兼ねて、いちからOctopressをインストールをし直してしまった、といった感じです。</p>
+
+<p>Octopress本体の更新もだいぶ長いこと放置してたので、実にいい機会です。むしろ計画通り。</p>
+
+<p>というか、いつかまたやらかしそうな気もするので、その時用に作業メモを残した感じ。</p>
+
+<hr />
+
+<p>何度かに分けて書いてるので文体バラバラ。っていうか、めんどくさい文章になるのでですます調はやめようと思いつつも、つい使ってしまう…。余計な文章書きすぎるクセも抜けない…。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[テーマ変更。他Octpressのカスタマイズとか。]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/05/theme-changed/"/>
+    <updated>2013-12-05T02:36:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/05/theme-changed</id>
+    <content type="html"><![CDATA[<p>テーマ変更の手順とテーマのカスタマイズなど。</p>
+
+<!--more-->
+
+
+<h1>テーマの変更手順</h1>
+
+<p>Octopress導入当時、あまりﾃｨﾝとくるテーマがみつけられなかったので、クラシックを少しいじる程度でいつか本気を出そうと思いつつ放置してたのですが、やっぱりなんだかぱっとしないので、思い切ってテーマを変えてみました。</p>
+
+<p>とりあえず、<a href="http://namusyaka.github.io/blog/2012/10/03/github-jekyll/">「Octopress テーマ」で検索して最初に目についたサイト</a>を参考にさせてもらいながら、テーマを変更してみました。</p>
+
+<p>手順はこんなかんじになります。</p>
+
+<ol>
+<li><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">GitHubのサードパーティ製テーマのページ</a>を開く。</li>
+<li>PreviewやScreenShotを見て気に入る物を探す。</li>
+<li>各テーマの導入手順通りに導入する。</li>
+</ol>
+
+
+<p>だけ！</p>
+
+<p>テーマもGitHub上で公開されているので、Cloneしてきてインストールするだけです。実に楽ちん。</p>
+
+<p><a href="https://github.com/roberto/oct2-orange">oct2-orange</a>のオレンジという単語に惹かれてさくっと決定。</p>
+
+<pre><code>$ git submodule add git://github.com/roberto/oct2-orange.git .themes/oct2-orange
+$ rake install[oct2-orange] 
+</code></pre>
+
+<p>丸コピってコマンドを打ち込むと…</p>
+
+<pre><code>It seems your ruby installation is missing psych (for YAML output). To eliminate this warning, please install libyaml and reinstall your ruby.
+</code></pre>
+
+<h2>なんかrubyの警告が出てる</h2>
+
+<p>どうやらCentOS5(6も)の環境にRubyをいれるときに出くわす問題っぽい？</p>
+
+<p><a href="http://d.hatena.ne.jp/donbulinux/20111111/1321004527">エラーメッセージで検索して最初に目についたサイト</a>を参考に、libyamlをインストール。libyamlのバージョンとかConfigureのオプションとかを一切確認せず、コマンドを丸コピペしてEnter。</p>
+
+<pre><code>$ wget http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz
+$ tar -zxvf yaml-0.1.4.tar.gz
+$ cd yaml-0.1.4
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>問題なく終わったみたいなので、以前Rubyを導入したときのディレクトリに移動してrubyも再インストール。</p>
+
+<pre><code>$ cd ~/ruby/ruby-1.9.3-p374
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>できたっぽい。頑張ったっぽい？</p>
+
+<h2>今度こそテーマをインストール</h2>
+
+<pre><code>$ rake install[oct2-orange] 
+A theme is already installed, proceeding will overwrite existing files. Are you sure? [y/n]
+</code></pre>
+
+<p>念のためのバックアップはとっているので、yを選んでテーマを上書き。</p>
+
+<h1>設定変更など</h1>
+
+<p>やったことなどメモ。もう既に忘れかけ。</p>
+
+<h2>ナビバー表示</h2>
+
+<p>テーマの配布元に書いてあるとおりに_config.yml の <code>default_asides</code> を編集してナビバーを表示。</p>
+
+<pre><code>default_asides: [asides/nav.html, custo...
+</code></pre>
+
+<h2>ナビバーのE-mailボタンを削除</h2>
+
+<p><code>source/_includes/asides/nav.html</code> から以下の行を削除。</p>
+
+<pre><code>&lt;a href="mailto:" alt="E-Mail"&gt;&lt;img src="/images/Envelope.png"&gt;&lt;/a&gt;
+</code></pre>
+
+<h2>フォント変更</h2>
+
+<p>scss/custom/_fonts.scssを修正</p>
+
+<pre><code>$sans: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$serif: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$heading-font-family: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;;
+</code></pre>
+
+<p>今度はConsolasを足してみた。</p>
+
+<h2>リストの左マージンを設定</h2>
+
+<p>リストが左に寄ってる感じなので、適当にマージンを追加。</p>
+
+<p>_styles.scss</p>
+
+<pre><code>/* ----- Content ----- */
+  :(中略)
+#content {
+  article {
+    ul {
+      margin-left: 25px;
+    }
+    ol {
+      margin-left: 40px;
+    }
+  }
+}
+</code></pre>
+
+<p>なんか、このスタイルの定義ファイル、元からある記述はネストされてなくてちょっと見づらい…。</p>
+
+<h2>htmlタグのlang属性を日本語に変更</h2>
+
+<p><a href="/blog/2013/02/24/blog-customization2/">以前</a>やったのと同じように<code>octopress/source/_includes/head.html</code>を編集。</p>
+
+<pre><code>&lt;html class="no-js" lang="ja"&gt;
+</code></pre>
+
+<hr />
+
+<p>足りない変更はまた後日行う予定。スタイルももう少し弄りたいし、はてブボタンとかサイドバーへの手直しなどが足りてなさそう。時間も足りてなさそう。(╯•﹏•╰)</p>
+
+<p>サイトのタイトルとか出ないのはそういうテーマっぽいけれど、左上にトップに戻るリンクないと落ち着かない気がするのでその辺りも何とかしたいトコロ。</p>
+
+<h1>だそく</h1>
+
+<p>いいローカル側のファイルのGitリポジトリ作ってコミットするようにしないと変更管理できないなぁって痛感。本気出すための服がほしい…。</p>
+]]></content>
+  </entry>
+  
+</feed>

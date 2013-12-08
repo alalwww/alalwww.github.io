@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GitHub + Octopress 試してみた - AwAlog</title>
+  <meta name="author" content="alalwww">
+
+  
+  <meta name="description" content="参考にしたサイト、設定、使い方などをメモ。 なにこれ GitHubでOctpressつかってblogっぽいことできるらしいので試してみた。 GitHub はここ見るような人なら知ってると思うので割愛。 Octpressは技術屋が好きそうな感じのCUIベースで静的HTMLを作成する、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://alalwww.github.io/blog/2013/02/17/tried-github-octopress">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-38591938-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:alalwww.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">GitHub + Octopress 試してみた</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-17T08:26:00+09:00" pubdate data-updated="true">[02/17(Sun) - 2013] 08:26 (+0900)</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>参考にしたサイト、設定、使い方などをメモ。</p>
+
+<!-- more -->
+
+
+<h1>なにこれ</h1>
+
+<p><a href="https://github.com">GitHub</a>で<a href="http://octopress.org">Octpress</a>つかってblogっぽいことできるらしいので試してみた。</p>
+
+<p>GitHub はここ見るような人なら知ってると思うので割愛。</p>
+
+<p>Octpressは技術屋が好きそうな感じのCUIベースで静的HTMLを作成する、ブログっぽいウェブサイトの生成ツール的なものだという認識してます。なんか間違ってる気もしますが、とりあえずそういう使い方しかしてないので気にしないことにします。ruby製みたいなので、そこらを触れる人は本体も好きに弄れそう。</p>
+
+<p>で、そのタコプレスがなんか GitHub と連携させれて、HitHubのユーザーIDのサブドメインも使わして貰えるらしいので、ちょっとやってみました。</p>
+
+<p>手順は何番煎じだよって感じなので割愛。(めんどくさい)</p>
+
+<p>なので、使用感とかそっちのほうを少し書いてってみます。</p>
+
+<h2>参考にしたサイトとか</h2>
+
+<ul>
+<li><a href="http://tokkonopapa.github.com/blog/2011/12/30/octopress-on-github-and-bitbucket/" title="Octopressのインストールから運用管理まで - T.I.D.">Octopressのインストールから運用管理まで &ndash; T.I.D.</a></li>
+<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/" title="GithubとOctopressでモダンな技術系ブログを作ってみる - Glide Note - グライドノート">GithubとOctopressでモダンな技術系ブログを作ってみる &ndash; Glide Note &ndash; グライドノート</a></li>
+<li><a href="http://mattn.kaoriya.net/software/lang/ruby/20111017205717.htm" title="Big Sky :: githubとjekyllとoctopressで作る簡単でモダンなブログ">Big Sky :: githubとjekyllとoctopressで作る簡単でモダンなブログ</a></li>
+</ul>
+
+
+<p>リポジトリの統合とかはとりあえず読み飛ばしてるけど、とりあえず動いたのでよし。</p>
+
+<p>今度…いつか本気出す…。</p>
+
+<h2>ちなみに環境はこんな感じ</h2>
+
+<p>普段使ってるPCはWin7で、Rubyとかも基本使ったりしてないので未インストール、ってことでサーバー機のVM上で動かしてるSSHサーバーに一式インストールして環境構築しました。</p>
+
+<p>サーバーのOSはCentOS5で、rubyのバージョンとか面倒なこともありましたが、参考にさせてもらったサイトでそのあたり既に解説されてたので特に苦労もなくさくっと環境できあがり。
+しかし、記事書くのに TeraTerm で繋いでそこで編集して…ってのは、Vimビームも口からLispもまだ出せそうにはない、にわかのWin勢にはちょっと辛いので、メインPCのほうから記事を編集できる環境を用意してみました。</p>
+
+<p>…といっても、特に手の込んだことはなにもなく、WinSCP で接続してーの、サクラエディタで編集してーの、TeraTermからデプロイを行いーの、っていう実にひねりのない環境。なので割愛。(めんどくさい)</p>
+
+<p>WinSCPに触ったのはかなり久しぶりだけど、なんかダブルクリックで任意のエディタでファイル開けて、保存したら自動でアップロードしてくれる、なかなか使いやすい機能ついててとても便利になってました(前からあったっけ…？)。これだとエクスプローラからファイル操作してるのと殆ど変わらない感じ。</p>
+
+<p>ブラウザから入力とかせずとも、使い慣れたエディタだけでサクサク書けるってのはやっぱいいね。基本ブラウザから書き込むことになる某所のトピックの編集では何度やらかしたことか…。</p>
+
+<h2>設定とか</h2>
+
+<p>とりあえずは _config.yml を弄るくらい。</p>
+
+<p>日時フォーマットとかちょっと微妙かなー、なんて思ってたら、_config.yml にめっちゃ書いてありました。説明書を読まないっぷりがやばい。反省。</p>
+
+<p>GitHub のリポジトリ表示とか、最近のツイート表示なんかも、デフォで連携プラグインが入ってるみたいで、上記設定ファイルを弄るだけで使えます。</p>
+
+<p>他にも、FaceBook のいいねボタン、Google+のなんかのボタン(よく知らない)、<a href="http://disqus.com">Disqus</a> を利用したコメント欄とかもつけれるみたいだけど、アカウント準備面倒だったのでそのうち本気出すってことで先延ばし。</p>
+
+<p>どうせコメントとかつかないので、コメ欄あっても寂しいだけじゃんか｡ﾟ(ﾟ∩´﹏`∩ﾟ)ﾟ｡</p>
+
+<p>もし何かあったら、twitter のほうにでもリプ投げ付けてください。</p>
+
+<h2>テーマとかないの</h2>
+
+<p>あるっちゃあるけど<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes" title="3rd Party Octopress Themes · imathis/octopress Wiki">公式にあるの</a>はめっちゃ少ないみたい。</p>
+
+<p>いくつか試してみたけど、基本的に日本語向きじゃないし、どうもしっくり来なくてデフォの classic に戻しました。基本的には他のテーマを参考にしたりしつつ、自分の好みに合わせていじってくって方向になりそう。</p>
+
+<p>とはいえセンス的なものが私に未実装なので、いつになるかは…。</p>
+
+<p>探せばもすこし公式にないテーマも見つかる気はするけど、言語の壁が厚くて英語戦闘力2には難易度高そう…。</p>
+
+<h2>記事の投稿とか</h2>
+
+<p>一通りやることやったら、テキストファイルを編集するだけなのでCUIに抵抗がない人だとかなり楽そう。</p>
+
+<p>カレントを octpress に移動して</p>
+
+<pre><code>$ rake new_post["URL用の英語タイトル"]
+</code></pre>
+
+<p>こんな感じでコマンド実行すると、ポスト本文のファイルが <code>octpress/source/_posts/</code> 以下に生成される。
+あと、生成されるファイルには生成日とかも入ってて、別に「タイトル」である必要はなさそうなので、その火の中で一意になる連番とかそういうのでも問題はないハズ。</p>
+
+<p>あとは生成されたテキストファイルをゴリゴリ編集していくだけで完成。
+書式は Markdown。これは、HTML簡単に理解してて、Wiki編集とかやる人だったら割と親しみやすい書式だと思う。基本使うのは見出しと本文とリスト、くらい。<a href="http://blog.2310.net/archives/6" title="blog::2310 » Markdown文法の全訳">このあたり</a>みればすぐ覚えれるくらい簡単。</p>
+
+<p>ってか Markdown は某フォーラムでも使いたいね…。URLの参照すごい便利。</p>
+
+<p>書いた内容の確認は</p>
+
+<pre><code>$ rake preview
+</code></pre>
+
+<p>で、ポート4000でプレビュー用のHTTPサーバーが起動するので、<code>http://サーバーIP:4000/</code> でブラウザから直接動かせるサイトにアクセスしながら確認できる。HTMLはリクエスト毎に変更チェックして生成してるみたいで、ブラウザ更新するだけで編集結果が即反映されるから確認がすごい楽ちん。サクラエディタで書いて保存→(WinSCPが勝手にアップロードしてくれる)→ブラウザ更新ボタンを押せば最新プレビュー。やばい。ローカルで静的HTMLファイルを編集してるような感じで作業できるのはすごくいい。</p>
+
+<p>あとは、プレビューサーバーを停止するときは、書いてあるとおりコンソールで<code>Ctrl+C</code>押すだけ。</p>
+
+<p>特に問題なければ、生成してデプロイ(push)しておしまい。</p>
+
+<pre><code>$ rake generate
+$ rake deploy
+</code></pre>
+
+<p>2つもコマンド打つのがめんどくさかったら、</p>
+
+<pre><code>$ rake gen_deploy
+</code></pre>
+
+<p>でやれば生成してpushまでやってくれる。</p>
+
+<p>他にやったことは、ファイル生成のコマンド入力する作業の手抜きのために WinSCP のコマンドで <code>rake new_post['!?title?!']</code> ってやって、新規ポスト作成するように設定追加したくらい。これで記事を起こすとこまではコマンドライン操作なしでできるようになりました。他のもWinSCPからやれないかと画策してみたけど、プレビュー鯖起動とかデプロイは、応答待ちになったり鍵パスが対話式だったりして、WinSCPから直接やるのは難しそうなので、TeraTerm 経由で操作するって感じに落ち着きました。</p>
+
+<h1>てことでblogはじまめした</h1>
+
+<p>環境作って試したりしてみたのは少し前だけど、このまま放置しててもなんかもったいないので、メモ帳代わりに細々となにかしら書いてみようかと思い、記事おこしてみました。</p>
+
+<p>調べたり覚えたりしたことを忘れないようにちゃんと書き残す習慣を身につけれるようになりたい。
+そして出来る子アッピルしていきたい。</p>
+
+<p>はてなダイヤリーを1記事で蒸発した経歴の持ち主なので、どうなることやらですが。</p>
+
+<h2>方向性とか</h2>
+
+<p>とりあえず、マイクラModding周りのこととか、お仕事で触ったりしたものとかのメモを残していく方向で。
+見た目まわりは改めて少しずついじっていくつもり。いきたい。とりあえずは先延ばし。</p>
+
+<hr />
+
+<p>って寝落ちなど挟みつつ色々弄ってたらもう8時半じゃん…だめじゃん…。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alalwww</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-17T08:26:00+09:00" pubdate data-updated="true">[02/17(Sun) - 2013] 08:26 (+0900)</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/github/'>GitHub</a>, <a class='category' href='/blog/categories/markdown/'>Markdown</a>, <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/02/18/ignore-java-awt-list/" title="Next Post: java.awt.List とお別れする方法">java.awt.List とお別れする方法 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://alalwww.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://alalwww.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      <a href="http://alalwww.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss_big.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>Author</h1>
+  <div style="clear:both">
+    <img src="https://pbs.twimg.com/profile_images/378800000771046784/0a4efabedab291e46d2716db8d84b04b_bigger.png" alt="profile icon from twitter" style="float:left;margin-right:5px;"/>
+    <div style="padding:5px">
+      <h2>ある(<a href="http://twitter.com/alalwww">@alalwww</a>)</h2>
+      <p style="padding:10">たぶんマ。おなかすいた。</p>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/reinstall-octopress/">Octpress再インストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/how-to-use-drafts/">下書きがしたい</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/theme-changed/">テーマ変更。他Octpressのカスタマイズとか。</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/05/version-dot-properties-memo/">version.properties メモ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/05/mod-annotation-memo/">@Mod アノテーションメモ</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/alalwww">@alalwww</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'alalwww',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section style="position:relative">
+<h1>Twitter</h1>
+<div style="position:absolute;top:0;right:16px">
+<a href="https://twitter.com/alalwww" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">Follow @alalwww</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<div>
+<a class="twitter-timeline" href="https://twitter.com/alalwww" data-widget-id="408658474638118912" data-chrome="noheader nofooter transparent" data-lang="ja">@alalwww からのツイート</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - alalwww -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'awalog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://alalwww.github.io/blog/2013/02/17/tried-github-octopress/';
+        var disqus_url = 'http://alalwww.github.io/blog/2013/02/17/tried-github-octopress/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

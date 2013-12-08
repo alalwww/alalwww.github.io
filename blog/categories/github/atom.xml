@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: GitHub | AwAlog]]></title>
+  <link href="http://alalwww.github.io/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://alalwww.github.io/"/>
+  <updated>2013-12-09T03:56:24+09:00</updated>
+  <id>http://alalwww.github.io/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressカスタマイズ2]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/24/blog-customization2/"/>
+    <updated>2013-02-24T11:31:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/24/blog-customization2</id>
+    <content type="html"><![CDATA[<p>主にテーマの改造など。</p>
+
+<!-- more -->
+
+
+<h1>色々設定変更してみた2</h1>
+
+<h2>サイトの言語を日本語に変更</h2>
+
+<p>HTMLのlang属性が英語 (en) になっているのを日本語 (ja) に変更する。</p>
+
+<p>octopress/source/_includes/head.html</p>
+
+<pre><code>&lt;html class="no-js" lang="en"&gt;
+</code></pre>
+
+<p>を</p>
+
+<pre><code>&lt;html class="no-js" lang="ja"&gt;
+</code></pre>
+
+<p>に変えるだけ。</p>
+
+<p>日本語しか書かないならやっておいていいと思います。英語ページになってると、Chromeさんの翻訳するかの確認とか出てきたりして地味にうざったかったです。</p>
+
+<h2>スタイル変更など</h2>
+
+<p>octpress/sass/ 以下の各 *.scss ファイルを修正するだけ。sass については、ぐぐればもっと詳しいサイトが出てくると思うので詳細は割愛します。</p>
+
+<p>デフォルトのテーマを使っているので、以下はデフォルトのテーマについてのみ。だけどおそらく他のテーマでもおおよそ同じはず。</p>
+
+<h3>読み込み順</h3>
+
+<p>最初に読み込まれるのは screen.scss ファイルで、このファイルを基点に、他の scss ファイルが読み込まれる。この screen.scss に定義されている読み込み順序はカスタマイズする上で重要になる。</p>
+
+<p>scss ファイルには、多くの値に変更できるデフォルト値が定義されている。そして、custom/ 以下の scss ファイルでデフォルト値を上書きできるようになっている。そのため、殆どのスタイル設定変更は custom/ 以下のファイルを修正するだけで行える。</p>
+
+<p>_styles.scss は独自スタイル設定を追加するためのファイルで、最初は何も記載されていない。見た目を変更するようなスタイルをここで定義できる。読み込み順序は一番最後なので、優先度を変えたりして、他かのスタイル設定を上書きしたりする事が可能になる。</p>
+
+<p>何処のスタイルが修正されるかが分かり辛いものが多いのが難点。私は、Chromeの開発者ツール(F12キー)を見ながら、要素に適用されているスタイルを追っかけ、スタイルセレクタを確認して、scssから探し出して…とやりましたが、ちょっとめんどくさかったです…。</p>
+
+<h3></h3>
+
+<p>とりあえず、以下のように設定してみました。</p>
+
+<p>_colors.scss</p>
+
+<pre><code>$header-bg: #520;
+</code></pre>
+
+<p>_fonts.scss</p>
+
+<pre><code>$sans: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$serif: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$mono: "MeiryoKe_Gothic", monospace;
+$heading-font-family: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$header-title-font-family: "Tekton Pro Ext", "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$header-subtitle-font-family: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+</code></pre>
+
+<p>_layout.scss</p>
+
+<pre><code>$header-font-size: 1em;
+$header-padding-top: 1.5em;
+$header-padding-bottom: 1.5em;
+$indented-lists: true;
+</code></pre>
+
+<p>_styles.scss</p>
+
+<pre><code>.entry-title {
+    padding-left: 5px;
+    padding-bottom: 3px;
+    border-left: 15px solid #520;
+    border-bottom: 3px solid #520;
+}
+.blog-index &gt; article &gt; header p.meta {
+    margin-left: -15px;
+    a {
+        font-size: 60%;
+    }
+}
+.entry-content h1 {
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top   : 2px dotted #ccc;
+    border-bottom: 2px dotted #ccc;
+}
+</code></pre>
+
+<p>MeiryoKe勢です。デフォメイリオの文字間落ち着かない、他OSのデフォフォントを華麗にスルーしちゃってますが、その手のOS使いは自分で解決してるはずなので気にしないことに。どうせ確認する環境ないし。</p>
+
+<hr />
+
+<p>他にもなにか変えたとこあった気もするけど、忘れちゃったのでここまで。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressカスタマイズ1]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/19/blog-customization1/"/>
+    <updated>2013-02-19T03:47:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/19/blog-customization1</id>
+    <content type="html"><![CDATA[<p>はてブボタン追加やsharingの表示位置の追加、サイドメニューのカスタマイズ、続きを読むボタン表示、設定の見直しなどについてのメモ(1)。</p>
+
+<!-- more -->
+
+
+<h1>色々設定変更してみた</h1>
+
+<h2>はてブボタン追加</h2>
+
+<p>はてなは使うことないけど、使ってる人は多いので媚売っとこってことで。</p>
+
+<p>source/_includes/post/sharing.html
+<div><script src='https://gist.github.com/4979540.js'></script>
+<noscript><pre><code>&lt;div class=&quot;sharing&quot;&gt;
+  {% if site.twitter_tweet_button %}
+  &lt;a href=&quot;http://twitter.com/share&quot; class=&quot;twitter-share-button&quot; data-url=&quot;{{ site.url }}{{ page.url }}&quot; data-via=&quot;{{ site.twitter_user }}&quot; data-counturl=&quot;{{ site.url }}{{ page.url }}&quot; &gt;Tweet&lt;/a&gt;
+  {% endif %}
+  {% if site.hatena_bookmark_button %}
+  &lt;a href=&quot;http://b.hatena.ne.jp/entry/{{ site.url }}{{ page.url }}&quot; class=&quot;hatena-bookmark-button&quot; data-hatena-bookmark-layout=&quot;simple-balloon&quot; title=&quot;このエントリーをはてなブックマークに追加&quot;&gt;&lt;img src=&quot;http://b.st-hatena.com/images/entry-button/button-only.gif&quot; alt=&quot;このエントリーをはてなブックマークに追加&quot; width=&quot;20&quot; height=&quot;20&quot; style=&quot;border: none;&quot; /&gt;&lt;/a&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;http://b.st-hatena.com/js/bookmark_button.js&quot; charset=&quot;utf-8&quot; async=&quot;async&quot;&gt;&lt;/script&gt;
+  {% endif %}
+  {% if site.google_plus_one %}
+  &lt;div class=&quot;g-plusone&quot; data-size=&quot;{{ site.google_plus_one_size }}&quot;&gt;&lt;/div&gt;
+  {% endif %}
+  {% if site.facebook_like %}
+  &lt;div class=&quot;fb-like&quot; data-send=&quot;true&quot; data-width=&quot;400&quot; data-show-faces=&quot;false&quot;&gt;&lt;/div&gt;
+  {% endif %}
+&lt;/div&gt;
+</code></pre></noscript></div>
+</p>
+
+<p>5～7の部分がそれ。後述のコンフィグファイルで表示制御も追加してます。</p>
+
+<h2>記事タイトルの直下に sharing を追加</h2>
+
+<p>スクロールせずに押したいかもしれないので。</p>
+
+<p>source/_includes/article.html
+<div><script src='https://gist.github.com/4979575.js'></script>
+<noscript><pre><code>{% unless page.no_header %}
+  &lt;header&gt;
+    {% if index %}
+      &lt;h1 class=&quot;entry-title&quot;&gt;&lt;a href=&quot;{{ root_url }}{{ post.url }}&quot;&gt;{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}&lt;/a&gt;&lt;/h1&gt;
+    {% else %}
+      &lt;h1 class=&quot;entry-title&quot;&gt;{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}&lt;/h1&gt;
+    {% include post/sharing.html %}
+    {% endif %}
+    {% unless page.meta == false %}
+      &lt;p class=&quot;meta&quot;&gt;
+        {% include post/date.html %}{{ time }}
+        {% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
+         | &lt;a href=&quot;{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread&quot;&gt;Comments&lt;/a&gt;
+        {% endif %}
+      &lt;/p&gt;
+    {% endunless %}
+  &lt;/header&gt;
+{% endunless %}
+{% if index %}
+  &lt;div class=&quot;entry-content&quot;&gt;{{ content | excerpt }}&lt;/div&gt;
+  {% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
+  {% if excerpted == 'true' %}
+    &lt;footer&gt;
+      &lt;a rel=&quot;full-article&quot; href=&quot;{{ root_url }}{{ post.url }}&quot;&gt;{{ site.excerpt_link }}&lt;/a&gt;
+    &lt;/footer&gt;
+  {% endif %}
+{% else %}
+&lt;div class=&quot;entry-content&quot;&gt;{{ content }}&lt;/div&gt;
+{% endif %}
+</code></pre></noscript></div>
+</p>
+
+<p><del>8行目に読み込み処理追加しただけ。</del></p>
+
+<p>(2012/02/24 追記) <code>{% endif %}</code> の後に <code>{% include post/sharing.html %}</code> を続けると、indexページにも表示されてしまうので、7行目に追加に修正しました。</p>
+
+<h2>「続きを読む &rarr;」の表示方法</h2>
+
+<p>excerpt_linkで設定した、「続きを読みたい場合わっふるわっふる」を追加するのは、記事中にHTMLコメントを書くだけ。</p>
+
+<pre><code>　：
+index にも表示される記事
+
+&lt;!-- more --&gt;
+
+個別ページに遷移しないと表示されない記事
+　：
+</code></pre>
+
+<p>設定とか要らない。</p>
+
+<h2>右メニューのカスタマイズ</h2>
+
+<ul>
+<li>AboutMeを追加</li>
+</ul>
+
+
+<p><a href="https://github.com/dharFr/octo-about-me-from-twitter" title="dharFr/octo-about-me-from-twitter · GitHub">これ</a>を流用。READMEにはcloneしてくる手順が書いてあるが、直接ファイルを開いて中身をコピペしてもOK。
+ツイッターのフォローをこっちに追加したので、Latest Tweets のフォローボタンは削除。</p>
+
+<p><div><script src='https://gist.github.com/4979398.js'></script>
+<noscript><pre><code>{% if site.twitter_user %}
+&lt;section&gt;
+  &lt;h1&gt;About Me&lt;/h1&gt;
+  &lt;div id=&quot;twitter-profile&quot; style=&quot;margin-top:0.5em;&quot;&gt;
+    &lt;p&gt;
+      &lt;strong&gt;{{site.author}}&lt;/strong&gt; 
+      (&lt;a href=&quot;http://twitter.com/{{site.twitter_user}}&quot;&gt;@{{ site.twitter_user }}&lt;/a&gt;)
+    &lt;/p&gt;
+    &lt;p&gt;Getting profile from Twitter...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    $.domReady(function(){
+        var container = $('#twitter-profile'),
+            user = &quot;{{site.twitter_user}}&quot;;
+        
+        function parseTwLinks(s) {
+          var twUrl = &quot;http://www.twitter.com/&quot;
+          s = s.replace(/ (@([\w]+))/g, function(match, p1, p2) {
+              return &quot; &lt;a href='&quot;+twUrl+p2+&quot;'&gt;&quot;+p1+&quot;&lt;/a&gt;&quot;
+          }).replace(/ (#([\w]+))/g, function(match, p1, p2) {
+              return &quot; &lt;a href='&quot;+twUrl+&quot;#!/search?q=%23&quot;+p2+&quot;'&gt;&quot;+p1+&quot;&lt;/a&gt;&quot;
+          })
+          return s
+        }
+
+        $.ajax({
+            url: &quot;http://api.twitter.com/1/users/show.json?include_entities=false&amp;screen_name=&quot;+user+&quot;&amp;callback=?&quot;
+          , type: 'jsonp'
+          , error: function (err) { $('#twitter-profile').addClass('error');  }
+          , success: function(data) {
+              container.html('&lt;img class=&quot;left&quot; src=&quot;http://api.twitter.com/1/users/profile_image/'+user+'.json?size=bigger&quot; alt=&quot;@'+user+'&quot;&gt;&lt;div&gt;&lt;strong&gt;'+data.name+'&lt;/strong&gt; (&lt;a href=&quot;http://twitter.com/'+user+'&quot;&gt;@'+user+'&lt;/a&gt;)&lt;/div&gt;&lt;div style=&quot;font-size:80%&quot;&gt;'+data.location+'&lt;/div&gt;&lt;div&gt;&lt;a href=&quot;http://twitter.com/{{ site.twitter_user }}&quot; class=&quot;twitter-follow-button&quot; data-show-count=&quot;{{ site.twitter_show_follower_count }}&quot;&gt;Follow @{{ site.twitter_user }}&lt;/a&gt;&lt;/div&gt;&lt;p style=&quot;clear:both;font-size:80%&quot;&gt;'+parseTwLinks(data.description)+'&lt;/p&gt;');
+            }
+        })
+      });
+  &lt;/script&gt;
+&lt;/section&gt;
+{% endif %}
+</code></pre></noscript></div>
+
+作成したファイルは source/_includes/custom/asides/aboutmetwitter.html に配置して使った。</p>
+
+<h2>_config.yml で変更したもの</h2>
+
+<pre><code># 続きを読む場合のリンクメッセージ
+excerpt_link: "続きを読む &amp;rarr;"
+
+# 右メニューに aboutmetwitter.html 追加
+default_asides: [custom/asides/aboutmetwitter.html, asides/recent_posts.html...
+
+* Disqus Comments を有効化
+disqus_short_name: awalog
+disqus_show_comment_count: true
+
+# Google Analytics 有効化
+google_analytics_tracking_id: UA-xxxxxxxx-x
+
+# ツイートボタンの表示
+twitter_tweet_button: true
+
+# フォローボタン非表示
+twitter_follow_button: false
+
+# Google+1ボタン表示
+google_plus_one: true
+
+# Facebook Like
+facebook_like: true
+</code></pre>
+
+<p>Disqus Comments は、Twitterアカウントで認証して short name を取得。Google Analytics も手持ちのgmail用のアカウントで取得。</p>
+
+<p>あと、変えることはない気がするけど</p>
+
+<pre><code># hatena bookmark
+hatena_bookmark_button: true
+</code></pre>
+
+<p>も足してみた。</p>
+
+<hr />
+
+<p>とりあえず、これくらいかな。</p>
+
+<p>あうあう寝なきゃ。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub + Octopress 試してみた]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/17/tried-github-octopress/"/>
+    <updated>2013-02-17T08:26:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/17/tried-github-octopress</id>
+    <content type="html"><![CDATA[<p>参考にしたサイト、設定、使い方などをメモ。</p>
+
+<!-- more -->
+
+
+<h1>なにこれ</h1>
+
+<p><a href="https://github.com">GitHub</a>で<a href="http://octopress.org">Octpress</a>つかってblogっぽいことできるらしいので試してみた。</p>
+
+<p>GitHub はここ見るような人なら知ってると思うので割愛。</p>
+
+<p>Octpressは技術屋が好きそうな感じのCUIベースで静的HTMLを作成する、ブログっぽいウェブサイトの生成ツール的なものだという認識してます。なんか間違ってる気もしますが、とりあえずそういう使い方しかしてないので気にしないことにします。ruby製みたいなので、そこらを触れる人は本体も好きに弄れそう。</p>
+
+<p>で、そのタコプレスがなんか GitHub と連携させれて、HitHubのユーザーIDのサブドメインも使わして貰えるらしいので、ちょっとやってみました。</p>
+
+<p>手順は何番煎じだよって感じなので割愛。(めんどくさい)</p>
+
+<p>なので、使用感とかそっちのほうを少し書いてってみます。</p>
+
+<h2>参考にしたサイトとか</h2>
+
+<ul>
+<li><a href="http://tokkonopapa.github.com/blog/2011/12/30/octopress-on-github-and-bitbucket/" title="Octopressのインストールから運用管理まで - T.I.D.">Octopressのインストールから運用管理まで &ndash; T.I.D.</a></li>
+<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/" title="GithubとOctopressでモダンな技術系ブログを作ってみる - Glide Note - グライドノート">GithubとOctopressでモダンな技術系ブログを作ってみる &ndash; Glide Note &ndash; グライドノート</a></li>
+<li><a href="http://mattn.kaoriya.net/software/lang/ruby/20111017205717.htm" title="Big Sky :: githubとjekyllとoctopressで作る簡単でモダンなブログ">Big Sky :: githubとjekyllとoctopressで作る簡単でモダンなブログ</a></li>
+</ul>
+
+
+<p>リポジトリの統合とかはとりあえず読み飛ばしてるけど、とりあえず動いたのでよし。</p>
+
+<p>今度…いつか本気出す…。</p>
+
+<h2>ちなみに環境はこんな感じ</h2>
+
+<p>普段使ってるPCはWin7で、Rubyとかも基本使ったりしてないので未インストール、ってことでサーバー機のVM上で動かしてるSSHサーバーに一式インストールして環境構築しました。</p>
+
+<p>サーバーのOSはCentOS5で、rubyのバージョンとか面倒なこともありましたが、参考にさせてもらったサイトでそのあたり既に解説されてたので特に苦労もなくさくっと環境できあがり。
+しかし、記事書くのに TeraTerm で繋いでそこで編集して…ってのは、Vimビームも口からLispもまだ出せそうにはない、にわかのWin勢にはちょっと辛いので、メインPCのほうから記事を編集できる環境を用意してみました。</p>
+
+<p>…といっても、特に手の込んだことはなにもなく、WinSCP で接続してーの、サクラエディタで編集してーの、TeraTermからデプロイを行いーの、っていう実にひねりのない環境。なので割愛。(めんどくさい)</p>
+
+<p>WinSCPに触ったのはかなり久しぶりだけど、なんかダブルクリックで任意のエディタでファイル開けて、保存したら自動でアップロードしてくれる、なかなか使いやすい機能ついててとても便利になってました(前からあったっけ…？)。これだとエクスプローラからファイル操作してるのと殆ど変わらない感じ。</p>
+
+<p>ブラウザから入力とかせずとも、使い慣れたエディタだけでサクサク書けるってのはやっぱいいね。基本ブラウザから書き込むことになる某所のトピックの編集では何度やらかしたことか…。</p>
+
+<h2>設定とか</h2>
+
+<p>とりあえずは _config.yml を弄るくらい。</p>
+
+<p>日時フォーマットとかちょっと微妙かなー、なんて思ってたら、_config.yml にめっちゃ書いてありました。説明書を読まないっぷりがやばい。反省。</p>
+
+<p>GitHub のリポジトリ表示とか、最近のツイート表示なんかも、デフォで連携プラグインが入ってるみたいで、上記設定ファイルを弄るだけで使えます。</p>
+
+<p>他にも、FaceBook のいいねボタン、Google+のなんかのボタン(よく知らない)、<a href="http://disqus.com">Disqus</a> を利用したコメント欄とかもつけれるみたいだけど、アカウント準備面倒だったのでそのうち本気出すってことで先延ばし。</p>
+
+<p>どうせコメントとかつかないので、コメ欄あっても寂しいだけじゃんか｡ﾟ(ﾟ∩´﹏`∩ﾟ)ﾟ｡</p>
+
+<p>もし何かあったら、twitter のほうにでもリプ投げ付けてください。</p>
+
+<h2>テーマとかないの</h2>
+
+<p>あるっちゃあるけど<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes" title="3rd Party Octopress Themes · imathis/octopress Wiki">公式にあるの</a>はめっちゃ少ないみたい。</p>
+
+<p>いくつか試してみたけど、基本的に日本語向きじゃないし、どうもしっくり来なくてデフォの classic に戻しました。基本的には他のテーマを参考にしたりしつつ、自分の好みに合わせていじってくって方向になりそう。</p>
+
+<p>とはいえセンス的なものが私に未実装なので、いつになるかは…。</p>
+
+<p>探せばもすこし公式にないテーマも見つかる気はするけど、言語の壁が厚くて英語戦闘力2には難易度高そう…。</p>
+
+<h2>記事の投稿とか</h2>
+
+<p>一通りやることやったら、テキストファイルを編集するだけなのでCUIに抵抗がない人だとかなり楽そう。</p>
+
+<p>カレントを octpress に移動して</p>
+
+<pre><code>$ rake new_post["URL用の英語タイトル"]
+</code></pre>
+
+<p>こんな感じでコマンド実行すると、ポスト本文のファイルが <code>octpress/source/_posts/</code> 以下に生成される。
+あと、生成されるファイルには生成日とかも入ってて、別に「タイトル」である必要はなさそうなので、その火の中で一意になる連番とかそういうのでも問題はないハズ。</p>
+
+<p>あとは生成されたテキストファイルをゴリゴリ編集していくだけで完成。
+書式は Markdown。これは、HTML簡単に理解してて、Wiki編集とかやる人だったら割と親しみやすい書式だと思う。基本使うのは見出しと本文とリスト、くらい。<a href="http://blog.2310.net/archives/6" title="blog::2310 » Markdown文法の全訳">このあたり</a>みればすぐ覚えれるくらい簡単。</p>
+
+<p>ってか Markdown は某フォーラムでも使いたいね…。URLの参照すごい便利。</p>
+
+<p>書いた内容の確認は</p>
+
+<pre><code>$ rake preview
+</code></pre>
+
+<p>で、ポート4000でプレビュー用のHTTPサーバーが起動するので、<code>http://サーバーIP:4000/</code> でブラウザから直接動かせるサイトにアクセスしながら確認できる。HTMLはリクエスト毎に変更チェックして生成してるみたいで、ブラウザ更新するだけで編集結果が即反映されるから確認がすごい楽ちん。サクラエディタで書いて保存→(WinSCPが勝手にアップロードしてくれる)→ブラウザ更新ボタンを押せば最新プレビュー。やばい。ローカルで静的HTMLファイルを編集してるような感じで作業できるのはすごくいい。</p>
+
+<p>あとは、プレビューサーバーを停止するときは、書いてあるとおりコンソールで<code>Ctrl+C</code>押すだけ。</p>
+
+<p>特に問題なければ、生成してデプロイ(push)しておしまい。</p>
+
+<pre><code>$ rake generate
+$ rake deploy
+</code></pre>
+
+<p>2つもコマンド打つのがめんどくさかったら、</p>
+
+<pre><code>$ rake gen_deploy
+</code></pre>
+
+<p>でやれば生成してpushまでやってくれる。</p>
+
+<p>他にやったことは、ファイル生成のコマンド入力する作業の手抜きのために WinSCP のコマンドで <code>rake new_post['!?title?!']</code> ってやって、新規ポスト作成するように設定追加したくらい。これで記事を起こすとこまではコマンドライン操作なしでできるようになりました。他のもWinSCPからやれないかと画策してみたけど、プレビュー鯖起動とかデプロイは、応答待ちになったり鍵パスが対話式だったりして、WinSCPから直接やるのは難しそうなので、TeraTerm 経由で操作するって感じに落ち着きました。</p>
+
+<h1>てことでblogはじまめした</h1>
+
+<p>環境作って試したりしてみたのは少し前だけど、このまま放置しててもなんかもったいないので、メモ帳代わりに細々となにかしら書いてみようかと思い、記事おこしてみました。</p>
+
+<p>調べたり覚えたりしたことを忘れないようにちゃんと書き残す習慣を身につけれるようになりたい。
+そして出来る子アッピルしていきたい。</p>
+
+<p>はてなダイヤリーを1記事で蒸発した経歴の持ち主なので、どうなることやらですが。</p>
+
+<h2>方向性とか</h2>
+
+<p>とりあえず、マイクラModding周りのこととか、お仕事で触ったりしたものとかのメモを残していく方向で。
+見た目まわりは改めて少しずついじっていくつもり。いきたい。とりあえずは先延ばし。</p>
+
+<hr />
+
+<p>って寝落ちなど挟みつつ色々弄ってたらもう8時半じゃん…だめじゃん…。</p>
+]]></content>
+  </entry>
+  
+</feed>

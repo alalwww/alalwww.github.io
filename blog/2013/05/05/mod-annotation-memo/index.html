@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>@Mod アノテーションメモ - AwAlog</title>
+  <meta name="author" content="alalwww">
+
+  
+  <meta name="description" content="Modのメインクラスに付けるアノテーションの解説とか。実はmodid以外はなくてもいける。 @Modアノテーションについて FMF645 現在、以下の項目が設定可能です。 String modid
+String name default ""
+String version default "" &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-38591938-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:alalwww.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">@Mod アノテーションメモ</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-05T20:00:00+09:00" pubdate data-updated="true">[05/05(Sun) - 2013] 20:00 (+0900)</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Modのメインクラスに付けるアノテーションの解説とか。実はmodid以外はなくてもいける。</p>
+
+<!-- more -->
+
+
+<h1>@Modアノテーションについて</h1>
+
+<p>FMF645 現在、以下の項目が設定可能です。</p>
+
+<pre><code>String modid
+String name default ""
+String version default ""
+String dependencies default ""
+boolean useMetadata default false
+String acceptedMinecraftVersions default ""
+String bukkitPlugin default ""
+String modExclusionList default ""
+String certificateFingerprint default ""
+String modLanguage default "java"
+String asmHookClass default ""
+</code></pre>
+
+<p>簡単な解説をしてみます。</p>
+
+<h2>@Modアノテーション 各項目の簡単な解説</h2>
+
+<p>詳しくは @Mod アノテーションの JavaDoc に書いてあるのでさわりだけ。過度な期待はうんたらかんたら。</p>
+
+<p>解説というよりは自分用の備忘録。</p>
+
+<h3>String modid</h3>
+
+<p>mod の識別子です。</p>
+
+<p>ユニーク値かつ必須。mcmod.info の解説でやったので省略。</p>
+
+<h3>String name default &ldquo;&rdquo;</h3>
+
+<p>mod の名前です。</p>
+
+<p>mcmod.info の値より優先度は低いみたいです。mcmod.info用意しているなら不要だと思います。</p>
+
+<h3>String version default &ldquo;&rdquo;</h3>
+
+<p>modのバージョンです。</p>
+
+<p>mcmod.info の値とは別の内部的なバージョン値です。</p>
+
+<p>依存チェックで使うバージョンのことも考えると</p>
+
+<pre><code>メジャー.マイナー.ビルドナンバー.リビジョン
+</code></pre>
+
+<p>みたいなような指定にするのが無難だと思います。</p>
+
+<p>このバージョンは version.properties からも設定できますが、アノテーションで指定したほうが優先度が高いようで、アノテーションに設定しちゃうと version.properties は無視されます。</p>
+
+<p>version.properties を使うなら設定不要です。</p>
+
+<h3>String dependencies default &ldquo;&rdquo;</h3>
+
+<p>依存関係指定用の文字列の設定用。</p>
+
+<p>javadocにも書いてあるように、RML (ModLoader) の BaseMod の getPriorities() を参照してください、とのことです。具体的には、require-before:mod-name とかって感じで設定する奴です。触ったことある人はあまりいない気がしますが。</p>
+
+<p>確か最近の RML の javadoc にはこのあたりの仕様が記載されていないので、さらにわけわかめです。古いRMLの javadoc を探せば見つかると思います。</p>
+
+<p>…思いますが、そんなもの漁るくらいなら mcmod.info  なりメタデータなりで指定した方が楽だし、バージョンでのチェックもできるのでオススメ。この文字列のパース機能は、BaseMod互換にするために残ってる機能みたいなもんだと思います。</p>
+
+<h3>boolean useMetadata default false</h3>
+
+<p>MetaData クラスを使用する場合 true に設定します。</p>
+
+<p>この値を true にすると、mcmod.info の依存関係のチェック用の情報をクリアします。mcmod.info で useDependencyInformation を true にしても無視されます。</p>
+
+<p>この設定は、Mod.Metadata アノテーションを利用するための設定なんじゃないかなーと思います。mcmod.infoは外部ファイルなので改変される可能性があるから、そのための制約なのではないかと。ちゃんと調べてないですが。</p>
+
+<h3>String acceptedMinecraftVersions default &ldquo;&rdquo;</h3>
+
+<p>許可するMinecraftのバージョンを設定します。</p>
+
+<p>通常設定する必要はないです。が、あえて過去ver専用のmodなどを作製する場合は、こいつを指定しておくといいかもしれないです。バージョン指定の書式はきちんと把握仕切れていないので、調べた時にでも書こうと思います。たぶん。</p>
+
+<p>簡単に具体例を上げておくと</p>
+
+<pre><code>acceptedMinecraftVersions = "[1.5,)"
+</code></pre>
+
+<p>これで1.5.x 以降のマイクラでのみ実行できる、って指定になります。たぶん。</p>
+
+<p>別にこれ、FML固有の書式ではなかったと思うので、検索すれば見つかると思います。Apache commons 関連のドキュメントだかで見た記憶があるような、ないような…。</p>
+
+<h3>String bukkitPlugin default &ldquo;&rdquo;</h3>
+
+<p>BukkitプラグインからロードされるためのプラグインのFQDNを設定します。</p>
+
+<p>…だと思いますがちゃんと調べてないので省略。必要になったら調べるかもしれないですが、当面は必要ないかなーと…。</p>
+
+<h3>String modExclusionList default &ldquo;&rdquo;</h3>
+
+<p>カンマ区切りでmodidを記述し、他modとの共存可否の設定を行えます。</p>
+
+<p>ようは拒否リストです。「貴方とは一緒に導入できないの」ってなるような設定をします。</p>
+
+<p>競合するからこのmodとは一緒に使えないよ、とか、(作者の意向として、)このModとは共存させたくないよ、ってModがある場合などに利用します。競合することがわかってる場合に事前に回避したり、modが想定している難易度を崩してしまうような別のmodが導入されることを認めない、みたいな感じに使うものだと思います。</p>
+
+<p>許可不許可を決める記号(+/&ndash;)を付与した modid をカンマ区切りで複数指定できます。許可する mod は modid の先頭に「+」、許可しない mod は先頭に「-」を指定します。modid の代わりに、すべての Mod を意味するワイルドカード「*」と、forge を意味するエイリアス「f」が使えます。何も指定しない場合は、全て許可「+*」と同じです。</p>
+
+<h3>String certificateFingerprint default &ldquo;&rdquo;</h3>
+
+<p>署名された jar を要求するようにするための設定。全て小文字で : が削除されたSHA-1の文字列。</p>
+
+<p>デフォルトでは署名された jar を要求しません。</p>
+
+<p>これはちょっとややこしいので省略。必要な人は自前で調べてください。</p>
+
+<p>mod を jar ファイルとしてリリースして META-INF/ を同梱して署名を用意し、クラスファイルの破損や改変がないことをチェックしたりとか、そういうやつです(たぶん)。</p>
+
+<p>本当はこの手のものは、開発者側がちゃんと理解して使用していくべきなんでしょうが、いろいろと敷居高い感がいなめない。それに、ユーザーもそういうの意識できる人って少ないですしね。</p>
+
+<h3>String modLanguage default &ldquo;java&rdquo;</h3>
+
+<p>mod を作製する際に用いられた言語の設定。</p>
+
+<p>日本語とかそういう「言語」ではなく、「プログラミング言語」です。&#8221;java&#8221; 以外に &ldquo;scala&rdquo; が指定できます。バイトコード変換時に必要になってくるんだと思います。</p>
+
+<p>まぁ scala で mod 作る好きものな人は説明しなくてもわかるはずなので省略。</p>
+
+<h3>String asmHookClass default &ldquo;&rdquo;</h3>
+
+<p>この mod からロードされるクラスに ASM を適用するための、フッククラスの FQDN を指定します。</p>
+
+<p>たぶん簡易的な coremod 設定みたいな感じです。そういうことやるコア層に説明は不要だろうって事で省略。</p>
+
+<h2>結局@Modには何を指定すればいいの？</h2>
+
+<p>modid は必須です。それ以外は全部オプションです。つまりはそういうことです。</p>
+
+<p>共存させたくない mod がある場合や、マイクラのバージョンを限定したい場合を除けば、普通は modid だけ指定すればOKでしょう。他の値のうちユーザーに伝える情報として重要になるものは mcmod.info と version.properties で指定ができるため、わざわざソースコード内ハードコードしておく必要はないとおもいます。</p>
+
+<hr />
+
+<p>しかし改めてみてみると、すごい充実してる。FMLヤバい。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alalwww</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-05T20:00:00+09:00" pubdate data-updated="true">[05/05(Sun) - 2013] 20:00 (+0900)</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/minecraft/'>Minecraft</a>, <a class='category' href='/blog/categories/minecraftforge/'>MinecraftForge</a>, <a class='category' href='/blog/categories/modding/'>modding</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/05/mcmod-dot-info/" title="Previous Post: mcmod.info の要素と機能についてのメモ">&laquo; mcmod.info の要素と機能についてのメモ</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/05/version-dot-properties-memo/" title="Next Post: version.properties メモ">version.properties メモ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://alalwww.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://alalwww.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      <a href="http://alalwww.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss_big.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>Author</h1>
+  <div style="clear:both">
+    <img src="https://pbs.twimg.com/profile_images/378800000771046784/0a4efabedab291e46d2716db8d84b04b_bigger.png" alt="profile icon from twitter" style="float:left;margin-right:5px;"/>
+    <div style="padding:5px">
+      <h2>ある(<a href="http://twitter.com/alalwww">@alalwww</a>)</h2>
+      <p style="padding:10">たぶんマ。おなかすいた。</p>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/reinstall-octopress/">Octpress再インストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/how-to-use-drafts/">下書きがしたい</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/theme-changed/">テーマ変更。他Octpressのカスタマイズとか。</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/05/version-dot-properties-memo/">version.properties メモ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/05/mod-annotation-memo/">@Mod アノテーションメモ</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/alalwww">@alalwww</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'alalwww',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section style="position:relative">
+<h1>Twitter</h1>
+<div style="position:absolute;top:0;right:16px">
+<a href="https://twitter.com/alalwww" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">Follow @alalwww</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<div>
+<a class="twitter-timeline" href="https://twitter.com/alalwww" data-widget-id="408658474638118912" data-chrome="noheader nofooter transparent" data-lang="ja">@alalwww からのツイート</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - alalwww -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'awalog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo/';
+        var disqus_url = 'http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

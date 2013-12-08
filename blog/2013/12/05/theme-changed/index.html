@@ -1,0 +1,455 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>テーマ変更。他Octpressのカスタマイズとか。 - AwAlog</title>
+  <meta name="author" content="alalwww">
+
+  
+  <meta name="description" content="テーマ変更の手順とテーマのカスタマイズなど。 テーマの変更手順 Octopress導入当時、あまりﾃｨﾝとくるテーマがみつけられなかったので、クラシックを少しいじる程度でいつか本気を出そうと思いつつ放置してたのですが、やっぱりなんだかぱっとしないので、思い切ってテーマを変えてみました。 とりあえず &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://alalwww.github.io/blog/2013/12/05/theme-changed">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-38591938-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+</hgroup>
+
+</header>
+  <!-- <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:alalwww.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav> -->
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">テーマ変更。他Octpressのカスタマイズとか。</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-05T02:36:00+09:00" pubdate data-updated="true">[12/05(Thu) - 2013] 02:36 (+0900)</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>テーマ変更の手順とテーマのカスタマイズなど。</p>
+
+<!--more-->
+
+
+<h1>テーマの変更手順</h1>
+
+<p>Octopress導入当時、あまりﾃｨﾝとくるテーマがみつけられなかったので、クラシックを少しいじる程度でいつか本気を出そうと思いつつ放置してたのですが、やっぱりなんだかぱっとしないので、思い切ってテーマを変えてみました。</p>
+
+<p>とりあえず、<a href="http://namusyaka.github.io/blog/2012/10/03/github-jekyll/">「Octopress テーマ」で検索して最初に目についたサイト</a>を参考にさせてもらいながら、テーマを変更してみました。</p>
+
+<p>手順はこんなかんじになります。</p>
+
+<ol>
+<li><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">GitHubのサードパーティ製テーマのページ</a>を開く。</li>
+<li>PreviewやScreenShotを見て気に入る物を探す。</li>
+<li>各テーマの導入手順通りに導入する。</li>
+</ol>
+
+
+<p>だけ！</p>
+
+<p>テーマもGitHub上で公開されているので、Cloneしてきてインストールするだけです。実に楽ちん。</p>
+
+<p><a href="https://github.com/roberto/oct2-orange">oct2-orange</a>のオレンジという単語に惹かれてさくっと決定。</p>
+
+<pre><code>$ git submodule add git://github.com/roberto/oct2-orange.git .themes/oct2-orange
+$ rake install[oct2-orange] 
+</code></pre>
+
+<p>丸コピってコマンドを打ち込むと…</p>
+
+<pre><code>It seems your ruby installation is missing psych (for YAML output). To eliminate this warning, please install libyaml and reinstall your ruby.
+</code></pre>
+
+<h2>なんかrubyの警告が出てる</h2>
+
+<p>どうやらCentOS5(6も)の環境にRubyをいれるときに出くわす問題っぽい？</p>
+
+<p><a href="http://d.hatena.ne.jp/donbulinux/20111111/1321004527">エラーメッセージで検索して最初に目についたサイト</a>を参考に、libyamlをインストール。libyamlのバージョンとかConfigureのオプションとかを一切確認せず、コマンドを丸コピペしてEnter。</p>
+
+<pre><code>$ wget http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz
+$ tar -zxvf yaml-0.1.4.tar.gz
+$ cd yaml-0.1.4
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>問題なく終わったみたいなので、以前Rubyを導入したときのディレクトリに移動してrubyも再インストール。</p>
+
+<pre><code>$ cd ~/ruby/ruby-1.9.3-p374
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>できたっぽい。頑張ったっぽい？</p>
+
+<h2>今度こそテーマをインストール</h2>
+
+<pre><code>$ rake install[oct2-orange] 
+A theme is already installed, proceeding will overwrite existing files. Are you sure? [y/n]
+</code></pre>
+
+<p>念のためのバックアップはとっているので、yを選んでテーマを上書き。</p>
+
+<h1>設定変更など</h1>
+
+<p>やったことなどメモ。もう既に忘れかけ。</p>
+
+<h2>ナビバー表示</h2>
+
+<p>テーマの配布元に書いてあるとおりに_config.yml の <code>default_asides</code> を編集してナビバーを表示。</p>
+
+<pre><code>default_asides: [asides/nav.html, custo...
+</code></pre>
+
+<h2>ナビバーのE-mailボタンを削除</h2>
+
+<p><code>source/_includes/asides/nav.html</code> から以下の行を削除。</p>
+
+<pre><code>&lt;a href="mailto:" alt="E-Mail"&gt;&lt;img src="/images/Envelope.png"&gt;&lt;/a&gt;
+</code></pre>
+
+<h2>フォント変更</h2>
+
+<p>scss/custom/_fonts.scssを修正</p>
+
+<pre><code>$sans: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$serif: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$heading-font-family: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;;
+</code></pre>
+
+<p>今度はConsolasを足してみた。</p>
+
+<h2>リストの左マージンを設定</h2>
+
+<p>リストが左に寄ってる感じなので、適当にマージンを追加。</p>
+
+<p>_styles.scss</p>
+
+<pre><code>/* ----- Content ----- */
+  :(中略)
+#content {
+  article {
+    ul {
+      margin-left: 25px;
+    }
+    ol {
+      margin-left: 40px;
+    }
+  }
+}
+</code></pre>
+
+<p>なんか、このスタイルの定義ファイル、元からある記述はネストされてなくてちょっと見づらい…。</p>
+
+<h2>htmlタグのlang属性を日本語に変更</h2>
+
+<p><a href="/blog/2013/02/24/blog-customization2/">以前</a>やったのと同じように<code>octopress/source/_includes/head.html</code>を編集。</p>
+
+<pre><code>&lt;html class="no-js" lang="ja"&gt;
+</code></pre>
+
+<hr />
+
+<p>足りない変更はまた後日行う予定。スタイルももう少し弄りたいし、はてブボタンとかサイドバーへの手直しなどが足りてなさそう。時間も足りてなさそう。(╯•﹏•╰)</p>
+
+<p>サイトのタイトルとか出ないのはそういうテーマっぽいけれど、左上にトップに戻るリンクないと落ち着かない気がするのでその辺りも何とかしたいトコロ。</p>
+
+<h1>だそく</h1>
+
+<p>いいローカル側のファイルのGitリポジトリ作ってコミットするようにしないと変更管理できないなぁって痛感。本気出すための服がほしい…。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alalwww</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-05T02:36:00+09:00" pubdate data-updated="true">[12/05(Thu) - 2013] 02:36 (+0900)</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/octopress/'>Octopress</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/05/version-dot-properties-memo/" title="Previous Post: version.properties メモ">&laquo; version.properties メモ</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/05/how-to-use-drafts/" title="Next Post: 下書きがしたい">下書きがしたい &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <ul id="recent_posts">
+      <li class="post">
+      <a href="http://alalwww.github.io" alt="Home"><img src="/images/Home.png"></a>
+      <a href="http://alalwww.github.io/archives/" alt="Archives"><img src="/images/Calendar.png"></a>
+      <a href="http://alalwww.github.io/atom.xml" alt="subscribe feed"><img src="/images/rss_big.png"></a>
+      </li>
+  </ul>
+</section>
+<section>
+  <h1>Author</h1>
+  <div style="clear:both">
+    <img src="https://pbs.twimg.com/profile_images/378800000771046784/0a4efabedab291e46d2716db8d84b04b_bigger.png" alt="profile icon from twitter" style="float:left;margin-right:5px;"/>
+    <div style="padding:5px">
+      <h2>ある(<a href="http://twitter.com/alalwww">@alalwww</a>)</h2>
+      <p style="padding:10">たぶんマ。おなかすいた。</p>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/reinstall-octopress/">Octpress再インストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/how-to-use-drafts/">下書きがしたい</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/theme-changed/">テーマ変更。他Octpressのカスタマイズとか。</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/05/version-dot-properties-memo/">version.properties メモ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/05/mod-annotation-memo/">@Mod アノテーションメモ</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/alalwww">@alalwww</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'alalwww',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section style="position:relative">
+<h1>Twitter</h1>
+<div style="position:absolute;top:0;right:16px">
+<a href="https://twitter.com/alalwww" class="twitter-follow-button" data-show-count="false" data-lang="ja" data-show-screen-name="false">Follow @alalwww</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<div>
+<a class="twitter-timeline" href="https://twitter.com/alalwww" data-widget-id="408658474638118912" data-chrome="noheader nofooter transparent" data-lang="ja">@alalwww からのツイート</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+</section>
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - alalwww -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'awalog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://alalwww.github.io/blog/2013/12/05/theme-changed/';
+        var disqus_url = 'http://alalwww.github.io/blog/2013/12/05/theme-changed/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>

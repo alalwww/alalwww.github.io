@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: java | AwAlog]]></title>
+  <link href="http://alalwww.github.io/blog/categories/java/atom.xml" rel="self"/>
+  <link href="http://alalwww.github.io/"/>
+  <updated>2013-12-09T03:56:24+09:00</updated>
+  <id>http://alalwww.github.io/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[java.awt.List とお別れする方法]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/18/ignore-java-awt-list/"/>
+    <updated>2013-02-18T01:28:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/18/ignore-java-awt-list</id>
+    <content type="html"><![CDATA[<p>Eclipseの使い方的な内容</p>
+
+<!-- more -->
+
+
+<h1>Modderあるあるｗｗｗ</h1>
+
+<p>java.util.List が使いたいので、list とタイプして…</p>
+
+<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list1.png" alt="listまでタイプしたソースコード画像" /></p>
+
+<p>補完で自動インポートをかけようとすると…</p>
+
+<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
+
+<p>java.awt.List…てめーはダメだ！</p>
+
+<p>Eclipse で Java コーディングしてるとき、同じような経験をした事がある人は少なくないと思います。StringUtil(s) クラスあたりは、単純クラス名重複率のトップクラスなんじゃないでしょうか。プロジェクト毎、ライブラリ毎にいたりして、使うのはプロジェクト用のものと決まっているのに、毎度対話を求められたりすると、地味にめんどくさくて気になります。</p>
+
+<h1>使わないクラスはフィルタしちゃおう</h1>
+
+<p>実はちょうど Twitter でこの話題が出てたのと、前から気になってたので、調べてみました。</p>
+
+<h2>参考にしたサイト</h2>
+
+<p><a href="http://d.hatena.ne.jp/Yamashiro0217/20090322/1237707686" title="Yamashiro0217の日記">Eclipse のコード補完 (Complete) で java.awt.List とかを補完候補から除外したい場合の設定 &ndash; Yamashiro0217の日記</a></p>
+
+<p>やっぱ同じこと思う人いますよね。一発でみつかりました。</p>
+
+<h2>設定方法</h2>
+
+<p>すごく簡単。
+型フィルタの設定に、除外したいクラスの完全修飾名か、パッケージ名にワイルドカードを付けて追加するだけ。</p>
+
+<ol>
+<li>ウィンドウ</li>
+<li>設定</li>
+<li>Java</li>
+<li>外観</li>
+<li>型フィルター
+<img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
+</ol>
+
+
+<p>とりあえず、私は Entity や Point なども除外したかったので、以下を追加しました。</p>
+
+<ul>
+<li>java.awt.*</li>
+<li>javax.swing.*</li>
+<li>org.w3c.dom.*</li>
+</ul>
+
+
+<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
+
+<p>これで邪魔者はいなくなった！</p>
+
+<p>参考にしたサイトにも書いてありましたが、プロジェクト単位での設定ができないので、同一ワークスペース内でプロジェクトごとに変えることができない、ってのが難点ってとこでしょうか。でもまぁそのあたりは、コードテンプレートなんかを駆使し、完全修飾名を補完できるようにしてしまえば、多分困ることはないかなって気がします。</p>
+
+<p>むしろそっちの方がクラスごとにインポートしてるクラスがちがう、なんてことも起きにくくなっていいのかも…？</p>
+
+<hr />
+
+<p>ん…？</p>
+
+<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
+
+<p>き、きっと &ldquo;a&rdquo; で始まるからだよね…(´・ω・｀)</p>
+]]></content>
+  </entry>
+  
+</feed>

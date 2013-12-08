@@ -1,0 +1,1403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[AwAlog]]></title>
+  <link href="http://alalwww.github.io/atom.xml" rel="self"/>
+  <link href="http://alalwww.github.io/"/>
+  <updated>2013-12-09T03:56:24+09:00</updated>
+  <id>http://alalwww.github.io/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octpress再インストール]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/09/reinstall-octopress/"/>
+    <updated>2013-12-09T02:20:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/09/reinstall-octopress</id>
+    <content type="html"><![CDATA[<p>Octopressを再インストールしたのでその手順をメモしました。</p>
+
+<!-- more -->
+
+
+<p>前回同様に<a href="http://tokkonopapa.github.io/blog/2011/12/30/octopress-on-github-and-bitbucket/">こちらの記事</a>を参考にインストール。</p>
+
+<h1>環境</h1>
+
+<ul>
+<li>CentOS5</li>
+<li>ruby 1.9.3</li>
+</ul>
+
+
+<p>他割愛</p>
+
+<h1>やった事メモ</h1>
+
+<p>手探りと思いつきでやったので、行った順番はバラバラ。</p>
+
+<h2>再インストール</h2>
+
+<h3>GitHubPages用のリポジトリの作成</h3>
+
+<p>GitHubPages用のドメインがgithub.comからgithub.ioに変わってるので、いい機会だしリポジトリも名前を変えて作り直しにしちゃおうと思います。</p>
+
+<p>とりあえず既存のリポジトリはそのまま、新たにalalwww.github.ioリポジトリを作成。手順は割愛。</p>
+
+<h3>Source用リポジトリ(リモート)の作成</h3>
+
+<p>BitBucketに置くことにしました。</p>
+
+<p>さくっとアカウントを作成してメール認証とSSHKey登録。Octopressのリポジトリを非公開で作成。手順は割愛。</p>
+
+<p>GitHubを使ったことが有るからかもだけど、特に迷うこともなく完了。</p>
+
+<h3>サーバーの更新ほったらかしていたのでとりあえず更新</h3>
+
+<pre><code>$ sudo yum update
+</code></pre>
+
+<p>とかとか。いろいろ。</p>
+
+<h3>Gemの更新</h3>
+
+<pre><code>$ sudo gem update --system
+</code></pre>
+
+<p>実際はインストールとかひと通り終わった後に思い出してやりました。特に問題はなかったからよしってことにしました。</p>
+
+<h3>Octopress再インストール</h3>
+
+<p>Octopressをクローンしてきて準備。</p>
+
+<pre><code>$ cd ~/git/
+$ git clone git://github.com/imathis/octopress.git octopress
+$ cd octopress
+$ sudo gem install bundler // 既にインストール済みだし不要だったかも
+$ bundle install           // 同上
+$ bundle update rake
+$ rake install
+</code></pre>
+
+<p><code>bundle update rake</code>は忘れてたのであとでやりなおしました。最初、更新を忘れていたせいか、<code>rake setup_github_pages</code>でブランチがmasterからsourceに変わらないといったハプニングはありましたが、やり直したら問題なくいけたっぽいので気にしないことに。</p>
+
+<p>Octopressのインストール</p>
+
+<pre><code>$ rake setup_github_pages
+Enter the read/write url for your repository
+(For example, 'git@github.com:your_username/your_username.github.io.git)
+           or 'https://github.com/your_username/your_username.github.io')
+Repository url: (GitHubのリポジトリのURLを入力)
+Added remote git@github.com:username/username.github.io.git as origin
+Set origin as default remote
+Master branch renamed to 'source' for committing your blog source files
+rm -rf _deploy
+mkdir _deploy
+cd _deploy
+Initialized empty Git repository in /path/to/git_repos/octopress/_deploy/.git/
+[master (root-commit) 81f3a5e] Octopress init
+ 1 file changed, 1 insertion(+)
+ create mode 100644 index.html
+cd -
+
+---
+## Now you can deploy to (入力したGitHubのリポジトリのURL) with `rake deploy` ##
+</code></pre>
+
+<p>ブランチを確認。やり直したあとはちゃんとmasterからsourceに変わってる事を確認。(先に書いたgemsの更新忘れてたときは、何故かこれができてなくてハマってた。)</p>
+
+<pre><code>$ git branch
+* source
+</code></pre>
+
+<p>変更されたファイルを確認。</p>
+
+<pre><code>$ git status
+# On branch source
+# Changes not staged for commit:
+#   (use "git add &lt;file&gt;..." to update what will be committed)
+#   (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+#       modified:   Gemfile.lock
+#       modified:   Rakefile
+#       modified:   _config.yml
+#
+# Untracked files:
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
+#
+#       sass/
+#       source/
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></pre>
+
+<p>とりあえず未編集状態でコミット。</p>
+
+<pre><code>$ git add .
+$ git commit -m 'first commit'
+</code></pre>
+
+<h3>リモートを追加してsourceブランチをpush</h3>
+
+<p>作っておいたBitbucketのリポジトリを追加。</p>
+
+<pre><code>$ git remote add bitbucket git@bitbucket.org:username/octopress.git
+</code></pre>
+
+<p>でもって確認も兼ねてプッシュ。</p>
+
+<pre><code>$ git push bitbucket source
+Enter passphrase for key '/path/to/sshkeydir/keyfile':
+Counting objects: 4724, done.
+Compressing objects: 100% (2027/2027), done.
+Writing objects: 100% (4724/4724), 1.19 MiB, done.
+Total 4724 (delta 2459), reused 4519 (delta 2321)
+To git@bitbucket.org:username/octopress.git
+ * [new branch]      source -&gt; source
+</code></pre>
+
+<p>Bitbucketサイトのコミットログを確認。
+<img src="http://alalwww.github.io/images/posts/2013-12-09-reinstall-octopress/bitbucket_log.png" alt="Bitbucketのコミットログ画面" /></p>
+
+<h3>動作の確認など</h3>
+
+<p>最低限の設定を行った後、とりあえず生成してみようと記事をバックアップから復活し、<code>rake generate</code>を実行してみると失敗しました。</p>
+
+<pre><code>$ rake generate
+## Generating Site with Jekyll
+directory source/stylesheets/
+   create source/stylesheets/screen.css
+Configuration from /path/to/git_repos/octopress/_config.yml
+Building site: source -&gt; public
+Liquid Exception: incompatible character encodings: UTF-8 and ASCII-8BIT in 2013-02-19-blog-customization1.markdown
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/block.rb:92:in `join'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/block.rb:92:in `render_all'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/block.rb:82:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/template.rb:124:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/liquid-2.3.0/lib/liquid/template.rb:132:in `render!'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/convertible.rb:79:in `do_layout'
+/path/to/git_repos/octopress/plugins/post_filters.rb:167:in `do_layout'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/post.rb:195:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:200:in `block in render'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:199:in `each'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:199:in `render'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/lib/jekyll/site.rb:41:in `process'
+/usr/local/lib/ruby/gems/1.9.1/gems/jekyll-0.12.0/bin/jekyll:264:in `&lt;top (required)&gt;'
+/usr/local/bin/jekyll:23:in `load'
+/usr/local/bin/jekyll:23:in `&lt;main&gt;'
+Build Failed
+</code></pre>
+
+<p>しかしもう一度試してみると発生しなく…。</p>
+
+<pre><code>$ rake generate
+## Generating Site with Jekyll
+identical source/stylesheets/screen.css
+Configuration from /path/to/git_repos/octopress/_config.yml
+Building site: source -&gt; public
+Successfully generated site: source -&gt; public
+</code></pre>
+
+<p>よくわからないけどなんか大丈夫になってしまった。再現性がないのでとりあえず保留。このあとテーマ更新した際にもう一度だけ発生したけど、やっぱりそれ以降再現しないので忘れることに。</p>
+
+<p>とりあえず目についたエラーメッセージをコピって<a href="http://goo.gl/IcRLrp">先生</a>に聞いてみたら、<a href="http://tokkonopapa.github.io/blog/2013/02/23/octopress-toc/">関連しそうな記事</a>はあったんだけれど、この後の記事でもOctopress側に問題があっておきてるような事が書いてあるし、原因調査に割く時間もないので、時が解決してくれることを期待しておきます。</p>
+
+<h2>設定変更など</h2>
+
+<h3>.gitignoreに.preview-modeを追加</h3>
+
+<p><code>git status</code>してみると、新規ファイルが作成されてた。名前的にプレビュー時に生成されたっぽい。コミットは不要な気がするので<code>.gitignore</code>に<code>.preview-mode</code>ファイルを追加してまたコミット。</p>
+
+<p>その他、追加した記事や設定の変更を、何度かに分けてコミット。</p>
+
+<h3>テーマを変更</h3>
+
+<p><a href="http://alalwww.github.io/blog/2013/12/05/theme-changed/">先日の記事</a>通りにさくさくっとテーマも変更。ついでにスタイルも少し修正。終わったらまたいくつかにわけてコミット。</p>
+
+<h3>new_postなどのテンプレート変更。</h3>
+
+<p><a href="http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts//">先日の記事</a>通りにｒｙ</p>
+
+<h3>ツイッタープラグイン死亡確認</h3>
+
+<p>原因は単純で、OctopressのはAPI1.0系だから。っていうかAPI1.1じゃ認証必須だからどのみち従来のような取得はできない。そんな理由からこのプラグインの更新自体も打ち切られてるみたい。</p>
+
+<p>APIが使えなくなったかわりにTwitter公式が<a href="https://dev.twitter.com/ja/docs/embedded-timelines">埋め込みタイムラインウィジェット</a>を提供しているので、こっちを利用するものを作成。(<a href="http://msaisai.github.io/blog/2013/06/19/octopress-twitter/">参考</a>)</p>
+
+<div><script src='https://gist.github.com/7860557.js'></script>
+<noscript><pre><code>&lt;section style=&quot;position:relative&quot;&gt;
+&lt;h1&gt;Twitter&lt;/h1&gt;
+&lt;div style=&quot;position:absolute;top:0;right:16px&quot;&gt;
+&lt;a href=&quot;https://twitter.com/alalwww&quot; class=&quot;twitter-follow-button&quot; data-show-count=&quot;false&quot; data-lang=&quot;ja&quot; data-show-screen-name=&quot;false&quot;&gt;Follow @alalwww&lt;/a&gt;
+&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=&quot;//platform.twitter.com/widgets.js&quot;;fjs.parentNode.insertBefore(js,fjs);}}(document,&quot;script&quot;,&quot;twitter-wjs&quot;);&lt;/script&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;a class=&quot;twitter-timeline&quot; href=&quot;https://twitter.com/alalwww&quot; data-widget-id=&quot;408658474638118912&quot; data-chrome=&quot;noheader nofooter transparent&quot; data-lang=&quot;ja&quot;&gt;@alalwww からのツイート&lt;/a&gt;
+&lt;script&gt;!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+&quot;://platform.twitter.com/widgets.js&quot;;fjs.parentNode.insertBefore(js,fjs);}}(document,&quot;script&quot;,&quot;twitter-wjs&quot;);&lt;/script&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+</code></pre></noscript></div>
+
+
+<p>ヘッダーがいまいちだったので消して、自前で用意し、こんな感じに落ち着きました。出来たものは<code>source/_includes/custom/asides/twitter.html</code>に配置して<code>_config.yml</code>の<code>default_aside</code>に追加。</p>
+
+<p>しかしGistのずれは、前から気になってたけどやっぱ気持ち悪い。今度直そう。(<a href="http://rcmdnk.github.io/blog/2013/05/06/blog-octopress/">修正の参考</a>)</p>
+
+<h3>about.htmlを修正し追加</h3>
+
+<p>ブログの概要、というか自己紹介的なやつ。</p>
+
+<p>前はTwitterのプロフィールを取得して表示してたけど、そこもAPI1.0系なので死んでてもう使えない。ので普通に書きます。内容はとりあえずあとで考えるとして適当に形だけ。おなかすいた。</p>
+
+<p>アイコンだけはTwitterから取得するようにしました。Guavaterでもよかったかも。(<a href="https://retrorocket.biz/archives/77">参考</a>)</p>
+
+<p><code>source/_includes/custom/asides/about.html</code> を適当に修正。終わったら<code>_config.yml</code>の<code>default_aside</code>に追加。</p>
+
+<h1>再インストールに至った理由</h1>
+
+<p>そもそも何故再インストールなんてしたかって言いますと、先日間違って<code>~/git/octopress</code>ディレクトリを勘違いで<code>rm -rf</code>してしまったから、だったりします。まるっと全消去です。見る影どころか跡形もありません…。</p>
+
+<p>思えばGitとかをまだ全然理解していない頃に、解説サイトに書いてあるコマンドをコピペしながら作成だけし、そのまま放置しつつ、テーマ弄ったり、記事だけ追加する、みたいなことを繰り返していたので、変更を全くコミットしていませんでした。そのため復旧は早々に諦めましたが、幸いなことに記事だけは直前にバックアップしてあったので、おさらいも兼ねて、いちからOctopressをインストールをし直してしまった、といった感じです。</p>
+
+<p>Octopress本体の更新もだいぶ長いこと放置してたので、実にいい機会です。むしろ計画通り。</p>
+
+<p>というか、いつかまたやらかしそうな気もするので、その時用に作業メモを残した感じ。</p>
+
+<hr />
+
+<p>何度かに分けて書いてるので文体バラバラ。っていうか、めんどくさい文章になるのでですます調はやめようと思いつつも、つい使ってしまう…。余計な文章書きすぎるクセも抜けない…。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[下書きがしたい]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts/"/>
+    <updated>2013-12-05T02:57:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts</id>
+    <content type="html"><![CDATA[<p>Octopressで下書きを行う方法と、記事のテンプレートの修正についてメモ。</p>
+
+<!--more-->
+
+
+<h1>Octopressでも記事の下書きがしたい</h1>
+
+<p>テーマを変更する前に書きかけ記事があったので、そちらを下書きにしたいと思っていたのですが、探してみたら、<a href="http://chopl.in/blog/2012/05/27/how-to-preview-drafts-with-octopress.html">ちょうどいい解説記事</a>がありました。</p>
+
+<p>postのファイルの先頭で、<code>published: false</code>に設定しておくだけで下書きになるみたい。ただしプレビューでは表示される。</p>
+
+<h2>プレビューで下書き記事が出るときと出ない時がある。</h2>
+
+<p><code>rake generate</code>では下書きは生成されないが、<code>rake preview</code>で起動中の再生成時には下書き記事も生成されるみたい。</p>
+
+<p>なので、いきなり<code>rake preview</code>で起動した場合は常に表示される。ただし<code>rake generate</code>を行ってから<code>rake preview</code>を行うと、初回のプレビュー時だけ表示されず、ブラウザでF5を押すと下書きの記事が生成されて見えるようになる。</p>
+
+<h2>やっぱ新規作成時に用意しておいてほしいよね</h2>
+
+<p><code>rake new_post['title']</code>した時に初期値が入っててくれたほうが便利なので、テンプレートを探してみるも見つからない。もしやと思って<code>Rakefile</code>を覗いてみたら、テンプレートがベタ書きされてました。</p>
+
+<p><a href="http://blog.4uing.net/octopress-post/">こちらのサイト</a>によると、<code>published</code>の他に、<code>author</code>と<code>external-url</code>(外部リンクの設定)があるようです。せっかくなので合わせて追加。ただし外部リンクは不要なのでスルー。</p>
+
+<pre><code>post.puts "---"
+post.puts "layout: post"
+post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
+post.puts "author: alalwww"
+post.puts "comments: true"
+post.puts "published: true"
+post.puts "title: \"#{title.gsub(/&amp;/,'&amp;amp;')}\""
+post.puts "categories: "
+post.puts "---"
+post.puts ""
+post.puts "&lt;!--more--&gt;"
+</code></pre>
+
+<p>テーマ変更にあわせて記事に頭で&lt;!&mdash;more&mdash;&gt;を挟むようにしたので、そのあたりも含めてみた。これは結構いいカンジっぽい…？</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[テーマ変更。他Octpressのカスタマイズとか。]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/05/theme-changed/"/>
+    <updated>2013-12-05T02:36:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/05/theme-changed</id>
+    <content type="html"><![CDATA[<p>テーマ変更の手順とテーマのカスタマイズなど。</p>
+
+<!--more-->
+
+
+<h1>テーマの変更手順</h1>
+
+<p>Octopress導入当時、あまりﾃｨﾝとくるテーマがみつけられなかったので、クラシックを少しいじる程度でいつか本気を出そうと思いつつ放置してたのですが、やっぱりなんだかぱっとしないので、思い切ってテーマを変えてみました。</p>
+
+<p>とりあえず、<a href="http://namusyaka.github.io/blog/2012/10/03/github-jekyll/">「Octopress テーマ」で検索して最初に目についたサイト</a>を参考にさせてもらいながら、テーマを変更してみました。</p>
+
+<p>手順はこんなかんじになります。</p>
+
+<ol>
+<li><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">GitHubのサードパーティ製テーマのページ</a>を開く。</li>
+<li>PreviewやScreenShotを見て気に入る物を探す。</li>
+<li>各テーマの導入手順通りに導入する。</li>
+</ol>
+
+
+<p>だけ！</p>
+
+<p>テーマもGitHub上で公開されているので、Cloneしてきてインストールするだけです。実に楽ちん。</p>
+
+<p><a href="https://github.com/roberto/oct2-orange">oct2-orange</a>のオレンジという単語に惹かれてさくっと決定。</p>
+
+<pre><code>$ git submodule add git://github.com/roberto/oct2-orange.git .themes/oct2-orange
+$ rake install[oct2-orange] 
+</code></pre>
+
+<p>丸コピってコマンドを打ち込むと…</p>
+
+<pre><code>It seems your ruby installation is missing psych (for YAML output). To eliminate this warning, please install libyaml and reinstall your ruby.
+</code></pre>
+
+<h2>なんかrubyの警告が出てる</h2>
+
+<p>どうやらCentOS5(6も)の環境にRubyをいれるときに出くわす問題っぽい？</p>
+
+<p><a href="http://d.hatena.ne.jp/donbulinux/20111111/1321004527">エラーメッセージで検索して最初に目についたサイト</a>を参考に、libyamlをインストール。libyamlのバージョンとかConfigureのオプションとかを一切確認せず、コマンドを丸コピペしてEnter。</p>
+
+<pre><code>$ wget http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz
+$ tar -zxvf yaml-0.1.4.tar.gz
+$ cd yaml-0.1.4
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>問題なく終わったみたいなので、以前Rubyを導入したときのディレクトリに移動してrubyも再インストール。</p>
+
+<pre><code>$ cd ~/ruby/ruby-1.9.3-p374
+$ ./configure
+$ make
+$ sudo make install
+</code></pre>
+
+<p>できたっぽい。頑張ったっぽい？</p>
+
+<h2>今度こそテーマをインストール</h2>
+
+<pre><code>$ rake install[oct2-orange] 
+A theme is already installed, proceeding will overwrite existing files. Are you sure? [y/n]
+</code></pre>
+
+<p>念のためのバックアップはとっているので、yを選んでテーマを上書き。</p>
+
+<h1>設定変更など</h1>
+
+<p>やったことなどメモ。もう既に忘れかけ。</p>
+
+<h2>ナビバー表示</h2>
+
+<p>テーマの配布元に書いてあるとおりに_config.yml の <code>default_asides</code> を編集してナビバーを表示。</p>
+
+<pre><code>default_asides: [asides/nav.html, custo...
+</code></pre>
+
+<h2>ナビバーのE-mailボタンを削除</h2>
+
+<p><code>source/_includes/asides/nav.html</code> から以下の行を削除。</p>
+
+<pre><code>&lt;a href="mailto:" alt="E-Mail"&gt;&lt;img src="http://alalwww.github.io/images/Envelope.png"&gt;&lt;/a&gt;
+</code></pre>
+
+<h2>フォント変更</h2>
+
+<p>scss/custom/_fonts.scssを修正</p>
+
+<pre><code>$sans: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$serif: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$heading-font-family: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;;
+</code></pre>
+
+<p>今度はConsolasを足してみた。</p>
+
+<h2>リストの左マージンを設定</h2>
+
+<p>リストが左に寄ってる感じなので、適当にマージンを追加。</p>
+
+<p>_styles.scss</p>
+
+<pre><code>/* ----- Content ----- */
+  :(中略)
+#content {
+  article {
+    ul {
+      margin-left: 25px;
+    }
+    ol {
+      margin-left: 40px;
+    }
+  }
+}
+</code></pre>
+
+<p>なんか、このスタイルの定義ファイル、元からある記述はネストされてなくてちょっと見づらい…。</p>
+
+<h2>htmlタグのlang属性を日本語に変更</h2>
+
+<p><a href="http://alalwww.github.io/blog/2013/02/24/blog-customization2/">以前</a>やったのと同じように<code>octopress/source/_includes/head.html</code>を編集。</p>
+
+<pre><code>&lt;html class="no-js" lang="ja"&gt;
+</code></pre>
+
+<hr />
+
+<p>足りない変更はまた後日行う予定。スタイルももう少し弄りたいし、はてブボタンとかサイドバーへの手直しなどが足りてなさそう。時間も足りてなさそう。(╯•﹏•╰)</p>
+
+<p>サイトのタイトルとか出ないのはそういうテーマっぽいけれど、左上にトップに戻るリンクないと落ち着かない気がするのでその辺りも何とかしたいトコロ。</p>
+
+<h1>だそく</h1>
+
+<p>いいローカル側のファイルのGitリポジトリ作ってコミットするようにしないと変更管理できないなぁって痛感。本気出すための服がほしい…。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[version.properties メモ]]></title>
+    <link href="http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo/"/>
+    <updated>2013-05-05T21:11:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo</id>
+    <content type="html"><![CDATA[<p>意外と知られていないメタ情報ファイル。自動生成と相性よさげ。</p>
+
+<!-- more -->
+
+
+<h1>version.properties についてメモ</h1>
+
+<p>なにこれって思う modder のほうが多いような気がします。少なくとも日本のminecraft-modderでこれを用意してる人、見た記憶ないです。</p>
+
+<h2>@Mod アノテーションの version とバイバイできる version.properties</h2>
+
+<p>バージョンアップのたびに @Mod に設定した version を書き直し忘れて、リコンパイル、再難読化をもっかいやるハメになったことある modder は、少なくないんじゃないかなと思います。つか私はほぼ毎回更新を忘れます。だいたい zip が出来上がってから思い出します。画面殴りそうです。</p>
+
+<p>きちんとクラスをわけていくと、@Mod をつけたModクラスは初期化以外での出番は殆どなくなってしまうので、あまり更新する機会がありません。そのため見る機会自体が減っていきます。また、更新のたびにバージョンを書き換えるのは意外と面倒でわすれがちです。</p>
+
+<p>そうすると、プログラマーは自動更新を考えるわけです。ですが、ハードコーディングされているアノテーションを自動更新するのは、わりと大変。</p>
+
+<p>そんなときにこの version.properties です。外部ファイルからバージョン情報を設定してあげることで、コード修正を行わずにバージョンを設定できるようになります。</p>
+
+<h2>つかいかた</h2>
+
+<p>前置きが無駄に長くなりましたが、なんのことはありません。ファイル名は version.properties で mcmod.info と同様にzipのルートに配置すれば読んでくれます。</p>
+
+<p>プロパティファイルなのでコメントなども使えます。他の情報を追加することもできます。ただし日本語など、マルチバイト文字を使用する場合には、native2ascii などできちんと変換しないといけません。まぁ Pleiades Eclipse 使ってるならプロパティファイル用のエディタで編集するので、このあたりを意識する機会はあんまりないですが。</p>
+
+<p>このプロパティファイルで、@Mod アノテーションの version を設定できます。ただし優先度はアノテーションによる設定よりも低く、アノテーションでバージョンを設定している場合、無視されるようです。</p>
+
+<p>例えば、modid が &ldquo;net.awairo.minecraft.tooltipplus&#8221;、バージョンが &#8220;2.3.0&rdquo; であれば、こんな感じ。modid のあとに &ldquo;version&rdquo; を繋げたキーで値にバージョンの値です。</p>
+
+<pre><code>net.awairo.minecraft.tooltipplus.version = 2.3.0
+</code></pre>
+
+<p>これで @Mod(～, version = &ldquo;2.3.0&rdquo;) と同じ設定ができます。</p>
+
+<p>ちなみに、コード上からこのプロパティファイルを取得したい場合は、FMLPreInitialiseEvent から取得出来ます。@PreInitのほうです。</p>
+
+<p>バージョンアップの際にコードの修正が必要ないのと、プロパティファイルなので、自動生成が楽ちんなのがメリットですね。それに、自動生成するようにしておけばコミットする必要もなくなるので、コミットログに余計なファイルが混ざらないってメリットもあります。</p>
+
+<p>IronChest なんかは自動生成用のスクリプトをもっていて、それを使ってリリース毎に自動生成しているみたいです。私も真似してます。</p>
+
+<hr />
+
+<p>自動更新についても、気が向いたらそのうち書くかもしれませんが、向いたらで。</p>
+
+<p>Tooltip Plus のほうはだいたい自動化しちゃってますが、いろいろ余計なことしてていま見直してる最中なので、あんま参考にはならないとおもいます。</p>
+
+<p>SpawnCheckerのほうは作り直しが進んでないので、いまだにRML時代のままのクラス構成です。mod_SpawnCheckerです。毎回 getVersion() の戻り値の変更を忘れては「アアァァッ」って叫んでます。RMLバイバイしてFMLの機能つかいたいです。</p>
+
+<p>つか、このあたりは IronChest 見たほうが早いです。困ったときの IronChest。IronChset is God。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[@Mod アノテーションメモ]]></title>
+    <link href="http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo/"/>
+    <updated>2013-05-05T20:00:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo</id>
+    <content type="html"><![CDATA[<p>Modのメインクラスに付けるアノテーションの解説とか。実はmodid以外はなくてもいける。</p>
+
+<!-- more -->
+
+
+<h1>@Modアノテーションについて</h1>
+
+<p>FMF645 現在、以下の項目が設定可能です。</p>
+
+<pre><code>String modid
+String name default ""
+String version default ""
+String dependencies default ""
+boolean useMetadata default false
+String acceptedMinecraftVersions default ""
+String bukkitPlugin default ""
+String modExclusionList default ""
+String certificateFingerprint default ""
+String modLanguage default "java"
+String asmHookClass default ""
+</code></pre>
+
+<p>簡単な解説をしてみます。</p>
+
+<h2>@Modアノテーション 各項目の簡単な解説</h2>
+
+<p>詳しくは @Mod アノテーションの JavaDoc に書いてあるのでさわりだけ。過度な期待はうんたらかんたら。</p>
+
+<p>解説というよりは自分用の備忘録。</p>
+
+<h3>String modid</h3>
+
+<p>mod の識別子です。</p>
+
+<p>ユニーク値かつ必須。mcmod.info の解説でやったので省略。</p>
+
+<h3>String name default &ldquo;&rdquo;</h3>
+
+<p>mod の名前です。</p>
+
+<p>mcmod.info の値より優先度は低いみたいです。mcmod.info用意しているなら不要だと思います。</p>
+
+<h3>String version default &ldquo;&rdquo;</h3>
+
+<p>modのバージョンです。</p>
+
+<p>mcmod.info の値とは別の内部的なバージョン値です。</p>
+
+<p>依存チェックで使うバージョンのことも考えると</p>
+
+<pre><code>メジャー.マイナー.ビルドナンバー.リビジョン
+</code></pre>
+
+<p>みたいなような指定にするのが無難だと思います。</p>
+
+<p>このバージョンは version.properties からも設定できますが、アノテーションで指定したほうが優先度が高いようで、アノテーションに設定しちゃうと version.properties は無視されます。</p>
+
+<p>version.properties を使うなら設定不要です。</p>
+
+<h3>String dependencies default &ldquo;&rdquo;</h3>
+
+<p>依存関係指定用の文字列の設定用。</p>
+
+<p>javadocにも書いてあるように、RML (ModLoader) の BaseMod の getPriorities() を参照してください、とのことです。具体的には、require-before:mod-name とかって感じで設定する奴です。触ったことある人はあまりいない気がしますが。</p>
+
+<p>確か最近の RML の javadoc にはこのあたりの仕様が記載されていないので、さらにわけわかめです。古いRMLの javadoc を探せば見つかると思います。</p>
+
+<p>…思いますが、そんなもの漁るくらいなら mcmod.info  なりメタデータなりで指定した方が楽だし、バージョンでのチェックもできるのでオススメ。この文字列のパース機能は、BaseMod互換にするために残ってる機能みたいなもんだと思います。</p>
+
+<h3>boolean useMetadata default false</h3>
+
+<p>MetaData クラスを使用する場合 true に設定します。</p>
+
+<p>この値を true にすると、mcmod.info の依存関係のチェック用の情報をクリアします。mcmod.info で useDependencyInformation を true にしても無視されます。</p>
+
+<p>この設定は、Mod.Metadata アノテーションを利用するための設定なんじゃないかなーと思います。mcmod.infoは外部ファイルなので改変される可能性があるから、そのための制約なのではないかと。ちゃんと調べてないですが。</p>
+
+<h3>String acceptedMinecraftVersions default &ldquo;&rdquo;</h3>
+
+<p>許可するMinecraftのバージョンを設定します。</p>
+
+<p>通常設定する必要はないです。が、あえて過去ver専用のmodなどを作製する場合は、こいつを指定しておくといいかもしれないです。バージョン指定の書式はきちんと把握仕切れていないので、調べた時にでも書こうと思います。たぶん。</p>
+
+<p>簡単に具体例を上げておくと</p>
+
+<pre><code>acceptedMinecraftVersions = "[1.5,)"
+</code></pre>
+
+<p>これで1.5.x 以降のマイクラでのみ実行できる、って指定になります。たぶん。</p>
+
+<p>別にこれ、FML固有の書式ではなかったと思うので、検索すれば見つかると思います。Apache commons 関連のドキュメントだかで見た記憶があるような、ないような…。</p>
+
+<h3>String bukkitPlugin default &ldquo;&rdquo;</h3>
+
+<p>BukkitプラグインからロードされるためのプラグインのFQDNを設定します。</p>
+
+<p>…だと思いますがちゃんと調べてないので省略。必要になったら調べるかもしれないですが、当面は必要ないかなーと…。</p>
+
+<h3>String modExclusionList default &ldquo;&rdquo;</h3>
+
+<p>カンマ区切りでmodidを記述し、他modとの共存可否の設定を行えます。</p>
+
+<p>ようは拒否リストです。「貴方とは一緒に導入できないの」ってなるような設定をします。</p>
+
+<p>競合するからこのmodとは一緒に使えないよ、とか、(作者の意向として、)このModとは共存させたくないよ、ってModがある場合などに利用します。競合することがわかってる場合に事前に回避したり、modが想定している難易度を崩してしまうような別のmodが導入されることを認めない、みたいな感じに使うものだと思います。</p>
+
+<p>許可不許可を決める記号(+/&ndash;)を付与した modid をカンマ区切りで複数指定できます。許可する mod は modid の先頭に「+」、許可しない mod は先頭に「-」を指定します。modid の代わりに、すべての Mod を意味するワイルドカード「*」と、forge を意味するエイリアス「f」が使えます。何も指定しない場合は、全て許可「+*」と同じです。</p>
+
+<h3>String certificateFingerprint default &ldquo;&rdquo;</h3>
+
+<p>署名された jar を要求するようにするための設定。全て小文字で : が削除されたSHA-1の文字列。</p>
+
+<p>デフォルトでは署名された jar を要求しません。</p>
+
+<p>これはちょっとややこしいので省略。必要な人は自前で調べてください。</p>
+
+<p>mod を jar ファイルとしてリリースして META-INF/ を同梱して署名を用意し、クラスファイルの破損や改変がないことをチェックしたりとか、そういうやつです(たぶん)。</p>
+
+<p>本当はこの手のものは、開発者側がちゃんと理解して使用していくべきなんでしょうが、いろいろと敷居高い感がいなめない。それに、ユーザーもそういうの意識できる人って少ないですしね。</p>
+
+<h3>String modLanguage default &ldquo;java&rdquo;</h3>
+
+<p>mod を作製する際に用いられた言語の設定。</p>
+
+<p>日本語とかそういう「言語」ではなく、「プログラミング言語」です。&#8221;java&#8221; 以外に &ldquo;scala&rdquo; が指定できます。バイトコード変換時に必要になってくるんだと思います。</p>
+
+<p>まぁ scala で mod 作る好きものな人は説明しなくてもわかるはずなので省略。</p>
+
+<h3>String asmHookClass default &ldquo;&rdquo;</h3>
+
+<p>この mod からロードされるクラスに ASM を適用するための、フッククラスの FQDN を指定します。</p>
+
+<p>たぶん簡易的な coremod 設定みたいな感じです。そういうことやるコア層に説明は不要だろうって事で省略。</p>
+
+<h2>結局@Modには何を指定すればいいの？</h2>
+
+<p>modid は必須です。それ以外は全部オプションです。つまりはそういうことです。</p>
+
+<p>共存させたくない mod がある場合や、マイクラのバージョンを限定したい場合を除けば、普通は modid だけ指定すればOKでしょう。他の値のうちユーザーに伝える情報として重要になるものは mcmod.info と version.properties で指定ができるため、わざわざソースコード内ハードコードしておく必要はないとおもいます。</p>
+
+<hr />
+
+<p>しかし改めてみてみると、すごい充実してる。FMLヤバい。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[mcmod.info の要素と機能についてのメモ]]></title>
+    <link href="http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info/"/>
+    <updated>2013-05-05T19:24:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info</id>
+    <content type="html"><![CDATA[<p>各項目の説明とか。</p>
+
+<!-- more -->
+
+
+<h1>mcmod.infoの要素と機能についてのメモ</h1>
+
+<p>FML645現在、mcmod.info からは以下の項目がロードされていました。</p>
+
+<pre><code>[
+{
+  "modid": "net.awairo.minecraft.xxx",
+  "name": "awa sample mod",
+  "description": "this mod is sample.",
+  "url": "http://alalwww.github.io/",
+  "updateUrl": "http://alalwww.github.io/",
+  "logoFile": "logo.png",
+  "version": "1.0.0",
+  "credits": "By alalwww",
+  "parent": "",
+  "authors": ["alalwww"],
+  "requiredMods": [],
+  "dependencies": [],
+  "dependants": [],
+  "useDependencyInformation": "true"
+}
+]
+</code></pre>
+
+<h2>mcmod.info 各項目の簡単な解説</h2>
+
+<p>mcmod.info は単純な json ファイルです。jsonの仕様については他文献などを漁ってください。javascriptのオブジェクトと似た書式なので、触ったことある人ならすぐに分かると思います。</p>
+
+<p>値に指定できるのは「文字列」値と「配列」値の2種があり、項目ごとに決まっています。</p>
+
+<h3>modid</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod の識別子を設定します。</p>
+
+<p>@Modアノテーションの modId で指定したものと一致させる必要があります。</p>
+
+<p>id は必ずユニーク値でないといけないため、mod 固有のパッケージ名を指定するのがオススメ。</p>
+
+<p>蛇足ですが、javaにおけるパッケージ名は、ユニークであることが保証されているドメイン名を利用するのが一般的です。とはいえ、最近は「どうせ重複することなんかねーよ！うちのドメイン長いから冗長になるんだよボケェ！」って界隈も増えてきているので、必ずドメインを使わないといけないわけではありません。</p>
+
+<p>ドメインを使いたいけど持っていないって場合は GitHub Pages のURLを利用する手や、DDNSをとってそれを使う手もあります。modの名前と同じでも大丈夫ですが、世界中で常に一意であることが保証されているドメインと違い、重複する可能性は残ります。とはいえ現実的に考えて、minecraft の userid + mod名 とかなら重複する可能性はないと思いますので、そういうのでもOK。</p>
+
+<p>さらに蛇足ですが、FMLがmodの情報を出力する際に指定しているロガーの名前も、modidが使用されています。そのため、logging.properties でmod毎にログ出力の制御なんかも可能みたいです。試してないけど。</p>
+
+<h3>name</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod の名称を設定します。</p>
+
+<p>こちらは重複してもOKな値ですが、紛らわしいのでなるべく他と被らない「ステキ」で「ナイス」な名前を指定しましょう。ここで指定した名前が mod 一覧に表示されます。@Modアノテーションで指定した名前よりも優先されるようです。日本語も使えるようですが、英数のみのほうが無難じゃないかなと思います。</p>
+
+<h3>description</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>modの概要の説明文を設定します。</p>
+
+<p>英文のほうが無難だとは思いますが、現在は日本語も大丈夫みたいです(昔はダメだった気がします)。Mod一覧でModを選択した際に、一番したに表示されます。長い文章も改行されて表示されます。</p>
+
+<h3>url</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod のサイトを示すURLです。ここ見れば最新版DLできるよ的なURLを設定しておきましょう。</p>
+
+<h3>updateUrl</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod のアップデートサイトを示すURLです。現在のところmod一覧に表示される以外では使われていません。</p>
+
+<p>今後自動更新などに対応する目的で用意されているものかもしれません。(FMLのissueでそういった話題が出てた気がします。)</p>
+
+<h3>logoFile</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod一覧で表示されるmodのロゴファイルパスを設定します。</p>
+
+<p>mod の zip ファイルのルートからのパスを指定します。対応している画像フォーマットは不明ですが、png では表示できるのを確認しています。画像サイズの制限があるのかも不明ですが、他modに合わせて 200 x 72 とするのが無難ではないかと思います。</p>
+
+<h3>version</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>modのバージョンを設定します。(多分表示のみで使われるバージョン。)</p>
+
+<p>このバージョンは mod のメタデータに持つバージョンで、@Mod アノテーションで指定されるバージョン(version.propertiesからも指定可能)とは別のものとして扱われています。また、依存関係チェックの際のバージョンとしては使用されない値のようです。</p>
+
+<p>mod一覧でにVersionはこのように表示されています。</p>
+
+<pre><code>Version: [mcmod.infoで設定したバージョン] ([Modアノテーションまたはversion.propertiesで設定したバージョン])
+</code></pre>
+
+<p>先に表示されているのが、mcmod.info で指定したバージョンです。括弧書きのほうが @Mod アノテーションで設定されているバージョンとなります。おそらくユーザーライクな表示用バージョンと、依存関係のチェックなどでも使用する内部的なバージョンを分けるためのに分けてあるのだと思います。</p>
+
+<p>なお、先にも記載していますが、@Modアノテーションで設定するバージョン値は version.properties ファイルから指定することができます。別記事で書きます。</p>
+
+<h3>credits</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>クレジットを設定します。</p>
+
+<p>なんとなく馴染みが薄い感がありますが、個人開発のmodであれば個人名など、グループで開発しているのであれば、グループ名などを指定するような感じです。</p>
+
+<p>アニメのEDの最後とかに表示される「○○製作委員会」とか、そういう感じです。</p>
+
+<h3>parent</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>親 mod のidを設定します。</p>
+
+<p>他mod の add-on を作成する場合などに利用するものです。</p>
+
+<p>ここで親modを指定した場合、mod一覧には表示されないようになり、親として指定したmodの情報に、子 mod 名として表示されるようになります。</p>
+
+<h3>authors</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>modの作者の一覧を設定します。</p>
+
+<p>配列で指定します。</p>
+
+<h3>requiredMods</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>必須 mod の一覧を設定します。</p>
+
+<p>useDependencyInformation を有効に指定しないと意味がありません。</p>
+
+<p>「modid」または「modid@バージョン」という書式(別記事で解説予定)の文字列で複数指定ができます。ただし、ここで指定したバージョンはFML645現在チェックには使用されません。しかし、必須チェックが下記の依存関係チェックよりも先に行われ、エラーメッセージにもバージョンが表示されるようになります。そのため、必須modのバージョンも指定したいのであれば、ここにもバージョンを指定しておくほうが無難です。</p>
+
+<h3>dependencies</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>自身より先に初期化が行われる必要がある mod の一覧を設定します。</p>
+
+<p>useDependencyInformation を有効に指定しないと意味がありません。</p>
+
+<p>ここで指定したmodは、自身より先に初期化が行われます。「modid」または「modid@バージョン」という書式(別記事で解説予定)の文字列で複数指定ができます。依存するModのバージョンによる条件の指定が有効です。</p>
+
+<h3>dependants</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>自身より後に初期化が行われる必要がある mod の一覧を設定します。</p>
+
+<p>useDependencyInformation を有効に指定しないと意味がありません。</p>
+
+<p>ここで指定したmodは、自身より<del>先</del>後に初期化が行われます。「modid」または「modid@バージョン」という書式(別記事で解説予定)の文字列で複数指定ができます。依存するModのバージョンによる条件の指定が有効です。</p>
+
+<h3>useDependencyInformation</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mcmod.info に書かれた依存関係の情報をmodの読み込み時に使用するかの設定です。</p>
+
+<p>文字列 &ldquo;true&rdquo; を指定した場合のみ有効になります。それ以外の値が指定されたか、何も指定されていない場合、mcmod.infoの情報は実行時に全てクリアされます。つまり、この値をtrueにしないと依存関係チェックは行われません。ただし、@Mod の useMetadata より優先度が低いため、あちらが true に設定された場合は mcmod.info の情報はクリアされます。</p>
+
+<hr />
+
+<p>20 June, 2013 誤記を修正(つやぴん氏thx)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressカスタマイズ2]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/24/blog-customization2/"/>
+    <updated>2013-02-24T11:31:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/24/blog-customization2</id>
+    <content type="html"><![CDATA[<p>主にテーマの改造など。</p>
+
+<!-- more -->
+
+
+<h1>色々設定変更してみた2</h1>
+
+<h2>サイトの言語を日本語に変更</h2>
+
+<p>HTMLのlang属性が英語 (en) になっているのを日本語 (ja) に変更する。</p>
+
+<p>octopress/source/_includes/head.html</p>
+
+<pre><code>&lt;html class="no-js" lang="en"&gt;
+</code></pre>
+
+<p>を</p>
+
+<pre><code>&lt;html class="no-js" lang="ja"&gt;
+</code></pre>
+
+<p>に変えるだけ。</p>
+
+<p>日本語しか書かないならやっておいていいと思います。英語ページになってると、Chromeさんの翻訳するかの確認とか出てきたりして地味にうざったかったです。</p>
+
+<h2>スタイル変更など</h2>
+
+<p>octpress/sass/ 以下の各 *.scss ファイルを修正するだけ。sass については、ぐぐればもっと詳しいサイトが出てくると思うので詳細は割愛します。</p>
+
+<p>デフォルトのテーマを使っているので、以下はデフォルトのテーマについてのみ。だけどおそらく他のテーマでもおおよそ同じはず。</p>
+
+<h3>読み込み順</h3>
+
+<p>最初に読み込まれるのは screen.scss ファイルで、このファイルを基点に、他の scss ファイルが読み込まれる。この screen.scss に定義されている読み込み順序はカスタマイズする上で重要になる。</p>
+
+<p>scss ファイルには、多くの値に変更できるデフォルト値が定義されている。そして、custom/ 以下の scss ファイルでデフォルト値を上書きできるようになっている。そのため、殆どのスタイル設定変更は custom/ 以下のファイルを修正するだけで行える。</p>
+
+<p>_styles.scss は独自スタイル設定を追加するためのファイルで、最初は何も記載されていない。見た目を変更するようなスタイルをここで定義できる。読み込み順序は一番最後なので、優先度を変えたりして、他かのスタイル設定を上書きしたりする事が可能になる。</p>
+
+<p>何処のスタイルが修正されるかが分かり辛いものが多いのが難点。私は、Chromeの開発者ツール(F12キー)を見ながら、要素に適用されているスタイルを追っかけ、スタイルセレクタを確認して、scssから探し出して…とやりましたが、ちょっとめんどくさかったです…。</p>
+
+<h3></h3>
+
+<p>とりあえず、以下のように設定してみました。</p>
+
+<p>_colors.scss</p>
+
+<pre><code>$header-bg: #520;
+</code></pre>
+
+<p>_fonts.scss</p>
+
+<pre><code>$sans: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$serif: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$mono: "MeiryoKe_Gothic", monospace;
+$heading-font-family: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$header-title-font-family: "Tekton Pro Ext", "MeiryoKe_PGothic", "メイリオ", sans-serif;
+$header-subtitle-font-family: "MeiryoKe_PGothic", "メイリオ", sans-serif;
+</code></pre>
+
+<p>_layout.scss</p>
+
+<pre><code>$header-font-size: 1em;
+$header-padding-top: 1.5em;
+$header-padding-bottom: 1.5em;
+$indented-lists: true;
+</code></pre>
+
+<p>_styles.scss</p>
+
+<pre><code>.entry-title {
+    padding-left: 5px;
+    padding-bottom: 3px;
+    border-left: 15px solid #520;
+    border-bottom: 3px solid #520;
+}
+.blog-index &gt; article &gt; header p.meta {
+    margin-left: -15px;
+    a {
+        font-size: 60%;
+    }
+}
+.entry-content h1 {
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top   : 2px dotted #ccc;
+    border-bottom: 2px dotted #ccc;
+}
+</code></pre>
+
+<p>MeiryoKe勢です。デフォメイリオの文字間落ち着かない、他OSのデフォフォントを華麗にスルーしちゃってますが、その手のOS使いは自分で解決してるはずなので気にしないことに。どうせ確認する環境ないし。</p>
+
+<hr />
+
+<p>他にもなにか変えたとこあった気もするけど、忘れちゃったのでここまで。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressカスタマイズ1]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/19/blog-customization1/"/>
+    <updated>2013-02-19T03:47:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/19/blog-customization1</id>
+    <content type="html"><![CDATA[<p>はてブボタン追加やsharingの表示位置の追加、サイドメニューのカスタマイズ、続きを読むボタン表示、設定の見直しなどについてのメモ(1)。</p>
+
+<!-- more -->
+
+
+<h1>色々設定変更してみた</h1>
+
+<h2>はてブボタン追加</h2>
+
+<p>はてなは使うことないけど、使ってる人は多いので媚売っとこってことで。</p>
+
+<p>source/_includes/post/sharing.html</p>
+
+<div><script src='https://gist.github.com/4979540.js'></script>
+<noscript><pre><code>&lt;div class=&quot;sharing&quot;&gt;
+  {% if site.twitter_tweet_button %}
+  &lt;a href=&quot;http://twitter.com/share&quot; class=&quot;twitter-share-button&quot; data-url=&quot;{{ site.url }}{{ page.url }}&quot; data-via=&quot;{{ site.twitter_user }}&quot; data-counturl=&quot;{{ site.url }}{{ page.url }}&quot; &gt;Tweet&lt;/a&gt;
+  {% endif %}
+  {% if site.hatena_bookmark_button %}
+  &lt;a href=&quot;http://b.hatena.ne.jp/entry/{{ site.url }}{{ page.url }}&quot; class=&quot;hatena-bookmark-button&quot; data-hatena-bookmark-layout=&quot;simple-balloon&quot; title=&quot;このエントリーをはてなブックマークに追加&quot;&gt;&lt;img src=&quot;http://b.st-hatena.com/images/entry-button/button-only.gif&quot; alt=&quot;このエントリーをはてなブックマークに追加&quot; width=&quot;20&quot; height=&quot;20&quot; style=&quot;border: none;&quot; /&gt;&lt;/a&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;http://b.st-hatena.com/js/bookmark_button.js&quot; charset=&quot;utf-8&quot; async=&quot;async&quot;&gt;&lt;/script&gt;
+  {% endif %}
+  {% if site.google_plus_one %}
+  &lt;div class=&quot;g-plusone&quot; data-size=&quot;{{ site.google_plus_one_size }}&quot;&gt;&lt;/div&gt;
+  {% endif %}
+  {% if site.facebook_like %}
+  &lt;div class=&quot;fb-like&quot; data-send=&quot;true&quot; data-width=&quot;400&quot; data-show-faces=&quot;false&quot;&gt;&lt;/div&gt;
+  {% endif %}
+&lt;/div&gt;
+</code></pre></noscript></div>
+
+
+<p>5～7の部分がそれ。後述のコンフィグファイルで表示制御も追加してます。</p>
+
+<h2>記事タイトルの直下に sharing を追加</h2>
+
+<p>スクロールせずに押したいかもしれないので。</p>
+
+<p>source/_includes/article.html</p>
+
+<div><script src='https://gist.github.com/4979575.js'></script>
+<noscript><pre><code>{% unless page.no_header %}
+  &lt;header&gt;
+    {% if index %}
+      &lt;h1 class=&quot;entry-title&quot;&gt;&lt;a href=&quot;{{ root_url }}{{ post.url }}&quot;&gt;{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}&lt;/a&gt;&lt;/h1&gt;
+    {% else %}
+      &lt;h1 class=&quot;entry-title&quot;&gt;{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}&lt;/h1&gt;
+    {% include post/sharing.html %}
+    {% endif %}
+    {% unless page.meta == false %}
+      &lt;p class=&quot;meta&quot;&gt;
+        {% include post/date.html %}{{ time }}
+        {% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
+         | &lt;a href=&quot;{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread&quot;&gt;Comments&lt;/a&gt;
+        {% endif %}
+      &lt;/p&gt;
+    {% endunless %}
+  &lt;/header&gt;
+{% endunless %}
+{% if index %}
+  &lt;div class=&quot;entry-content&quot;&gt;{{ content | excerpt }}&lt;/div&gt;
+  {% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
+  {% if excerpted == 'true' %}
+    &lt;footer&gt;
+      &lt;a rel=&quot;full-article&quot; href=&quot;{{ root_url }}{{ post.url }}&quot;&gt;{{ site.excerpt_link }}&lt;/a&gt;
+    &lt;/footer&gt;
+  {% endif %}
+{% else %}
+&lt;div class=&quot;entry-content&quot;&gt;{{ content }}&lt;/div&gt;
+{% endif %}
+</code></pre></noscript></div>
+
+
+<p><del>8行目に読み込み処理追加しただけ。</del></p>
+
+<p>(2012/02/24 追記) <code>{% endif %}</code> の後に <code>{% include post/sharing.html %}</code> を続けると、indexページにも表示されてしまうので、7行目に追加に修正しました。</p>
+
+<h2>「続きを読む &rarr;」の表示方法</h2>
+
+<p>excerpt_linkで設定した、「続きを読みたい場合わっふるわっふる」を追加するのは、記事中にHTMLコメントを書くだけ。</p>
+
+<pre><code>　：
+index にも表示される記事
+
+&lt;!-- more --&gt;
+
+個別ページに遷移しないと表示されない記事
+　：
+</code></pre>
+
+<p>設定とか要らない。</p>
+
+<h2>右メニューのカスタマイズ</h2>
+
+<ul>
+<li>AboutMeを追加</li>
+</ul>
+
+
+<p><a href="https://github.com/dharFr/octo-about-me-from-twitter" title="dharFr/octo-about-me-from-twitter · GitHub">これ</a>を流用。READMEにはcloneしてくる手順が書いてあるが、直接ファイルを開いて中身をコピペしてもOK。
+ツイッターのフォローをこっちに追加したので、Latest Tweets のフォローボタンは削除。</p>
+
+<div><script src='https://gist.github.com/4979398.js'></script>
+<noscript><pre><code>{% if site.twitter_user %}
+&lt;section&gt;
+  &lt;h1&gt;About Me&lt;/h1&gt;
+  &lt;div id=&quot;twitter-profile&quot; style=&quot;margin-top:0.5em;&quot;&gt;
+    &lt;p&gt;
+      &lt;strong&gt;{{site.author}}&lt;/strong&gt; 
+      (&lt;a href=&quot;http://twitter.com/{{site.twitter_user}}&quot;&gt;@{{ site.twitter_user }}&lt;/a&gt;)
+    &lt;/p&gt;
+    &lt;p&gt;Getting profile from Twitter...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    $.domReady(function(){
+        var container = $('#twitter-profile'),
+            user = &quot;{{site.twitter_user}}&quot;;
+        
+        function parseTwLinks(s) {
+          var twUrl = &quot;http://www.twitter.com/&quot;
+          s = s.replace(/ (@([\w]+))/g, function(match, p1, p2) {
+              return &quot; &lt;a href='&quot;+twUrl+p2+&quot;'&gt;&quot;+p1+&quot;&lt;/a&gt;&quot;
+          }).replace(/ (#([\w]+))/g, function(match, p1, p2) {
+              return &quot; &lt;a href='&quot;+twUrl+&quot;#!/search?q=%23&quot;+p2+&quot;'&gt;&quot;+p1+&quot;&lt;/a&gt;&quot;
+          })
+          return s
+        }
+
+        $.ajax({
+            url: &quot;http://api.twitter.com/1/users/show.json?include_entities=false&amp;screen_name=&quot;+user+&quot;&amp;callback=?&quot;
+          , type: 'jsonp'
+          , error: function (err) { $('#twitter-profile').addClass('error');  }
+          , success: function(data) {
+              container.html('&lt;img class=&quot;left&quot; src=&quot;http://api.twitter.com/1/users/profile_image/'+user+'.json?size=bigger&quot; alt=&quot;@'+user+'&quot;&gt;&lt;div&gt;&lt;strong&gt;'+data.name+'&lt;/strong&gt; (&lt;a href=&quot;http://twitter.com/'+user+'&quot;&gt;@'+user+'&lt;/a&gt;)&lt;/div&gt;&lt;div style=&quot;font-size:80%&quot;&gt;'+data.location+'&lt;/div&gt;&lt;div&gt;&lt;a href=&quot;http://twitter.com/{{ site.twitter_user }}&quot; class=&quot;twitter-follow-button&quot; data-show-count=&quot;{{ site.twitter_show_follower_count }}&quot;&gt;Follow @{{ site.twitter_user }}&lt;/a&gt;&lt;/div&gt;&lt;p style=&quot;clear:both;font-size:80%&quot;&gt;'+parseTwLinks(data.description)+'&lt;/p&gt;');
+            }
+        })
+      });
+  &lt;/script&gt;
+&lt;/section&gt;
+{% endif %}
+</code></pre></noscript></div>
+
+
+<p>作成したファイルは source/_includes/custom/asides/aboutmetwitter.html に配置して使った。</p>
+
+<h2>_config.yml で変更したもの</h2>
+
+<pre><code># 続きを読む場合のリンクメッセージ
+excerpt_link: "続きを読む &amp;rarr;"
+
+# 右メニューに aboutmetwitter.html 追加
+default_asides: [custom/asides/aboutmetwitter.html, asides/recent_posts.html...
+
+* Disqus Comments を有効化
+disqus_short_name: awalog
+disqus_show_comment_count: true
+
+# Google Analytics 有効化
+google_analytics_tracking_id: UA-xxxxxxxx-x
+
+# ツイートボタンの表示
+twitter_tweet_button: true
+
+# フォローボタン非表示
+twitter_follow_button: false
+
+# Google+1ボタン表示
+google_plus_one: true
+
+# Facebook Like
+facebook_like: true
+</code></pre>
+
+<p>Disqus Comments は、Twitterアカウントで認証して short name を取得。Google Analytics も手持ちのgmail用のアカウントで取得。</p>
+
+<p>あと、変えることはない気がするけど</p>
+
+<pre><code># hatena bookmark
+hatena_bookmark_button: true
+</code></pre>
+
+<p>も足してみた。</p>
+
+<hr />
+
+<p>とりあえず、これくらいかな。</p>
+
+<p>あうあう寝なきゃ。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java.awt.List とお別れする方法]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/18/ignore-java-awt-list/"/>
+    <updated>2013-02-18T01:28:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/18/ignore-java-awt-list</id>
+    <content type="html"><![CDATA[<p>Eclipseの使い方的な内容</p>
+
+<!-- more -->
+
+
+<h1>Modderあるあるｗｗｗ</h1>
+
+<p>java.util.List が使いたいので、list とタイプして…</p>
+
+<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list1.png" alt="listまでタイプしたソースコード画像" /></p>
+
+<p>補完で自動インポートをかけようとすると…</p>
+
+<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
+
+<p>java.awt.List…てめーはダメだ！</p>
+
+<p>Eclipse で Java コーディングしてるとき、同じような経験をした事がある人は少なくないと思います。StringUtil(s) クラスあたりは、単純クラス名重複率のトップクラスなんじゃないでしょうか。プロジェクト毎、ライブラリ毎にいたりして、使うのはプロジェクト用のものと決まっているのに、毎度対話を求められたりすると、地味にめんどくさくて気になります。</p>
+
+<h1>使わないクラスはフィルタしちゃおう</h1>
+
+<p>実はちょうど Twitter でこの話題が出てたのと、前から気になってたので、調べてみました。</p>
+
+<h2>参考にしたサイト</h2>
+
+<p><a href="http://d.hatena.ne.jp/Yamashiro0217/20090322/1237707686" title="Yamashiro0217の日記">Eclipse のコード補完 (Complete) で java.awt.List とかを補完候補から除外したい場合の設定 &ndash; Yamashiro0217の日記</a></p>
+
+<p>やっぱ同じこと思う人いますよね。一発でみつかりました。</p>
+
+<h2>設定方法</h2>
+
+<p>すごく簡単。
+型フィルタの設定に、除外したいクラスの完全修飾名か、パッケージ名にワイルドカードを付けて追加するだけ。</p>
+
+<ol>
+<li>ウィンドウ</li>
+<li>設定</li>
+<li>Java</li>
+<li>外観</li>
+<li>型フィルター
+<img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
+</ol>
+
+
+<p>とりあえず、私は Entity や Point なども除外したかったので、以下を追加しました。</p>
+
+<ul>
+<li>java.awt.*</li>
+<li>javax.swing.*</li>
+<li>org.w3c.dom.*</li>
+</ul>
+
+
+<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
+
+<p>これで邪魔者はいなくなった！</p>
+
+<p>参考にしたサイトにも書いてありましたが、プロジェクト単位での設定ができないので、同一ワークスペース内でプロジェクトごとに変えることができない、ってのが難点ってとこでしょうか。でもまぁそのあたりは、コードテンプレートなんかを駆使し、完全修飾名を補完できるようにしてしまえば、多分困ることはないかなって気がします。</p>
+
+<p>むしろそっちの方がクラスごとにインポートしてるクラスがちがう、なんてことも起きにくくなっていいのかも…？</p>
+
+<hr />
+
+<p>ん…？</p>
+
+<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
+
+<p>き、きっと &ldquo;a&rdquo; で始まるからだよね…(´・ω・｀)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub + Octopress 試してみた]]></title>
+    <link href="http://alalwww.github.io/blog/2013/02/17/tried-github-octopress/"/>
+    <updated>2013-02-17T08:26:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/02/17/tried-github-octopress</id>
+    <content type="html"><![CDATA[<p>参考にしたサイト、設定、使い方などをメモ。</p>
+
+<!-- more -->
+
+
+<h1>なにこれ</h1>
+
+<p><a href="https://github.com">GitHub</a>で<a href="http://octopress.org">Octpress</a>つかってblogっぽいことできるらしいので試してみた。</p>
+
+<p>GitHub はここ見るような人なら知ってると思うので割愛。</p>
+
+<p>Octpressは技術屋が好きそうな感じのCUIベースで静的HTMLを作成する、ブログっぽいウェブサイトの生成ツール的なものだという認識してます。なんか間違ってる気もしますが、とりあえずそういう使い方しかしてないので気にしないことにします。ruby製みたいなので、そこらを触れる人は本体も好きに弄れそう。</p>
+
+<p>で、そのタコプレスがなんか GitHub と連携させれて、HitHubのユーザーIDのサブドメインも使わして貰えるらしいので、ちょっとやってみました。</p>
+
+<p>手順は何番煎じだよって感じなので割愛。(めんどくさい)</p>
+
+<p>なので、使用感とかそっちのほうを少し書いてってみます。</p>
+
+<h2>参考にしたサイトとか</h2>
+
+<ul>
+<li><a href="http://tokkonopapa.github.com/blog/2011/12/30/octopress-on-github-and-bitbucket/" title="Octopressのインストールから運用管理まで - T.I.D.">Octopressのインストールから運用管理まで &ndash; T.I.D.</a></li>
+<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/" title="GithubとOctopressでモダンな技術系ブログを作ってみる - Glide Note - グライドノート">GithubとOctopressでモダンな技術系ブログを作ってみる &ndash; Glide Note &ndash; グライドノート</a></li>
+<li><a href="http://mattn.kaoriya.net/software/lang/ruby/20111017205717.htm" title="Big Sky :: githubとjekyllとoctopressで作る簡単でモダンなブログ">Big Sky :: githubとjekyllとoctopressで作る簡単でモダンなブログ</a></li>
+</ul>
+
+
+<p>リポジトリの統合とかはとりあえず読み飛ばしてるけど、とりあえず動いたのでよし。</p>
+
+<p>今度…いつか本気出す…。</p>
+
+<h2>ちなみに環境はこんな感じ</h2>
+
+<p>普段使ってるPCはWin7で、Rubyとかも基本使ったりしてないので未インストール、ってことでサーバー機のVM上で動かしてるSSHサーバーに一式インストールして環境構築しました。</p>
+
+<p>サーバーのOSはCentOS5で、rubyのバージョンとか面倒なこともありましたが、参考にさせてもらったサイトでそのあたり既に解説されてたので特に苦労もなくさくっと環境できあがり。
+しかし、記事書くのに TeraTerm で繋いでそこで編集して…ってのは、Vimビームも口からLispもまだ出せそうにはない、にわかのWin勢にはちょっと辛いので、メインPCのほうから記事を編集できる環境を用意してみました。</p>
+
+<p>…といっても、特に手の込んだことはなにもなく、WinSCP で接続してーの、サクラエディタで編集してーの、TeraTermからデプロイを行いーの、っていう実にひねりのない環境。なので割愛。(めんどくさい)</p>
+
+<p>WinSCPに触ったのはかなり久しぶりだけど、なんかダブルクリックで任意のエディタでファイル開けて、保存したら自動でアップロードしてくれる、なかなか使いやすい機能ついててとても便利になってました(前からあったっけ…？)。これだとエクスプローラからファイル操作してるのと殆ど変わらない感じ。</p>
+
+<p>ブラウザから入力とかせずとも、使い慣れたエディタだけでサクサク書けるってのはやっぱいいね。基本ブラウザから書き込むことになる某所のトピックの編集では何度やらかしたことか…。</p>
+
+<h2>設定とか</h2>
+
+<p>とりあえずは _config.yml を弄るくらい。</p>
+
+<p>日時フォーマットとかちょっと微妙かなー、なんて思ってたら、_config.yml にめっちゃ書いてありました。説明書を読まないっぷりがやばい。反省。</p>
+
+<p>GitHub のリポジトリ表示とか、最近のツイート表示なんかも、デフォで連携プラグインが入ってるみたいで、上記設定ファイルを弄るだけで使えます。</p>
+
+<p>他にも、FaceBook のいいねボタン、Google+のなんかのボタン(よく知らない)、<a href="http://disqus.com">Disqus</a> を利用したコメント欄とかもつけれるみたいだけど、アカウント準備面倒だったのでそのうち本気出すってことで先延ばし。</p>
+
+<p>どうせコメントとかつかないので、コメ欄あっても寂しいだけじゃんか｡ﾟ(ﾟ∩´﹏`∩ﾟ)ﾟ｡</p>
+
+<p>もし何かあったら、twitter のほうにでもリプ投げ付けてください。</p>
+
+<h2>テーマとかないの</h2>
+
+<p>あるっちゃあるけど<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes" title="3rd Party Octopress Themes · imathis/octopress Wiki">公式にあるの</a>はめっちゃ少ないみたい。</p>
+
+<p>いくつか試してみたけど、基本的に日本語向きじゃないし、どうもしっくり来なくてデフォの classic に戻しました。基本的には他のテーマを参考にしたりしつつ、自分の好みに合わせていじってくって方向になりそう。</p>
+
+<p>とはいえセンス的なものが私に未実装なので、いつになるかは…。</p>
+
+<p>探せばもすこし公式にないテーマも見つかる気はするけど、言語の壁が厚くて英語戦闘力2には難易度高そう…。</p>
+
+<h2>記事の投稿とか</h2>
+
+<p>一通りやることやったら、テキストファイルを編集するだけなのでCUIに抵抗がない人だとかなり楽そう。</p>
+
+<p>カレントを octpress に移動して</p>
+
+<pre><code>$ rake new_post["URL用の英語タイトル"]
+</code></pre>
+
+<p>こんな感じでコマンド実行すると、ポスト本文のファイルが <code>octpress/source/_posts/</code> 以下に生成される。
+あと、生成されるファイルには生成日とかも入ってて、別に「タイトル」である必要はなさそうなので、その火の中で一意になる連番とかそういうのでも問題はないハズ。</p>
+
+<p>あとは生成されたテキストファイルをゴリゴリ編集していくだけで完成。
+書式は Markdown。これは、HTML簡単に理解してて、Wiki編集とかやる人だったら割と親しみやすい書式だと思う。基本使うのは見出しと本文とリスト、くらい。<a href="http://blog.2310.net/archives/6" title="blog::2310 » Markdown文法の全訳">このあたり</a>みればすぐ覚えれるくらい簡単。</p>
+
+<p>ってか Markdown は某フォーラムでも使いたいね…。URLの参照すごい便利。</p>
+
+<p>書いた内容の確認は</p>
+
+<pre><code>$ rake preview
+</code></pre>
+
+<p>で、ポート4000でプレビュー用のHTTPサーバーが起動するので、<code>http://サーバーIP:4000/</code> でブラウザから直接動かせるサイトにアクセスしながら確認できる。HTMLはリクエスト毎に変更チェックして生成してるみたいで、ブラウザ更新するだけで編集結果が即反映されるから確認がすごい楽ちん。サクラエディタで書いて保存→(WinSCPが勝手にアップロードしてくれる)→ブラウザ更新ボタンを押せば最新プレビュー。やばい。ローカルで静的HTMLファイルを編集してるような感じで作業できるのはすごくいい。</p>
+
+<p>あとは、プレビューサーバーを停止するときは、書いてあるとおりコンソールで<code>Ctrl+C</code>押すだけ。</p>
+
+<p>特に問題なければ、生成してデプロイ(push)しておしまい。</p>
+
+<pre><code>$ rake generate
+$ rake deploy
+</code></pre>
+
+<p>2つもコマンド打つのがめんどくさかったら、</p>
+
+<pre><code>$ rake gen_deploy
+</code></pre>
+
+<p>でやれば生成してpushまでやってくれる。</p>
+
+<p>他にやったことは、ファイル生成のコマンド入力する作業の手抜きのために WinSCP のコマンドで <code>rake new_post['!?title?!']</code> ってやって、新規ポスト作成するように設定追加したくらい。これで記事を起こすとこまではコマンドライン操作なしでできるようになりました。他のもWinSCPからやれないかと画策してみたけど、プレビュー鯖起動とかデプロイは、応答待ちになったり鍵パスが対話式だったりして、WinSCPから直接やるのは難しそうなので、TeraTerm 経由で操作するって感じに落ち着きました。</p>
+
+<h1>てことでblogはじまめした</h1>
+
+<p>環境作って試したりしてみたのは少し前だけど、このまま放置しててもなんかもったいないので、メモ帳代わりに細々となにかしら書いてみようかと思い、記事おこしてみました。</p>
+
+<p>調べたり覚えたりしたことを忘れないようにちゃんと書き残す習慣を身につけれるようになりたい。
+そして出来る子アッピルしていきたい。</p>
+
+<p>はてなダイヤリーを1記事で蒸発した経歴の持ち主なので、どうなることやらですが。</p>
+
+<h2>方向性とか</h2>
+
+<p>とりあえず、マイクラModding周りのこととか、お仕事で触ったりしたものとかのメモを残していく方向で。
+見た目まわりは改めて少しずついじっていくつもり。いきたい。とりあえずは先延ばし。</p>
+
+<hr />
+
+<p>って寝落ちなど挟みつつ色々弄ってたらもう8時半じゃん…だめじゃん…。</p>
+]]></content>
+  </entry>
+  
+</feed>

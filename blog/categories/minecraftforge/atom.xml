@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MinecraftForge | AwAlog]]></title>
+  <link href="http://alalwww.github.io/blog/categories/minecraftforge/atom.xml" rel="self"/>
+  <link href="http://alalwww.github.io/"/>
+  <updated>2013-12-09T03:56:24+09:00</updated>
+  <id>http://alalwww.github.io/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[version.properties メモ]]></title>
+    <link href="http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo/"/>
+    <updated>2013-05-05T21:11:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo</id>
+    <content type="html"><![CDATA[<p>意外と知られていないメタ情報ファイル。自動生成と相性よさげ。</p>
+
+<!-- more -->
+
+
+<h1>version.properties についてメモ</h1>
+
+<p>なにこれって思う modder のほうが多いような気がします。少なくとも日本のminecraft-modderでこれを用意してる人、見た記憶ないです。</p>
+
+<h2>@Mod アノテーションの version とバイバイできる version.properties</h2>
+
+<p>バージョンアップのたびに @Mod に設定した version を書き直し忘れて、リコンパイル、再難読化をもっかいやるハメになったことある modder は、少なくないんじゃないかなと思います。つか私はほぼ毎回更新を忘れます。だいたい zip が出来上がってから思い出します。画面殴りそうです。</p>
+
+<p>きちんとクラスをわけていくと、@Mod をつけたModクラスは初期化以外での出番は殆どなくなってしまうので、あまり更新する機会がありません。そのため見る機会自体が減っていきます。また、更新のたびにバージョンを書き換えるのは意外と面倒でわすれがちです。</p>
+
+<p>そうすると、プログラマーは自動更新を考えるわけです。ですが、ハードコーディングされているアノテーションを自動更新するのは、わりと大変。</p>
+
+<p>そんなときにこの version.properties です。外部ファイルからバージョン情報を設定してあげることで、コード修正を行わずにバージョンを設定できるようになります。</p>
+
+<h2>つかいかた</h2>
+
+<p>前置きが無駄に長くなりましたが、なんのことはありません。ファイル名は version.properties で mcmod.info と同様にzipのルートに配置すれば読んでくれます。</p>
+
+<p>プロパティファイルなのでコメントなども使えます。他の情報を追加することもできます。ただし日本語など、マルチバイト文字を使用する場合には、native2ascii などできちんと変換しないといけません。まぁ Pleiades Eclipse 使ってるならプロパティファイル用のエディタで編集するので、このあたりを意識する機会はあんまりないですが。</p>
+
+<p>このプロパティファイルで、@Mod アノテーションの version を設定できます。ただし優先度はアノテーションによる設定よりも低く、アノテーションでバージョンを設定している場合、無視されるようです。</p>
+
+<p>例えば、modid が &ldquo;net.awairo.minecraft.tooltipplus"、バージョンが "2.3.0&rdquo; であれば、こんな感じ。modid のあとに &ldquo;version&rdquo; を繋げたキーで値にバージョンの値です。</p>
+
+<pre><code>net.awairo.minecraft.tooltipplus.version = 2.3.0
+</code></pre>
+
+<p>これで @Mod(～, version = &ldquo;2.3.0&rdquo;) と同じ設定ができます。</p>
+
+<p>ちなみに、コード上からこのプロパティファイルを取得したい場合は、FMLPreInitialiseEvent から取得出来ます。@PreInitのほうです。</p>
+
+<p>バージョンアップの際にコードの修正が必要ないのと、プロパティファイルなので、自動生成が楽ちんなのがメリットですね。それに、自動生成するようにしておけばコミットする必要もなくなるので、コミットログに余計なファイルが混ざらないってメリットもあります。</p>
+
+<p>IronChest なんかは自動生成用のスクリプトをもっていて、それを使ってリリース毎に自動生成しているみたいです。私も真似してます。</p>
+
+<hr />
+
+<p>自動更新についても、気が向いたらそのうち書くかもしれませんが、向いたらで。</p>
+
+<p>Tooltip Plus のほうはだいたい自動化しちゃってますが、いろいろ余計なことしてていま見直してる最中なので、あんま参考にはならないとおもいます。</p>
+
+<p>SpawnCheckerのほうは作り直しが進んでないので、いまだにRML時代のままのクラス構成です。mod_SpawnCheckerです。毎回 getVersion() の戻り値の変更を忘れては「アアァァッ」って叫んでます。RMLバイバイしてFMLの機能つかいたいです。</p>
+
+<p>つか、このあたりは IronChest 見たほうが早いです。困ったときの IronChest。IronChset is God。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[@Mod アノテーションメモ]]></title>
+    <link href="http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo/"/>
+    <updated>2013-05-05T20:00:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo</id>
+    <content type="html"><![CDATA[<p>Modのメインクラスに付けるアノテーションの解説とか。実はmodid以外はなくてもいける。</p>
+
+<!-- more -->
+
+
+<h1>@Modアノテーションについて</h1>
+
+<p>FMF645 現在、以下の項目が設定可能です。</p>
+
+<pre><code>String modid
+String name default ""
+String version default ""
+String dependencies default ""
+boolean useMetadata default false
+String acceptedMinecraftVersions default ""
+String bukkitPlugin default ""
+String modExclusionList default ""
+String certificateFingerprint default ""
+String modLanguage default "java"
+String asmHookClass default ""
+</code></pre>
+
+<p>簡単な解説をしてみます。</p>
+
+<h2>@Modアノテーション 各項目の簡単な解説</h2>
+
+<p>詳しくは @Mod アノテーションの JavaDoc に書いてあるのでさわりだけ。過度な期待はうんたらかんたら。</p>
+
+<p>解説というよりは自分用の備忘録。</p>
+
+<h3>String modid</h3>
+
+<p>mod の識別子です。</p>
+
+<p>ユニーク値かつ必須。mcmod.info の解説でやったので省略。</p>
+
+<h3>String name default &ldquo;&rdquo;</h3>
+
+<p>mod の名前です。</p>
+
+<p>mcmod.info の値より優先度は低いみたいです。mcmod.info用意しているなら不要だと思います。</p>
+
+<h3>String version default &ldquo;&rdquo;</h3>
+
+<p>modのバージョンです。</p>
+
+<p>mcmod.info の値とは別の内部的なバージョン値です。</p>
+
+<p>依存チェックで使うバージョンのことも考えると</p>
+
+<pre><code>メジャー.マイナー.ビルドナンバー.リビジョン
+</code></pre>
+
+<p>みたいなような指定にするのが無難だと思います。</p>
+
+<p>このバージョンは version.properties からも設定できますが、アノテーションで指定したほうが優先度が高いようで、アノテーションに設定しちゃうと version.properties は無視されます。</p>
+
+<p>version.properties を使うなら設定不要です。</p>
+
+<h3>String dependencies default &ldquo;&rdquo;</h3>
+
+<p>依存関係指定用の文字列の設定用。</p>
+
+<p>javadocにも書いてあるように、RML (ModLoader) の BaseMod の getPriorities() を参照してください、とのことです。具体的には、require-before:mod-name とかって感じで設定する奴です。触ったことある人はあまりいない気がしますが。</p>
+
+<p>確か最近の RML の javadoc にはこのあたりの仕様が記載されていないので、さらにわけわかめです。古いRMLの javadoc を探せば見つかると思います。</p>
+
+<p>…思いますが、そんなもの漁るくらいなら mcmod.info  なりメタデータなりで指定した方が楽だし、バージョンでのチェックもできるのでオススメ。この文字列のパース機能は、BaseMod互換にするために残ってる機能みたいなもんだと思います。</p>
+
+<h3>boolean useMetadata default false</h3>
+
+<p>MetaData クラスを使用する場合 true に設定します。</p>
+
+<p>この値を true にすると、mcmod.info の依存関係のチェック用の情報をクリアします。mcmod.info で useDependencyInformation を true にしても無視されます。</p>
+
+<p>この設定は、Mod.Metadata アノテーションを利用するための設定なんじゃないかなーと思います。mcmod.infoは外部ファイルなので改変される可能性があるから、そのための制約なのではないかと。ちゃんと調べてないですが。</p>
+
+<h3>String acceptedMinecraftVersions default &ldquo;&rdquo;</h3>
+
+<p>許可するMinecraftのバージョンを設定します。</p>
+
+<p>通常設定する必要はないです。が、あえて過去ver専用のmodなどを作製する場合は、こいつを指定しておくといいかもしれないです。バージョン指定の書式はきちんと把握仕切れていないので、調べた時にでも書こうと思います。たぶん。</p>
+
+<p>簡単に具体例を上げておくと</p>
+
+<pre><code>acceptedMinecraftVersions = "[1.5,)"
+</code></pre>
+
+<p>これで1.5.x 以降のマイクラでのみ実行できる、って指定になります。たぶん。</p>
+
+<p>別にこれ、FML固有の書式ではなかったと思うので、検索すれば見つかると思います。Apache commons 関連のドキュメントだかで見た記憶があるような、ないような…。</p>
+
+<h3>String bukkitPlugin default &ldquo;&rdquo;</h3>
+
+<p>BukkitプラグインからロードされるためのプラグインのFQDNを設定します。</p>
+
+<p>…だと思いますがちゃんと調べてないので省略。必要になったら調べるかもしれないですが、当面は必要ないかなーと…。</p>
+
+<h3>String modExclusionList default &ldquo;&rdquo;</h3>
+
+<p>カンマ区切りでmodidを記述し、他modとの共存可否の設定を行えます。</p>
+
+<p>ようは拒否リストです。「貴方とは一緒に導入できないの」ってなるような設定をします。</p>
+
+<p>競合するからこのmodとは一緒に使えないよ、とか、(作者の意向として、)このModとは共存させたくないよ、ってModがある場合などに利用します。競合することがわかってる場合に事前に回避したり、modが想定している難易度を崩してしまうような別のmodが導入されることを認めない、みたいな感じに使うものだと思います。</p>
+
+<p>許可不許可を決める記号(+/&ndash;)を付与した modid をカンマ区切りで複数指定できます。許可する mod は modid の先頭に「+」、許可しない mod は先頭に「-」を指定します。modid の代わりに、すべての Mod を意味するワイルドカード「*」と、forge を意味するエイリアス「f」が使えます。何も指定しない場合は、全て許可「+*」と同じです。</p>
+
+<h3>String certificateFingerprint default &ldquo;&rdquo;</h3>
+
+<p>署名された jar を要求するようにするための設定。全て小文字で : が削除されたSHA-1の文字列。</p>
+
+<p>デフォルトでは署名された jar を要求しません。</p>
+
+<p>これはちょっとややこしいので省略。必要な人は自前で調べてください。</p>
+
+<p>mod を jar ファイルとしてリリースして META-INF/ を同梱して署名を用意し、クラスファイルの破損や改変がないことをチェックしたりとか、そういうやつです(たぶん)。</p>
+
+<p>本当はこの手のものは、開発者側がちゃんと理解して使用していくべきなんでしょうが、いろいろと敷居高い感がいなめない。それに、ユーザーもそういうの意識できる人って少ないですしね。</p>
+
+<h3>String modLanguage default &ldquo;java&rdquo;</h3>
+
+<p>mod を作製する際に用いられた言語の設定。</p>
+
+<p>日本語とかそういう「言語」ではなく、「プログラミング言語」です。"java" 以外に &ldquo;scala&rdquo; が指定できます。バイトコード変換時に必要になってくるんだと思います。</p>
+
+<p>まぁ scala で mod 作る好きものな人は説明しなくてもわかるはずなので省略。</p>
+
+<h3>String asmHookClass default &ldquo;&rdquo;</h3>
+
+<p>この mod からロードされるクラスに ASM を適用するための、フッククラスの FQDN を指定します。</p>
+
+<p>たぶん簡易的な coremod 設定みたいな感じです。そういうことやるコア層に説明は不要だろうって事で省略。</p>
+
+<h2>結局@Modには何を指定すればいいの？</h2>
+
+<p>modid は必須です。それ以外は全部オプションです。つまりはそういうことです。</p>
+
+<p>共存させたくない mod がある場合や、マイクラのバージョンを限定したい場合を除けば、普通は modid だけ指定すればOKでしょう。他の値のうちユーザーに伝える情報として重要になるものは mcmod.info と version.properties で指定ができるため、わざわざソースコード内ハードコードしておく必要はないとおもいます。</p>
+
+<hr />
+
+<p>しかし改めてみてみると、すごい充実してる。FMLヤバい。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[mcmod.info の要素と機能についてのメモ]]></title>
+    <link href="http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info/"/>
+    <updated>2013-05-05T19:24:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info</id>
+    <content type="html"><![CDATA[<p>各項目の説明とか。</p>
+
+<!-- more -->
+
+
+<h1>mcmod.infoの要素と機能についてのメモ</h1>
+
+<p>FML645現在、mcmod.info からは以下の項目がロードされていました。</p>
+
+<pre><code>[
+{
+  "modid": "net.awairo.minecraft.xxx",
+  "name": "awa sample mod",
+  "description": "this mod is sample.",
+  "url": "http://alalwww.github.io/",
+  "updateUrl": "http://alalwww.github.io/",
+  "logoFile": "logo.png",
+  "version": "1.0.0",
+  "credits": "By alalwww",
+  "parent": "",
+  "authors": ["alalwww"],
+  "requiredMods": [],
+  "dependencies": [],
+  "dependants": [],
+  "useDependencyInformation": "true"
+}
+]
+</code></pre>
+
+<h2>mcmod.info 各項目の簡単な解説</h2>
+
+<p>mcmod.info は単純な json ファイルです。jsonの仕様については他文献などを漁ってください。javascriptのオブジェクトと似た書式なので、触ったことある人ならすぐに分かると思います。</p>
+
+<p>値に指定できるのは「文字列」値と「配列」値の2種があり、項目ごとに決まっています。</p>
+
+<h3>modid</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod の識別子を設定します。</p>
+
+<p>@Modアノテーションの modId で指定したものと一致させる必要があります。</p>
+
+<p>id は必ずユニーク値でないといけないため、mod 固有のパッケージ名を指定するのがオススメ。</p>
+
+<p>蛇足ですが、javaにおけるパッケージ名は、ユニークであることが保証されているドメイン名を利用するのが一般的です。とはいえ、最近は「どうせ重複することなんかねーよ！うちのドメイン長いから冗長になるんだよボケェ！」って界隈も増えてきているので、必ずドメインを使わないといけないわけではありません。</p>
+
+<p>ドメインを使いたいけど持っていないって場合は GitHub Pages のURLを利用する手や、DDNSをとってそれを使う手もあります。modの名前と同じでも大丈夫ですが、世界中で常に一意であることが保証されているドメインと違い、重複する可能性は残ります。とはいえ現実的に考えて、minecraft の userid + mod名 とかなら重複する可能性はないと思いますので、そういうのでもOK。</p>
+
+<p>さらに蛇足ですが、FMLがmodの情報を出力する際に指定しているロガーの名前も、modidが使用されています。そのため、logging.properties でmod毎にログ出力の制御なんかも可能みたいです。試してないけど。</p>
+
+<h3>name</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod の名称を設定します。</p>
+
+<p>こちらは重複してもOKな値ですが、紛らわしいのでなるべく他と被らない「ステキ」で「ナイス」な名前を指定しましょう。ここで指定した名前が mod 一覧に表示されます。@Modアノテーションで指定した名前よりも優先されるようです。日本語も使えるようですが、英数のみのほうが無難じゃないかなと思います。</p>
+
+<h3>description</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>modの概要の説明文を設定します。</p>
+
+<p>英文のほうが無難だとは思いますが、現在は日本語も大丈夫みたいです(昔はダメだった気がします)。Mod一覧でModを選択した際に、一番したに表示されます。長い文章も改行されて表示されます。</p>
+
+<h3>url</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod のサイトを示すURLです。ここ見れば最新版DLできるよ的なURLを設定しておきましょう。</p>
+
+<h3>updateUrl</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod のアップデートサイトを示すURLです。現在のところmod一覧に表示される以外では使われていません。</p>
+
+<p>今後自動更新などに対応する目的で用意されているものかもしれません。(FMLのissueでそういった話題が出てた気がします。)</p>
+
+<h3>logoFile</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mod一覧で表示されるmodのロゴファイルパスを設定します。</p>
+
+<p>mod の zip ファイルのルートからのパスを指定します。対応している画像フォーマットは不明ですが、png では表示できるのを確認しています。画像サイズの制限があるのかも不明ですが、他modに合わせて 200 x 72 とするのが無難ではないかと思います。</p>
+
+<h3>version</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>modのバージョンを設定します。(多分表示のみで使われるバージョン。)</p>
+
+<p>このバージョンは mod のメタデータに持つバージョンで、@Mod アノテーションで指定されるバージョン(version.propertiesからも指定可能)とは別のものとして扱われています。また、依存関係チェックの際のバージョンとしては使用されない値のようです。</p>
+
+<p>mod一覧でにVersionはこのように表示されています。</p>
+
+<pre><code>Version: [mcmod.infoで設定したバージョン] ([Modアノテーションまたはversion.propertiesで設定したバージョン])
+</code></pre>
+
+<p>先に表示されているのが、mcmod.info で指定したバージョンです。括弧書きのほうが @Mod アノテーションで設定されているバージョンとなります。おそらくユーザーライクな表示用バージョンと、依存関係のチェックなどでも使用する内部的なバージョンを分けるためのに分けてあるのだと思います。</p>
+
+<p>なお、先にも記載していますが、@Modアノテーションで設定するバージョン値は version.properties ファイルから指定することができます。別記事で書きます。</p>
+
+<h3>credits</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>クレジットを設定します。</p>
+
+<p>なんとなく馴染みが薄い感がありますが、個人開発のmodであれば個人名など、グループで開発しているのであれば、グループ名などを指定するような感じです。</p>
+
+<p>アニメのEDの最後とかに表示される「○○製作委員会」とか、そういう感じです。</p>
+
+<h3>parent</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>親 mod のidを設定します。</p>
+
+<p>他mod の add-on を作成する場合などに利用するものです。</p>
+
+<p>ここで親modを指定した場合、mod一覧には表示されないようになり、親として指定したmodの情報に、子 mod 名として表示されるようになります。</p>
+
+<h3>authors</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>modの作者の一覧を設定します。</p>
+
+<p>配列で指定します。</p>
+
+<h3>requiredMods</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>必須 mod の一覧を設定します。</p>
+
+<p>useDependencyInformation を有効に指定しないと意味がありません。</p>
+
+<p>「modid」または「modid@バージョン」という書式(別記事で解説予定)の文字列で複数指定ができます。ただし、ここで指定したバージョンはFML645現在チェックには使用されません。しかし、必須チェックが下記の依存関係チェックよりも先に行われ、エラーメッセージにもバージョンが表示されるようになります。そのため、必須modのバージョンも指定したいのであれば、ここにもバージョンを指定しておくほうが無難です。</p>
+
+<h3>dependencies</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>自身より先に初期化が行われる必要がある mod の一覧を設定します。</p>
+
+<p>useDependencyInformation を有効に指定しないと意味がありません。</p>
+
+<p>ここで指定したmodは、自身より先に初期化が行われます。「modid」または「modid@バージョン」という書式(別記事で解説予定)の文字列で複数指定ができます。依存するModのバージョンによる条件の指定が有効です。</p>
+
+<h3>dependants</h3>
+
+<ul>
+<li>配列</li>
+</ul>
+
+
+<p>自身より後に初期化が行われる必要がある mod の一覧を設定します。</p>
+
+<p>useDependencyInformation を有効に指定しないと意味がありません。</p>
+
+<p>ここで指定したmodは、自身より<del>先</del>後に初期化が行われます。「modid」または「modid@バージョン」という書式(別記事で解説予定)の文字列で複数指定ができます。依存するModのバージョンによる条件の指定が有効です。</p>
+
+<h3>useDependencyInformation</h3>
+
+<ul>
+<li>文字列</li>
+</ul>
+
+
+<p>mcmod.info に書かれた依存関係の情報をmodの読み込み時に使用するかの設定です。</p>
+
+<p>文字列 &ldquo;true&rdquo; を指定した場合のみ有効になります。それ以外の値が指定されたか、何も指定されていない場合、mcmod.infoの情報は実行時に全てクリアされます。つまり、この値をtrueにしないと依存関係チェックは行われません。ただし、@Mod の useMetadata より優先度が低いため、あちらが true に設定された場合は mcmod.info の情報はクリアされます。</p>
+
+<hr />
+
+<p>20 June, 2013 誤記を修正(つやぴん氏thx)</p>
+]]></content>
+  </entry>
+  
+</feed>

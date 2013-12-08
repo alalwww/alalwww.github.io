@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>AwAlog</title>
+  <title>下書きがしたい - AwAlog</title>
   <meta name="author" content="alalwww">
 
   
-  <meta name="description" content="Octopressを再インストールしたのでその手順をメモしました。 ">
+  <meta name="description" content="Octopressで下書きを行う方法と、記事のテンプレートの修正についてメモ。 Octopressでも記事の下書きがしたい テーマを変更する前に書きかけ記事があったので、そちらを下書きにしたいと思っていたのですが、探してみたら、ちょうどいい解説記事がありました。 postのファイルの先頭で、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://alalwww.github.io">
+  <link rel="canonical" href="http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
@@ -73,58 +73,12 @@
 </nav> -->
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/09/reinstall-octopress/">Octpress再インストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-09T02:20:00+09:00" pubdate data-updated="true">[12/09(Mon) - 2013] 02:20 (+0900)</time>
-        
-         | <a href="/blog/2013/12/09/reinstall-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Octopressを再インストールしたのでその手順をメモしました。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/09/reinstall-octopress/">more &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/05/how-to-use-drafts/">下書きがしたい</a></h1>
+      <h1 class="entry-title">下書きがしたい</h1>
     
     
       <p class="meta">
@@ -142,79 +96,61 @@
 
 <time datetime="2013-12-05T02:57:00+09:00" pubdate data-updated="true">[12/05(Thu) - 2013] 02:57 (+0900)</time>
         
-         | <a href="/blog/2013/12/05/how-to-use-drafts/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Octopressで下書きを行う方法と、記事のテンプレートの修正についてメモ。</p>
+<div class="entry-content"><p>Octopressで下書きを行う方法と、記事のテンプレートの修正についてメモ。</p>
 
+<!--more-->
+
+
+<h1>Octopressでも記事の下書きがしたい</h1>
+
+<p>テーマを変更する前に書きかけ記事があったので、そちらを下書きにしたいと思っていたのですが、探してみたら、<a href="http://chopl.in/blog/2012/05/27/how-to-preview-drafts-with-octopress.html">ちょうどいい解説記事</a>がありました。</p>
+
+<p>postのファイルの先頭で、<code>published: false</code>に設定しておくだけで下書きになるみたい。ただしプレビューでは表示される。</p>
+
+<h2>プレビューで下書き記事が出るときと出ない時がある。</h2>
+
+<p><code>rake generate</code>では下書きは生成されないが、<code>rake preview</code>で起動中の再生成時には下書き記事も生成されるみたい。</p>
+
+<p>なので、いきなり<code>rake preview</code>で起動した場合は常に表示される。ただし<code>rake generate</code>を行ってから<code>rake preview</code>を行うと、初回のプレビュー時だけ表示されず、ブラウザでF5を押すと下書きの記事が生成されて見えるようになる。</p>
+
+<h2>やっぱ新規作成時に用意しておいてほしいよね</h2>
+
+<p><code>rake new_post['title']</code>した時に初期値が入っててくれたほうが便利なので、テンプレートを探してみるも見つからない。もしやと思って<code>Rakefile</code>を覗いてみたら、テンプレートがベタ書きされてました。</p>
+
+<p><a href="http://blog.4uing.net/octopress-post/">こちらのサイト</a>によると、<code>published</code>の他に、<code>author</code>と<code>external-url</code>(外部リンクの設定)があるようです。せっかくなので合わせて追加。ただし外部リンクは不要なのでスルー。</p>
+
+<pre><code>post.puts "---"
+post.puts "layout: post"
+post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
+post.puts "author: alalwww"
+post.puts "comments: true"
+post.puts "published: true"
+post.puts "title: \"#{title.gsub(/&amp;/,'&amp;amp;')}\""
+post.puts "categories: "
+post.puts "---"
+post.puts ""
+post.puts "&lt;!--more--&gt;"
+</code></pre>
+
+<p>テーマ変更にあわせて記事に頭で&lt;!&mdash;more&mdash;&gt;を挟むようにしたので、そのあたりも含めてみた。これは結構いいカンジっぽい…？</p>
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/05/how-to-use-drafts/">more &rarr;</a>
-    </footer>
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/05/theme-changed/">テーマ変更。他Octpressのカスタマイズとか。</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">alalwww</span></span>
 
-<time datetime="2013-12-05T02:36:00+09:00" pubdate data-updated="true">[12/05(Thu) - 2013] 02:36 (+0900)</time>
-        
-         | <a href="/blog/2013/12/05/theme-changed/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>テーマ変更の手順とテーマのカスタマイズなど。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/12/05/theme-changed/">more &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/05/version-dot-properties-memo/">version.properties メモ</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -226,292 +162,48 @@
   
 
 
-<time datetime="2013-05-05T21:11:00+09:00" pubdate data-updated="true">[05/05(Sun) - 2013] 21:11 (+0900)</time>
-        
-         | <a href="/blog/2013/05/05/version-dot-properties-memo/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>意外と知られていないメタ情報ファイル。自動生成と相性よさげ。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/05/version-dot-properties-memo/">more &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2013-12-05T02:57:00+09:00" pubdate data-updated="true">[12/05(Thu) - 2013] 02:57 (+0900)</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/05/mod-annotation-memo/">@Mod アノテーションメモ</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
   
+    <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+  
+</span>
 
 
-<time datetime="2013-05-05T20:00:00+09:00" pubdate data-updated="true">[05/05(Sun) - 2013] 20:00 (+0900)</time>
-        
-         | <a href="/blog/2013/05/05/mod-annotation-memo/#disqus_thread">Comments</a>
-        
-      </p>
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>Modのメインクラスに付けるアノテーションの解説とか。実はmodid以外はなくてもいける。</p>
-
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/05/mod-annotation-memo/">more &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/05/mcmod-dot-info/">mcmod.info の要素と機能についてのメモ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-05T19:24:00+09:00" pubdate data-updated="true">[05/05(Sun) - 2013] 19:24 (+0900)</time>
-        
-         | <a href="/blog/2013/05/05/mcmod-dot-info/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>各項目の説明とか。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/05/mcmod-dot-info/">more &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/blog/2013/12/05/theme-changed/" title="Previous Post: テーマ変更。他Octpressのカスタマイズとか。">&laquo; テーマ変更。他Octpressのカスタマイズとか。</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/24/blog-customization2/">Octopressカスタマイズ2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-24T11:31:00+09:00" pubdate data-updated="true">[02/24(Sun) - 2013] 11:31 (+0900)</time>
-        
-         | <a href="/blog/2013/02/24/blog-customization2/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>主にテーマの改造など。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/02/24/blog-customization2/">more &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/19/blog-customization1/">Octopressカスタマイズ1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-19T03:47:00+09:00" pubdate data-updated="true">[02/19(Tue) - 2013] 03:47 (+0900)</time>
-        
-         | <a href="/blog/2013/02/19/blog-customization1/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>はてブボタン追加やsharingの表示位置の追加、サイドメニューのカスタマイズ、続きを読むボタン表示、設定の見直しなどについてのメモ(1)。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/02/19/blog-customization1/">more &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment right" href="/blog/2013/12/09/reinstall-octopress/" title="Next Post: Octpress再インストール">Octpress再インストール &raquo;</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/18/ignore-java-awt-list/">java.awt.List とお別れする方法</a></h1>
-    
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-18T01:28:00+09:00" pubdate data-updated="true">[02/18(Mon) - 2013] 01:28 (+0900)</time>
-        
-         | <a href="/blog/2013/02/18/ignore-java-awt-list/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Eclipseの使い方的な内容</p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/02/18/ignore-java-awt-list/">more &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/17/tried-github-octopress/">GitHub + Octopress 試してみた</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-17T08:26:00+09:00" pubdate data-updated="true">[02/17(Sun) - 2013] 08:26 (+0900)</time>
-        
-         | <a href="/blog/2013/02/17/tried-github-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>参考にしたサイト、設定、使い方などをメモ。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/02/17/tried-github-octopress/">more &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -564,7 +256,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/alalwww">@alalwww</a> on GitHub
@@ -608,6 +300,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -622,7 +315,10 @@
       var disqus_shortname = 'awalog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts/';
+        var disqus_url = 'http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
