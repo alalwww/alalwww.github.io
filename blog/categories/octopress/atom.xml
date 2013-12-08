@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Octopress | AwAlog]]></title>
   <link href="http://alalwww.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://alalwww.github.io/"/>
-  <updated>2013-12-09T05:09:56+09:00</updated>
+  <updated>2013-12-09T05:27:31+09:00</updated>
   <id>http://alalwww.github.io/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressにタグクラウドプラグインを追加]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/"/>
+    <updated>2013-12-09T05:11:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/09/add-tag-cloud-plugin-on-octopress</id>
+    <content type="html"><![CDATA[<p>右のサイドバーに、「カテゴリリスト」と「タグクラウド」を追加したのでメモ。</p>
+
+<!--more-->
+
+
+<h1>タグクラウドプラグインの導入</h1>
+
+<p><a href="http://tokkonopapa.github.io/blog/2012/01/04/octopress-plugin-for-categories-cloud/">このサイト</a>を参考にプラグイン導入。</p>
+
+<h2>手順</h2>
+
+<p>クローンしてきてコピーで導入。</p>
+
+<pre><code>$ ~/git/
+$ git clone https://github.com/tokkonopapa/octopress-tagcloud.git octopress-tagcloud
+$ cp octopress-tagcloud/plugins ~/octopress/plugins
+$ cp octopress-tagcloud/source/_includes/custom/asides/ ~/octopress/source/_includes/custom/asides/
+</code></pre>
+
+<p><code>_config.yml</code>の<code>default_asides</code>に追加。</p>
+
+<pre><code>$ cd ~/octopress
+$ vi _config.yml
+    (追加)
+</code></pre>
+
+<p>再生成して確認し問題なさそうなのでDeploy</p>
+
+<pre><code>$ rake generate
+$ rake preview
+    (動作確認、デザイン確認)
+$ rake gen_deploy
+</code></pre>
+
+<p>あとは内容に応じて適当に分けてコミットしてって、bitbucketにもpushしておわり。</p>
+
+<p>右側に感じてた違和感っぽいのが減ってきて、それっぽくなった気がするのでとても満足。</p>
+
+<p>いい加減寝ないとまずそう…。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octpress再インストール]]></title>
@@ -558,198 +605,6 @@ $indented-lists: true;
 <hr />
 
 <p>他にもなにか変えたとこあった気もするけど、忘れちゃったのでここまで。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressカスタマイズ1]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/19/blog-customization1/"/>
-    <updated>2013-02-19T03:47:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/19/blog-customization1</id>
-    <content type="html"><![CDATA[<p>はてブボタン追加やsharingの表示位置の追加、サイドメニューのカスタマイズ、続きを読むボタン表示、設定の見直しなどについてのメモ(1)。</p>
-
-<!-- more -->
-
-
-<h1>色々設定変更してみた</h1>
-
-<h2>はてブボタン追加</h2>
-
-<p>はてなは使うことないけど、使ってる人は多いので媚売っとこってことで。</p>
-
-<p>source/_includes/post/sharing.html
-<div><script src='https://gist.github.com/4979540.js'></script>
-<noscript><pre><code>&lt;div class=&quot;sharing&quot;&gt;
-  {% if site.twitter_tweet_button %}
-  &lt;a href=&quot;http://twitter.com/share&quot; class=&quot;twitter-share-button&quot; data-url=&quot;{{ site.url }}{{ page.url }}&quot; data-via=&quot;{{ site.twitter_user }}&quot; data-counturl=&quot;{{ site.url }}{{ page.url }}&quot; &gt;Tweet&lt;/a&gt;
-  {% endif %}
-  {% if site.hatena_bookmark_button %}
-  &lt;a href=&quot;http://b.hatena.ne.jp/entry/{{ site.url }}{{ page.url }}&quot; class=&quot;hatena-bookmark-button&quot; data-hatena-bookmark-layout=&quot;simple-balloon&quot; title=&quot;このエントリーをはてなブックマークに追加&quot;&gt;&lt;img src=&quot;http://b.st-hatena.com/images/entry-button/button-only.gif&quot; alt=&quot;このエントリーをはてなブックマークに追加&quot; width=&quot;20&quot; height=&quot;20&quot; style=&quot;border: none;&quot; /&gt;&lt;/a&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;http://b.st-hatena.com/js/bookmark_button.js&quot; charset=&quot;utf-8&quot; async=&quot;async&quot;&gt;&lt;/script&gt;
-  {% endif %}
-  {% if site.google_plus_one %}
-  &lt;div class=&quot;g-plusone&quot; data-size=&quot;{{ site.google_plus_one_size }}&quot;&gt;&lt;/div&gt;
-  {% endif %}
-  {% if site.facebook_like %}
-  &lt;div class=&quot;fb-like&quot; data-send=&quot;true&quot; data-width=&quot;400&quot; data-show-faces=&quot;false&quot;&gt;&lt;/div&gt;
-  {% endif %}
-&lt;/div&gt;
-</code></pre></noscript></div>
-</p>
-
-<p>5～7の部分がそれ。後述のコンフィグファイルで表示制御も追加してます。</p>
-
-<h2>記事タイトルの直下に sharing を追加</h2>
-
-<p>スクロールせずに押したいかもしれないので。</p>
-
-<p>source/_includes/article.html
-<div><script src='https://gist.github.com/4979575.js'></script>
-<noscript><pre><code>{% unless page.no_header %}
-  &lt;header&gt;
-    {% if index %}
-      &lt;h1 class=&quot;entry-title&quot;&gt;&lt;a href=&quot;{{ root_url }}{{ post.url }}&quot;&gt;{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}&lt;/a&gt;&lt;/h1&gt;
-    {% else %}
-      &lt;h1 class=&quot;entry-title&quot;&gt;{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}&lt;/h1&gt;
-    {% include post/sharing.html %}
-    {% endif %}
-    {% unless page.meta == false %}
-      &lt;p class=&quot;meta&quot;&gt;
-        {% include post/date.html %}{{ time }}
-        {% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
-         | &lt;a href=&quot;{% if index %}{{ root_url }}{{ post.url }}{% endif %}#disqus_thread&quot;&gt;Comments&lt;/a&gt;
-        {% endif %}
-      &lt;/p&gt;
-    {% endunless %}
-  &lt;/header&gt;
-{% endunless %}
-{% if index %}
-  &lt;div class=&quot;entry-content&quot;&gt;{{ content | excerpt }}&lt;/div&gt;
-  {% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
-  {% if excerpted == 'true' %}
-    &lt;footer&gt;
-      &lt;a rel=&quot;full-article&quot; href=&quot;{{ root_url }}{{ post.url }}&quot;&gt;{{ site.excerpt_link }}&lt;/a&gt;
-    &lt;/footer&gt;
-  {% endif %}
-{% else %}
-&lt;div class=&quot;entry-content&quot;&gt;{{ content }}&lt;/div&gt;
-{% endif %}
-</code></pre></noscript></div>
-</p>
-
-<p><del>8行目に読み込み処理追加しただけ。</del></p>
-
-<p>(2012/02/24 追記) <code>{% endif %}</code> の後に <code>{% include post/sharing.html %}</code> を続けると、indexページにも表示されてしまうので、7行目に追加に修正しました。</p>
-
-<h2>「続きを読む &rarr;」の表示方法</h2>
-
-<p>excerpt_linkで設定した、「続きを読みたい場合わっふるわっふる」を追加するのは、記事中にHTMLコメントを書くだけ。</p>
-
-<pre><code>　：
-index にも表示される記事
-
-&lt;!-- more --&gt;
-
-個別ページに遷移しないと表示されない記事
-　：
-</code></pre>
-
-<p>設定とか要らない。</p>
-
-<h2>右メニューのカスタマイズ</h2>
-
-<ul>
-<li>AboutMeを追加</li>
-</ul>
-
-
-<p><a href="https://github.com/dharFr/octo-about-me-from-twitter" title="dharFr/octo-about-me-from-twitter · GitHub">これ</a>を流用。READMEにはcloneしてくる手順が書いてあるが、直接ファイルを開いて中身をコピペしてもOK。
-ツイッターのフォローをこっちに追加したので、Latest Tweets のフォローボタンは削除。</p>
-
-<p><div><script src='https://gist.github.com/4979398.js'></script>
-<noscript><pre><code>{% if site.twitter_user %}
-&lt;section&gt;
-  &lt;h1&gt;About Me&lt;/h1&gt;
-  &lt;div id=&quot;twitter-profile&quot; style=&quot;margin-top:0.5em;&quot;&gt;
-    &lt;p&gt;
-      &lt;strong&gt;{{site.author}}&lt;/strong&gt; 
-      (&lt;a href=&quot;http://twitter.com/{{site.twitter_user}}&quot;&gt;@{{ site.twitter_user }}&lt;/a&gt;)
-    &lt;/p&gt;
-    &lt;p&gt;Getting profile from Twitter...&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;script type=&quot;text/javascript&quot;&gt;
-    $.domReady(function(){
-        var container = $('#twitter-profile'),
-            user = &quot;{{site.twitter_user}}&quot;;
-        
-        function parseTwLinks(s) {
-          var twUrl = &quot;http://www.twitter.com/&quot;
-          s = s.replace(/ (@([\w]+))/g, function(match, p1, p2) {
-              return &quot; &lt;a href='&quot;+twUrl+p2+&quot;'&gt;&quot;+p1+&quot;&lt;/a&gt;&quot;
-          }).replace(/ (#([\w]+))/g, function(match, p1, p2) {
-              return &quot; &lt;a href='&quot;+twUrl+&quot;#!/search?q=%23&quot;+p2+&quot;'&gt;&quot;+p1+&quot;&lt;/a&gt;&quot;
-          })
-          return s
-        }
-
-        $.ajax({
-            url: &quot;http://api.twitter.com/1/users/show.json?include_entities=false&amp;screen_name=&quot;+user+&quot;&amp;callback=?&quot;
-          , type: 'jsonp'
-          , error: function (err) { $('#twitter-profile').addClass('error');  }
-          , success: function(data) {
-              container.html('&lt;img class=&quot;left&quot; src=&quot;http://api.twitter.com/1/users/profile_image/'+user+'.json?size=bigger&quot; alt=&quot;@'+user+'&quot;&gt;&lt;div&gt;&lt;strong&gt;'+data.name+'&lt;/strong&gt; (&lt;a href=&quot;http://twitter.com/'+user+'&quot;&gt;@'+user+'&lt;/a&gt;)&lt;/div&gt;&lt;div style=&quot;font-size:80%&quot;&gt;'+data.location+'&lt;/div&gt;&lt;div&gt;&lt;a href=&quot;http://twitter.com/{{ site.twitter_user }}&quot; class=&quot;twitter-follow-button&quot; data-show-count=&quot;{{ site.twitter_show_follower_count }}&quot;&gt;Follow @{{ site.twitter_user }}&lt;/a&gt;&lt;/div&gt;&lt;p style=&quot;clear:both;font-size:80%&quot;&gt;'+parseTwLinks(data.description)+'&lt;/p&gt;');
-            }
-        })
-      });
-  &lt;/script&gt;
-&lt;/section&gt;
-{% endif %}
-</code></pre></noscript></div>
-
-作成したファイルは source/_includes/custom/asides/aboutmetwitter.html に配置して使った。</p>
-
-<h2>_config.yml で変更したもの</h2>
-
-<pre><code># 続きを読む場合のリンクメッセージ
-excerpt_link: "続きを読む &amp;rarr;"
-
-# 右メニューに aboutmetwitter.html 追加
-default_asides: [custom/asides/aboutmetwitter.html, asides/recent_posts.html...
-
-* Disqus Comments を有効化
-disqus_short_name: awalog
-disqus_show_comment_count: true
-
-# Google Analytics 有効化
-google_analytics_tracking_id: UA-xxxxxxxx-x
-
-# ツイートボタンの表示
-twitter_tweet_button: true
-
-# フォローボタン非表示
-twitter_follow_button: false
-
-# Google+1ボタン表示
-google_plus_one: true
-
-# Facebook Like
-facebook_like: true
-</code></pre>
-
-<p>Disqus Comments は、Twitterアカウントで認証して short name を取得。Google Analytics も手持ちのgmail用のアカウントで取得。</p>
-
-<p>あと、変えることはない気がするけど</p>
-
-<pre><code># hatena bookmark
-hatena_bookmark_button: true
-</code></pre>
-
-<p>も足してみた。</p>
-
-<hr />
-
-<p>とりあえず、これくらいかな。</p>
-
-<p>あうあう寝なきゃ。</p>
 ]]></content>
   </entry>
   
