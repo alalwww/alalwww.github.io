@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Octopress | AwAlog]]></title>
   <link href="http://alalwww.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://alalwww.github.io/"/>
-  <updated>2013-12-14T14:25:28+09:00</updated>
+  <updated>2013-12-14T14:42:06+09:00</updated>
   <id>http://alalwww.github.io/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -14,11 +14,30 @@
 
   
   <entry>
-    <title type="html"><![CDATA[GitHub Pages で独自ドメインを使う方法]]></title>
+    <title type="html"><![CDATA[ツイーヨボタン復活]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/14/enable-tweet-button/"/>
+    <updated>2013-12-14T14:43:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/14/enable-tweet-button</id>
+    <content type="html"><![CDATA[<p>需要ないと思うけど、設定忘れで消えてたので復活。</p>
+
+<!--more-->
+
+
+<h1>やったこと</h1>
+
+<p>_config.ymlで有効にしただけ。</p>
+
+<pre><code>twitter_tweet_button: true
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub Pagesで独自ドメインを使う方法]]></title>
     <link href="http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages/"/>
     <updated>2013-12-14T14:23:00+09:00</updated>
     <id>http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages</id>
-    <content type="html"><![CDATA[<p>ドメインの延長更新のついでに、GitHub Pagesのカスタムドメインの設定したのでメモ。</p>
+    <content type="html"><![CDATA[<p>ドメインの延長更新のついでに、<a href="http://pages.github.com/">GitHub Pages</a>のカスタムドメインの設定したのでメモ。</p>
 
 <!--more-->
 
@@ -48,7 +67,7 @@
 <h2>DNS側</h2>
 
 <ol>
-<li><code>blog.awairo.net</code>の別名として<code>alalwww.github.io.</code>を設定するCNAMEレコードを追加する。</li>
+<li><code>blog.awairo.net</code>の別名として、<code>alalwww.github.io.</code>を設定する、CNAMEレコードを追加する。</li>
 </ol>
 
 
@@ -509,148 +528,6 @@ post.puts "&lt;!--more--&gt;"
 </code></pre>
 
 <p>テーマ変更にあわせて記事に頭で&lt;!&mdash;more&mdash;&gt;を挟むようにしたので、そのあたりも含めてみた。これは結構いいカンジっぽい…？</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[テーマ変更。他Octpressのカスタマイズとか。]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/05/theme-changed/"/>
-    <updated>2013-12-05T02:36:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/05/theme-changed</id>
-    <content type="html"><![CDATA[<p>テーマ変更の手順とテーマのカスタマイズなど。</p>
-
-<!--more-->
-
-
-<h1>テーマの変更手順</h1>
-
-<p>Octopress導入当時、あまりﾃｨﾝとくるテーマがみつけられなかったので、クラシックを少しいじる程度でいつか本気を出そうと思いつつ放置してたのですが、やっぱりなんだかぱっとしないので、思い切ってテーマを変えてみました。</p>
-
-<p>とりあえず、<a href="http://namusyaka.github.io/blog/2012/10/03/github-jekyll/">「Octopress テーマ」で検索して最初に目についたサイト</a>を参考にさせてもらいながら、テーマを変更してみました。</p>
-
-<p>手順はこんなかんじになります。</p>
-
-<ol>
-<li><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">GitHubのサードパーティ製テーマのページ</a>を開く。</li>
-<li>PreviewやScreenShotを見て気に入る物を探す。</li>
-<li>各テーマの導入手順通りに導入する。</li>
-</ol>
-
-
-<p>だけ！</p>
-
-<p>テーマもGitHub上で公開されているので、Cloneしてきてインストールするだけです。実に楽ちん。</p>
-
-<p><a href="https://github.com/roberto/oct2-orange">oct2-orange</a>のオレンジという単語に惹かれてさくっと決定。</p>
-
-<pre><code>$ git submodule add git://github.com/roberto/oct2-orange.git .themes/oct2-orange
-$ rake install[oct2-orange] 
-</code></pre>
-
-<p>丸コピってコマンドを打ち込むと…</p>
-
-<pre><code>It seems your ruby installation is missing psych (for YAML output). To eliminate this warning, please install libyaml and reinstall your ruby.
-</code></pre>
-
-<h2>なんかrubyの警告が出てる</h2>
-
-<p>どうやらCentOS5(6も)の環境にRubyをいれるときに出くわす問題っぽい？</p>
-
-<p><a href="http://d.hatena.ne.jp/donbulinux/20111111/1321004527">エラーメッセージで検索して最初に目についたサイト</a>を参考に、libyamlをインストール。libyamlのバージョンとかConfigureのオプションとかを一切確認せず、コマンドを丸コピペしてEnter。</p>
-
-<pre><code>$ wget http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz
-$ tar -zxvf yaml-0.1.4.tar.gz
-$ cd yaml-0.1.4
-$ ./configure
-$ make
-$ sudo make install
-</code></pre>
-
-<p>問題なく終わったみたいなので、以前Rubyを導入したときのディレクトリに移動してrubyも再インストール。</p>
-
-<pre><code>$ cd ~/ruby/ruby-1.9.3-p374
-$ ./configure
-$ make
-$ sudo make install
-</code></pre>
-
-<p>できたっぽい。頑張ったっぽい？</p>
-
-<h2>今度こそテーマをインストール</h2>
-
-<pre><code>$ rake install[oct2-orange] 
-A theme is already installed, proceeding will overwrite existing files. Are you sure? [y/n]
-</code></pre>
-
-<p>念のためのバックアップはとっているので、yを選んでテーマを上書き。</p>
-
-<h1>設定変更など</h1>
-
-<p>やったことなどメモ。もう既に忘れかけ。</p>
-
-<h2>ナビバー表示</h2>
-
-<p>テーマの配布元に書いてあるとおりに_config.yml の <code>default_asides</code> を編集してナビバーを表示。</p>
-
-<pre><code>default_asides: [asides/nav.html, custo...
-</code></pre>
-
-<h2>ナビバーのE-mailボタンを削除</h2>
-
-<p><code>source/_includes/asides/nav.html</code> から以下の行を削除。</p>
-
-<pre><code>&lt;a href="mailto:" alt="E-Mail"&gt;&lt;img src="/images/Envelope.png"&gt;&lt;/a&gt;
-</code></pre>
-
-<h2>フォント変更</h2>
-
-<p>scss/custom/_fonts.scssを修正</p>
-
-<pre><code>$sans: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
-$serif: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;
-$heading-font-family: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;;
-</code></pre>
-
-<p>今度はConsolasを足してみた。</p>
-
-<h2>リストの左マージンを設定</h2>
-
-<p>リストが左に寄ってる感じなので、適当にマージンを追加。</p>
-
-<p>_styles.scss</p>
-
-<pre><code>/* ----- Content ----- */
-  :(中略)
-#content {
-  article {
-    ul {
-      margin-left: 25px;
-    }
-    ol {
-      margin-left: 40px;
-    }
-  }
-}
-</code></pre>
-
-<p>なんか、このスタイルの定義ファイル、元からある記述はネストされてなくてちょっと見づらい…。</p>
-
-<h2>htmlタグのlang属性を日本語に変更</h2>
-
-<p><a href="/blog/2013/02/24/blog-customization2/">以前</a>やったのと同じように<code>octopress/source/_includes/head.html</code>を編集。</p>
-
-<pre><code>&lt;html class="no-js" lang="ja"&gt;
-</code></pre>
-
-<hr />
-
-<p>足りない変更はまた後日行う予定。スタイルももう少し弄りたいし、はてブボタンとかサイドバーへの手直しなどが足りてなさそう。時間も足りてなさそう。(╯•﹏•╰)</p>
-
-<p>サイトのタイトルとか出ないのはそういうテーマっぽいけれど、左上にトップに戻るリンクないと落ち着かない気がするのでその辺りも何とかしたいトコロ。</p>
-
-<h1>だそく</h1>
-
-<p>いいローカル側のファイルのGitリポジトリ作ってコミットするようにしないと変更管理できないなぁって痛感。本気出すための服がほしい…。</p>
 ]]></content>
   </entry>
   
