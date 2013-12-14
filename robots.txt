@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://alalwww.github.io/sitemap.xml 
+Sitemap: http://blog.awairo.net/sitemap.xml 

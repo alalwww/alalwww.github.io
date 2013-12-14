@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Octopress | AwAlog]]></title>
-  <link href="http://alalwww.github.io/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://alalwww.github.io/"/>
-  <updated>2013-12-14T14:45:03+09:00</updated>
-  <id>http://alalwww.github.io/</id>
+  <link href="http://blog.awairo.net/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://blog.awairo.net/"/>
+  <updated>2013-12-14T15:18:46+09:00</updated>
+  <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[ツイーヨボタン復活]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/14/enable-tweet-button/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/"/>
     <updated>2013-12-14T14:43:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/14/enable-tweet-button</id>
+    <id>http://blog.awairo.net/blog/2013/12/14/enable-tweet-button</id>
     <content type="html"><![CDATA[<p>需要ないと思うけど、設定忘れで消えてたので復活。</p>
 
 <!--more-->
@@ -34,9 +34,9 @@
   
   <entry>
     <title type="html"><![CDATA[GitHub Pagesで独自ドメインを使う方法]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/"/>
     <updated>2013-12-14T14:23:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages</id>
+    <id>http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages</id>
     <content type="html"><![CDATA[<p>ドメインの延長更新のついでに、<a href="http://pages.github.com/">GitHub Pages</a>のカスタムドメインの設定したのでメモ。</p>
 
 <!--more-->
@@ -183,9 +183,9 @@ $ rake gen_deploy
   
   <entry>
     <title type="html"><![CDATA[Octopressにタグクラウドプラグインを追加]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/"/>
     <updated>2013-12-09T05:11:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/09/add-tag-cloud-plugin-on-octopress</id>
+    <id>http://blog.awairo.net/blog/2013/12/09/add-tag-cloud-plugin-on-octopress</id>
     <content type="html"><![CDATA[<p>右のサイドバーに、「カテゴリリスト」と「タグクラウド」を追加したのでメモ。</p>
 
 <!--more-->
@@ -230,9 +230,9 @@ $ rake gen_deploy
   
   <entry>
     <title type="html"><![CDATA[Octpress再インストール]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/09/reinstall-octopress/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/09/reinstall-octopress/"/>
     <updated>2013-12-09T02:20:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/09/reinstall-octopress</id>
+    <id>http://blog.awairo.net/blog/2013/12/09/reinstall-octopress</id>
     <content type="html"><![CDATA[<p>Octopressを再インストールしたのでその手順をメモしました。</p>
 
 <!-- more -->
@@ -488,9 +488,9 @@ Successfully generated site: source -&gt; public
   
   <entry>
     <title type="html"><![CDATA[下書きがしたい]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts/"/>
     <updated>2013-12-05T02:57:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts</id>
+    <id>http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts</id>
     <content type="html"><![CDATA[<p>Octopressで下書きを行う方法と、記事のテンプレートの修正についてメモ。</p>
 
 <!--more-->

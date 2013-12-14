@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: DNS | AwAlog]]></title>
-  <link href="http://alalwww.github.io/blog/categories/dns/atom.xml" rel="self"/>
-  <link href="http://alalwww.github.io/"/>
-  <updated>2013-12-14T14:45:03+09:00</updated>
-  <id>http://alalwww.github.io/</id>
+  <link href="http://blog.awairo.net/blog/categories/dns/atom.xml" rel="self"/>
+  <link href="http://blog.awairo.net/"/>
+  <updated>2013-12-14T15:18:46+09:00</updated>
+  <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[GitHub Pagesで独自ドメインを使う方法]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/"/>
     <updated>2013-12-14T14:23:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages</id>
+    <id>http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages</id>
     <content type="html"><![CDATA[<p>ドメインの延長更新のついでに、<a href="http://pages.github.com/">GitHub Pages</a>のカスタムドメインの設定したのでメモ。</p>
 
 <!--more-->

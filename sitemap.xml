@@ -1,71 +1,71 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/02/17/tried-github-octopress/</loc>
+        <loc>http://blog.awairo.net/blog/2013/02/17/tried-github-octopress/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/02/18/ignore-java-awt-list/</loc>
+        <loc>http://blog.awairo.net/blog/2013/02/18/ignore-java-awt-list/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/02/19/blog-customization1/</loc>
+        <loc>http://blog.awairo.net/blog/2013/02/19/blog-customization1/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/02/24/blog-customization2/</loc>
+        <loc>http://blog.awairo.net/blog/2013/02/24/blog-customization2/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info/</loc>
+        <loc>http://blog.awairo.net/blog/2013/05/05/mcmod-dot-info/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo/</loc>
+        <loc>http://blog.awairo.net/blog/2013/05/05/mod-annotation-memo/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo/</loc>
+        <loc>http://blog.awairo.net/blog/2013/05/05/version-dot-properties-memo/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/12/05/theme-changed/</loc>
+        <loc>http://blog.awairo.net/blog/2013/12/05/theme-changed/</loc>
         <lastmod>2013-12-14T14:26:45+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts/</loc>
+        <loc>http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts/</loc>
         <lastmod>2013-12-09T00:16:31+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/12/09/reinstall-octopress/</loc>
+        <loc>http://blog.awairo.net/blog/2013/12/09/reinstall-octopress/</loc>
         <lastmod>2013-12-09T05:01:41+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/</loc>
+        <loc>http://blog.awairo.net/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/</loc>
         <lastmod>2013-12-09T05:23:02+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages/</loc>
-        <lastmod>2013-12-14T14:47:05+09:00</lastmod>
+        <loc>http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/</loc>
+        <lastmod>2013-12-14T14:52:21+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/2013/12/14/enable-tweet-button/</loc>
+        <loc>http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/</loc>
         <lastmod>2013-12-14T14:44:00+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/</loc>
-        <lastmod>2013-12-14T14:47:05+09:00</lastmod>
+        <loc>http://blog.awairo.net/</loc>
+        <lastmod>2013-12-14T14:52:21+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/robots.txt</loc>
+        <loc>http://blog.awairo.net/robots.txt</loc>
         <lastmod>2013-12-09T00:15:58+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/blog/archives/</loc>
-        <lastmod>2013-12-14T14:47:05+09:00</lastmod>
+        <loc>http://blog.awairo.net/blog/archives/</loc>
+        <lastmod>2013-12-14T14:52:21+09:00</lastmod>
     </url>
     <url>
-        <loc>http://alalwww.github.io/archives/</loc>
-        <lastmod>2013-12-14T14:47:05+09:00</lastmod>
+        <loc>http://blog.awairo.net/archives/</loc>
+        <lastmod>2013-12-14T14:52:21+09:00</lastmod>
     </url>
 </urlset>

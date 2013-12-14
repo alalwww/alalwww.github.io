@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: GitHub | AwAlog]]></title>
-  <link href="http://alalwww.github.io/blog/categories/github/atom.xml" rel="self"/>
-  <link href="http://alalwww.github.io/"/>
-  <updated>2013-12-14T14:45:03+09:00</updated>
-  <id>http://alalwww.github.io/</id>
+  <link href="http://blog.awairo.net/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://blog.awairo.net/"/>
+  <updated>2013-12-14T15:18:46+09:00</updated>
+  <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[GitHub Pagesで独自ドメインを使う方法]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/"/>
     <updated>2013-12-14T14:23:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages</id>
+    <id>http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages</id>
     <content type="html"><![CDATA[<p>ドメインの延長更新のついでに、<a href="http://pages.github.com/">GitHub Pages</a>のカスタムドメインの設定したのでメモ。</p>
 
 <!--more-->
@@ -164,9 +164,9 @@ $ rake gen_deploy
   
   <entry>
     <title type="html"><![CDATA[Octopressカスタマイズ2]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/24/blog-customization2/"/>
+    <link href="http://blog.awairo.net/blog/2013/02/24/blog-customization2/"/>
     <updated>2013-02-24T11:31:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/24/blog-customization2</id>
+    <id>http://blog.awairo.net/blog/2013/02/24/blog-customization2</id>
     <content type="html"><![CDATA[<p>主にテーマの改造など。</p>
 
 <!-- more -->
@@ -267,9 +267,9 @@ $indented-lists: true;
   
   <entry>
     <title type="html"><![CDATA[Octopressカスタマイズ1]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/19/blog-customization1/"/>
+    <link href="http://blog.awairo.net/blog/2013/02/19/blog-customization1/"/>
     <updated>2013-02-19T03:47:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/19/blog-customization1</id>
+    <id>http://blog.awairo.net/blog/2013/02/19/blog-customization1</id>
     <content type="html"><![CDATA[<p>はてブボタン追加やsharingの表示位置の追加、サイドメニューのカスタマイズ、続きを読むボタン表示、設定の見直しなどについてのメモ(1)。</p>
 
 <!-- more -->
@@ -459,9 +459,9 @@ hatena_bookmark_button: true
   
   <entry>
     <title type="html"><![CDATA[GitHub + Octopress 試してみた]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/17/tried-github-octopress/"/>
+    <link href="http://blog.awairo.net/blog/2013/02/17/tried-github-octopress/"/>
     <updated>2013-02-17T08:26:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/17/tried-github-octopress</id>
+    <id>http://blog.awairo.net/blog/2013/02/17/tried-github-octopress</id>
     <content type="html"><![CDATA[<p>参考にしたサイト、設定、使い方などをメモ。</p>
 
 <!-- more -->

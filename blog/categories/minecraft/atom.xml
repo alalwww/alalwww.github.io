@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Minecraft | AwAlog]]></title>
-  <link href="http://alalwww.github.io/blog/categories/minecraft/atom.xml" rel="self"/>
-  <link href="http://alalwww.github.io/"/>
-  <updated>2013-12-14T14:45:03+09:00</updated>
-  <id>http://alalwww.github.io/</id>
+  <link href="http://blog.awairo.net/blog/categories/minecraft/atom.xml" rel="self"/>
+  <link href="http://blog.awairo.net/"/>
+  <updated>2013-12-14T15:18:46+09:00</updated>
+  <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[version.properties メモ]]></title>
-    <link href="http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo/"/>
+    <link href="http://blog.awairo.net/blog/2013/05/05/version-dot-properties-memo/"/>
     <updated>2013-05-05T21:11:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo</id>
+    <id>http://blog.awairo.net/blog/2013/05/05/version-dot-properties-memo</id>
     <content type="html"><![CDATA[<p>意外と知られていないメタ情報ファイル。自動生成と相性よさげ。</p>
 
 <!-- more -->
@@ -72,9 +72,9 @@
   
   <entry>
     <title type="html"><![CDATA[@Mod アノテーションメモ]]></title>
-    <link href="http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo/"/>
+    <link href="http://blog.awairo.net/blog/2013/05/05/mod-annotation-memo/"/>
     <updated>2013-05-05T20:00:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo</id>
+    <id>http://blog.awairo.net/blog/2013/05/05/mod-annotation-memo</id>
     <content type="html"><![CDATA[<p>Modのメインクラスに付けるアノテーションの解説とか。実はmodid以外はなくてもいける。</p>
 
 <!-- more -->
@@ -223,9 +223,9 @@ String asmHookClass default ""
   
   <entry>
     <title type="html"><![CDATA[mcmod.info の要素と機能についてのメモ]]></title>
-    <link href="http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info/"/>
+    <link href="http://blog.awairo.net/blog/2013/05/05/mcmod-dot-info/"/>
     <updated>2013-05-05T19:24:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info</id>
+    <id>http://blog.awairo.net/blog/2013/05/05/mcmod-dot-info</id>
     <content type="html"><![CDATA[<p>各項目の説明とか。</p>
 
 <!-- more -->

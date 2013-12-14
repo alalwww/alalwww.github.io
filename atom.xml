@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[AwAlog]]></title>
-  <link href="http://alalwww.github.io/atom.xml" rel="self"/>
-  <link href="http://alalwww.github.io/"/>
-  <updated>2013-12-14T14:45:03+09:00</updated>
-  <id>http://alalwww.github.io/</id>
+  <link href="http://blog.awairo.net/atom.xml" rel="self"/>
+  <link href="http://blog.awairo.net/"/>
+  <updated>2013-12-14T15:18:46+09:00</updated>
+  <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[ツイーヨボタン復活]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/14/enable-tweet-button/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/"/>
     <updated>2013-12-14T14:43:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/14/enable-tweet-button</id>
+    <id>http://blog.awairo.net/blog/2013/12/14/enable-tweet-button</id>
     <content type="html"><![CDATA[<p>需要ないと思うけど、設定忘れで消えてたので復活。</p>
 
 <!--more-->
@@ -34,9 +34,9 @@
   
   <entry>
     <title type="html"><![CDATA[GitHub Pagesで独自ドメインを使う方法]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/"/>
     <updated>2013-12-14T14:23:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages</id>
+    <id>http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages</id>
     <content type="html"><![CDATA[<p>ドメインの延長更新のついでに、<a href="http://pages.github.com/">GitHub Pages</a>のカスタムドメインの設定したのでメモ。</p>
 
 <!--more-->
@@ -167,7 +167,7 @@ $ rake gen_deploy
 <h3>確認</h3>
 
 <p>Chromeで<code>F12</code>を押して開発用ツールを開いて、<code>Network</code>タブを選んで、<code>http://alalwww.github.io/</code>にアクセスし、<code>http://blog.awairo.net/</code>にリダイレクトされてる事を確認。
-<img src="http://alalwww.github.io/images/posts/2013-12-14-custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
+<img src="http://blog.awairo.net/images/posts/2013-12-14-custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
 
 <p>できてるできてる。</p>
 
@@ -183,9 +183,9 @@ $ rake gen_deploy
   
   <entry>
     <title type="html"><![CDATA[Octopressにタグクラウドプラグインを追加]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/"/>
     <updated>2013-12-09T05:11:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/09/add-tag-cloud-plugin-on-octopress</id>
+    <id>http://blog.awairo.net/blog/2013/12/09/add-tag-cloud-plugin-on-octopress</id>
     <content type="html"><![CDATA[<p>右のサイドバーに、「カテゴリリスト」と「タグクラウド」を追加したのでメモ。</p>
 
 <!--more-->
@@ -230,9 +230,9 @@ $ rake gen_deploy
   
   <entry>
     <title type="html"><![CDATA[Octpress再インストール]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/09/reinstall-octopress/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/09/reinstall-octopress/"/>
     <updated>2013-12-09T02:20:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/09/reinstall-octopress</id>
+    <id>http://blog.awairo.net/blog/2013/12/09/reinstall-octopress</id>
     <content type="html"><![CDATA[<p>Octopressを再インストールしたのでその手順をメモしました。</p>
 
 <!-- more -->
@@ -374,7 +374,7 @@ To git@bitbucket.org:username/octopress.git
 </code></pre>
 
 <p>Bitbucketサイトのコミットログを確認。
-<img src="http://alalwww.github.io/images/posts/2013-12-09-reinstall-octopress/bitbucket_log.png" alt="Bitbucketのコミットログ画面" /></p>
+<img src="http://blog.awairo.net/images/posts/2013-12-09-reinstall-octopress/bitbucket_log.png" alt="Bitbucketのコミットログ画面" /></p>
 
 <h3>動作の確認など</h3>
 
@@ -429,11 +429,11 @@ Successfully generated site: source -&gt; public
 
 <h3>テーマを変更</h3>
 
-<p><a href="http://alalwww.github.io/blog/2013/12/05/theme-changed/">先日の記事</a>通りにさくさくっとテーマも変更。ついでにスタイルも少し修正。終わったらまたいくつかにわけてコミット。</p>
+<p><a href="http://blog.awairo.net/blog/2013/12/05/theme-changed/">先日の記事</a>通りにさくさくっとテーマも変更。ついでにスタイルも少し修正。終わったらまたいくつかにわけてコミット。</p>
 
 <h3>new_postなどのテンプレート変更。</h3>
 
-<p><a href="http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts//">先日の記事</a>通りにｒｙ</p>
+<p><a href="http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts//">先日の記事</a>通りにｒｙ</p>
 
 <h3>ツイッタープラグイン死亡確認</h3>
 
@@ -488,9 +488,9 @@ Successfully generated site: source -&gt; public
   
   <entry>
     <title type="html"><![CDATA[下書きがしたい]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts/"/>
     <updated>2013-12-05T02:57:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/05/how-to-use-drafts</id>
+    <id>http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts</id>
     <content type="html"><![CDATA[<p>Octopressで下書きを行う方法と、記事のテンプレートの修正についてメモ。</p>
 
 <!--more-->
@@ -533,9 +533,9 @@ post.puts "&lt;!--more--&gt;"
   
   <entry>
     <title type="html"><![CDATA[テーマ変更。他Octpressのカスタマイズとか。]]></title>
-    <link href="http://alalwww.github.io/blog/2013/12/05/theme-changed/"/>
+    <link href="http://blog.awairo.net/blog/2013/12/05/theme-changed/"/>
     <updated>2013-12-05T02:36:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/12/05/theme-changed</id>
+    <id>http://blog.awairo.net/blog/2013/12/05/theme-changed</id>
     <content type="html"><![CDATA[<p>テーマ変更の手順とテーマのカスタマイズなど。</p>
 
 <!--more-->
@@ -618,7 +618,7 @@ A theme is already installed, proceeding will overwrite existing files. Are you 
 
 <p><code>source/_includes/asides/nav.html</code> から以下の行を削除。</p>
 
-<pre><code>&lt;a href="mailto:" alt="E-Mail"&gt;&lt;img src="http://alalwww.github.io/images/Envelope.png"&gt;&lt;/a&gt;
+<pre><code>&lt;a href="mailto:" alt="E-Mail"&gt;&lt;img src="http://blog.awairo.net/images/Envelope.png"&gt;&lt;/a&gt;
 </code></pre>
 
 <h2>フォント変更</h2>
@@ -656,7 +656,7 @@ $heading-font-family: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;;
 
 <h2>htmlタグのlang属性を日本語に変更</h2>
 
-<p><a href="http://alalwww.github.io/blog/2013/02/24/blog-customization2/">以前</a>やったのと同じように<code>octopress/source/_includes/head.html</code>を編集。</p>
+<p><a href="http://blog.awairo.net/blog/2013/02/24/blog-customization2/">以前</a>やったのと同じように<code>octopress/source/_includes/head.html</code>を編集。</p>
 
 <pre><code>&lt;html class="no-js" lang="ja"&gt;
 </code></pre>
@@ -675,9 +675,9 @@ $heading-font-family: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;;
   
   <entry>
     <title type="html"><![CDATA[version.properties メモ]]></title>
-    <link href="http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo/"/>
+    <link href="http://blog.awairo.net/blog/2013/05/05/version-dot-properties-memo/"/>
     <updated>2013-05-05T21:11:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/05/05/version-dot-properties-memo</id>
+    <id>http://blog.awairo.net/blog/2013/05/05/version-dot-properties-memo</id>
     <content type="html"><![CDATA[<p>意外と知られていないメタ情報ファイル。自動生成と相性よさげ。</p>
 
 <!-- more -->
@@ -732,9 +732,9 @@ $heading-font-family: Consolas, "MeiryoKe_PGothic", "メイリオ", sans-serif;;
   
   <entry>
     <title type="html"><![CDATA[@Mod アノテーションメモ]]></title>
-    <link href="http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo/"/>
+    <link href="http://blog.awairo.net/blog/2013/05/05/mod-annotation-memo/"/>
     <updated>2013-05-05T20:00:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/05/05/mod-annotation-memo</id>
+    <id>http://blog.awairo.net/blog/2013/05/05/mod-annotation-memo</id>
     <content type="html"><![CDATA[<p>Modのメインクラスに付けるアノテーションの解説とか。実はmodid以外はなくてもいける。</p>
 
 <!-- more -->
@@ -883,9 +883,9 @@ String asmHookClass default ""
   
   <entry>
     <title type="html"><![CDATA[mcmod.info の要素と機能についてのメモ]]></title>
-    <link href="http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info/"/>
+    <link href="http://blog.awairo.net/blog/2013/05/05/mcmod-dot-info/"/>
     <updated>2013-05-05T19:24:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/05/05/mcmod-dot-info</id>
+    <id>http://blog.awairo.net/blog/2013/05/05/mcmod-dot-info</id>
     <content type="html"><![CDATA[<p>各項目の説明とか。</p>
 
 <!-- more -->
@@ -1108,9 +1108,9 @@ String asmHookClass default ""
   
   <entry>
     <title type="html"><![CDATA[Octopressカスタマイズ2]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/24/blog-customization2/"/>
+    <link href="http://blog.awairo.net/blog/2013/02/24/blog-customization2/"/>
     <updated>2013-02-24T11:31:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/24/blog-customization2</id>
+    <id>http://blog.awairo.net/blog/2013/02/24/blog-customization2</id>
     <content type="html"><![CDATA[<p>主にテーマの改造など。</p>
 
 <!-- more -->
@@ -1211,9 +1211,9 @@ $indented-lists: true;
   
   <entry>
     <title type="html"><![CDATA[Octopressカスタマイズ1]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/19/blog-customization1/"/>
+    <link href="http://blog.awairo.net/blog/2013/02/19/blog-customization1/"/>
     <updated>2013-02-19T03:47:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/19/blog-customization1</id>
+    <id>http://blog.awairo.net/blog/2013/02/19/blog-customization1</id>
     <content type="html"><![CDATA[<p>はてブボタン追加やsharingの表示位置の追加、サイドメニューのカスタマイズ、続きを読むボタン表示、設定の見直しなどについてのメモ(1)。</p>
 
 <!-- more -->
@@ -1406,9 +1406,9 @@ hatena_bookmark_button: true
   
   <entry>
     <title type="html"><![CDATA[java.awt.List とお別れする方法]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/18/ignore-java-awt-list/"/>
+    <link href="http://blog.awairo.net/blog/2013/02/18/ignore-java-awt-list/"/>
     <updated>2013-02-18T01:28:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/18/ignore-java-awt-list</id>
+    <id>http://blog.awairo.net/blog/2013/02/18/ignore-java-awt-list</id>
     <content type="html"><![CDATA[<p>Eclipseの使い方的な内容</p>
 
 <!-- more -->
@@ -1418,11 +1418,11 @@ hatena_bookmark_button: true
 
 <p>java.util.List が使いたいので、list とタイプして…</p>
 
-<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list1.png" alt="listまでタイプしたソースコード画像" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list1.png" alt="listまでタイプしたソースコード画像" /></p>
 
 <p>補完で自動インポートをかけようとすると…</p>
 
-<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
 
 <p>java.awt.List…てめーはダメだ！</p>
 
@@ -1449,7 +1449,7 @@ hatena_bookmark_button: true
 <li>Java</li>
 <li>外観</li>
 <li>型フィルター
-<img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
+<img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
 </ol>
 
 
@@ -1462,7 +1462,7 @@ hatena_bookmark_button: true
 </ul>
 
 
-<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
 
 <p>これで邪魔者はいなくなった！</p>
 
@@ -1474,7 +1474,7 @@ hatena_bookmark_button: true
 
 <p>ん…？</p>
 
-<p><img src="http://alalwww.github.io/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
 
 <p>き、きっと &ldquo;a&rdquo; で始まるからだよね…(´・ω・｀)</p>
 ]]></content>
@@ -1482,9 +1482,9 @@ hatena_bookmark_button: true
   
   <entry>
     <title type="html"><![CDATA[GitHub + Octopress 試してみた]]></title>
-    <link href="http://alalwww.github.io/blog/2013/02/17/tried-github-octopress/"/>
+    <link href="http://blog.awairo.net/blog/2013/02/17/tried-github-octopress/"/>
     <updated>2013-02-17T08:26:00+09:00</updated>
-    <id>http://alalwww.github.io/blog/2013/02/17/tried-github-octopress</id>
+    <id>http://blog.awairo.net/blog/2013/02/17/tried-github-octopress</id>
     <content type="html"><![CDATA[<p>参考にしたサイト、設定、使い方などをメモ。</p>
 
 <!-- more -->
