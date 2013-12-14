@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DNS | AwAlog]]></title>
+  <link href="http://alalwww.github.io/blog/categories/dns/atom.xml" rel="self"/>
+  <link href="http://alalwww.github.io/"/>
+  <updated>2013-12-14T14:21:13+09:00</updated>
+  <id>http://alalwww.github.io/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub Pages で独自ドメインを使う方法]]></title>
+    <link href="http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages/"/>
+    <updated>2013-12-14T14:23:00+09:00</updated>
+    <id>http://alalwww.github.io/blog/2013/12/14/custom-domain-for-gh-pages</id>
+    <content type="html"><![CDATA[<p>ドメインの延長更新のついでに、GitHub Pagesのカスタムドメインの設定したのでメモ。</p>
+
+<!--more-->
+
+
+<p><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">公式に書いてある事</a>をそのまま実践するだけのコピペ記事。自分が<a href="http://www.value-domain.com/">VALUE-DOMAIN</a>使ってるので、そこで管理している人には少しだけ役に立てるかもしれない。</p>
+
+<h1>目的</h1>
+
+<ol>
+<li><code>http://blog.awairo.net/</code>にアクセスしたら、このblogが表示される。</li>
+<li><code>http://alalwww.github.io/</code>にアクセスしたら、<code>http://blog.awairo.net/</code>にリダイレクトされる。</li>
+</ol>
+
+
+<h1>手順</h1>
+
+<p>前提として以下が必要。</p>
+
+<ul>
+<li>自分で管理している(DNSの設定がいじれる)独自ドメインを持っている。</li>
+<li>GitHub-Pagesを利用しており、公開してるサイトがある。</li>
+</ul>
+
+
+<p>DNSでGH-Pagesに飛ばす設定と、GH-Pagesから独自ドメインにリダイレクトするための設定を行う。順不同だけどGitHub側の設定が先に反映されると、独自ドメインにリダイレクトされるようになるので、サービス停止ができないような状況なら、DNSの設定が終わってからやったほうがいいのかもしれない。ただ、どちらも反映に多少の時間がかかるので、しばらく(10分程度)アクセスが止まる事に特に問題がないなら、平行作業しちゃって問題ない。</p>
+
+<h2>DNS側</h2>
+
+<ol>
+<li><code>blog.awairo.net</code>の別名として<code>alalwww.github.io.</code>を設定するCNAMEレコードを追加する。</li>
+</ol>
+
+
+<p>だけ。</p>
+
+<p>具体的には、DNSの設定で以下を追加する。</p>
+
+<pre><code>blog.awairo.net. IN CNAME alalwww.github.io.
+</code></pre>
+
+<p>検索してると、<a href="http://blog.livedoor.jp/techblog/archives/65340720.html" title="livedoor Techブログ : CNAMEの間違った使い方">CNAMEを設定したDNSでは他の設定が無視される(カモシレナイ)</a>って感じの記事を見つけちゃって、上手くいくのか不安だったけど、とりあえずVALUE-DOMAINではできた。というか、一般的なDNSサーバーなら他の設定の無視もしないと思うので、多分大丈夫だと思うけれど、一応気に留めておこう。( っ'ω'c)</p>
+
+<h3>やったこと。</h3>
+
+<p>VALUE-DOMAINのサイトから、専用の書式でCNAMEレコードを追加する。</p>
+
+<ol>
+<li>ログイン</li>
+<li>DNSレコード/URL転送の変更</li>
+<li>ドメイン選択</li>
+<li>設定フィールドの一番上に、以下を追加。
+ cname blog alalwww.github.io.</li>
+</ol>
+
+
+<p>一番上というか、ワイルドカードで全部xreaのWebサーバーに向けてるAレコードがあるので、それより上に設定追加でうまくいった。一番最後のピリオド(<code>.</code>)は忘れやすいので要注意。</p>
+
+<p>設定したら保存するボタンを押して完了。反映までしばらくかかると思うので(たぶん)、カフェオレをすすりながら待つ。</p>
+
+<h3>確認</h3>
+
+<p>コマンドプロンプトを開いて、<code>nslookup</code>コマンドで自宅のルーターに対し問い合わせて確認。</p>
+
+<pre><code>Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\username&gt; nslookup
+既定のサーバー:  (ルーター名)
+Address:  (ルーターのIP)
+
+&gt;
+</code></pre>
+
+<p>反映されてない状態だと以下のような回答。向けてるxreaのウェブサーバーのIPが返ってくる。</p>
+
+<pre><code>&gt; blog.awairo.net
+サーバー:  (ルーター名)
+Address:  (ルーターのIP)
+
+権限のない回答:
+名前:    blog.awairo.net
+Address:  203.189.105.98 ← メインで使ってるxreaのサーバーのIP
+</code></pre>
+
+<p>しばらくするとこんな感じに変わった。</p>
+
+<pre><code>&gt; blog.awairo.net
+サーバー:  (ルーター名)
+Address:  (ルーターのIP)
+
+権限のない回答:
+名前:    github.map.fastly.net
+Address:  103.245.222.133
+Aliases:  blog.awairo.net
+          alalwww.github.io
+</code></pre>
+
+<p>できたっぽい。</p>
+
+<h2>GitHub側</h2>
+
+<ol>
+<li>リダイレクト先のURL(<code>http://blog.awairo.net/</code>)を書いた、<code>CNAME</code>という名前のテキストファイルを配置する。</li>
+</ol>
+
+
+<p>だけ。</p>
+
+<h3>やったこと</h3>
+
+<p>OctopressのリポジトリをおいてるLinuxサーバーで、以下の作業。</p>
+
+<pre><code>$ cd octopress
+$ tee &gt; source/CNAME (リダイレクトしないと標準出力にもでてきてちょっとうざいので)
+blog.awairo.net
+(改行したあとctrl+Cを押して終了)
+$ cat source/CNAME
+blog.awairo.net
+$ cd ..
+$ rake gen_deploy
+</code></pre>
+
+<p>Webだとあんまり見かけない気がするけど、名前が可愛いので<code>tee</code>コマンド好きです。ちょっとした内容のテキストファイル作るのに、おさわり(<code>touch</code>)してエディタで開くっての、ちょっとめんどくさい。( っ'ω'c)</p>
+
+<p>デプロイが終わったら、<a href="https://github.com/alalwww/alalwww.github.io">GitHubのリポジトリ</a>を確認してCNAMEファイルがちゃんとデプロイされてたら問題なし。</p>
+
+<h3>確認</h3>
+
+<p>Chromeで<code>F12</code>を押して開発用ツールを開いて、<code>Network</code>タブを選んで、<code>http://alalwww.github.io/</code>にアクセスし、<code>http://blog.awairo.net/</code>にリダイレクトされてる事を確認。
+<img src="/images/posts/2013-12-14-custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
+
+<p>できてるできてる。</p>
+
+<h1>参考にさせて頂いたサイト</h1>
+
+<ul>
+<li><a href="http://bekkou68.hatenablog.com/entry/2013/01/05/210902">GitHub Pages に独自のトップレベルドメイン（TLD）を割り当てる &ndash; bekkou68の日記</a></li>
+<li><a href="http://setup.value-domain.com/index.php?p=websrv">Easy Setup for VALUE DOMAIN Users</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
