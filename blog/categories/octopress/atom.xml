@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Octopress | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2013-12-15T07:11:58+09:00</updated>
+  <updated>2013-12-23T17:35:07+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -62,12 +62,12 @@
 </ul>
 
 
-<p>DNSでGH-Pagesに飛ばす設定と、GH-Pagesから独自ドメインにリダイレクトするための設定を行う。順不同だけどGitHub側の設定が先に反映されると、独自ドメインにリダイレクトされるようになるので、サービス停止ができないような状況なら、DNSの設定が終わってからやったほうがいいのかもしれない。ただ、どちらも反映に多少の時間がかかるので、しばらく(10分程度)アクセスが止まる事に特に問題がないなら、平行作業しちゃって問題ない。</p>
+<p>DNSでGH-Pagesに飛ばす設定と、GH-Pagesから独自ドメインにリダイレクトするための設定を行う。設定は順不同だけど、GitHub側の設定が先に反映されると、まだGH-Pagesが表示出来ない状態の独自ドメインにリダイレクトされるようになるので、サービス停止ができないような状況なら、DNSの設定が終わってからやったほうがいいのかもしれない。ただ、どちらも反映に多少の時間がかかるので、しばらく(10分程度)の間アクセスが止まる事に、特に問題がないなら、平行作業しちゃっても問題ない。</p>
 
 <h2>DNS側</h2>
 
 <ol>
-<li><code>blog.awairo.net</code>の別名として、<code>alalwww.github.io.</code>を設定するCNAMEレコードを追加する。</li>
+<li><code>blog.awairo.net</code>の別名として、<code>alalwww.github.io</code>を設定するための、CNAMEレコードを追加する。</li>
 </ol>
 
 
@@ -80,7 +80,7 @@
 
 <p>検索してると、<a href="http://blog.livedoor.jp/techblog/archives/65340720.html" title="livedoor Techブログ : CNAMEの間違った使い方">CNAMEを設定したDNSでは他の設定が無視される(カモシレナイ)</a>って感じの記事を見つけちゃって、上手くいくのか不安だったけど、とりあえずVALUE-DOMAINではできた。というか、一般的なDNSサーバーなら他の設定の無視もしないと思うので、多分大丈夫だと思うけれど、一応気に留めておこう。( っ'ω'c)</p>
 
-<h3>やったこと。</h3>
+<h3>実際にやったこと</h3>
 
 <p>VALUE-DOMAINのサイトから、専用の書式でCNAMEレコードを追加する。</p>
 
@@ -88,8 +88,9 @@
 <li>ログイン</li>
 <li>DNSレコード/URL転送の変更</li>
 <li>ドメイン選択</li>
-<li>設定フィールドの一番上に、以下を追加。
- cname blog alalwww.github.io.</li>
+<li><p>設定フィールドの一番上に、以下を追加。</p>
+
+<p> cname blog alalwww.github.io.</p></li>
 </ol>
 
 
@@ -140,13 +141,13 @@ Aliases:  blog.awairo.net
 <h2>GitHub側</h2>
 
 <ol>
-<li>リダイレクト先のURL(<code>http://blog.awairo.net/</code>)を書いた、<code>CNAME</code>という名前のテキストファイルを配置する。</li>
+<li>リダイレクト先のURL(<a href="http://blog.awairo.net/">http://blog.awairo.net/</a>)を書いた、「CNAME」というファイル名のテキストファイルを配置する。</li>
 </ol>
 
 
 <p>だけ。</p>
 
-<h3>やったこと</h3>
+<h3>実際にやったこと</h3>
 
 <p>OctopressのリポジトリをおいてるLinuxサーバーで、以下の作業。</p>
 
@@ -154,13 +155,12 @@ Aliases:  blog.awairo.net
 $ tee &gt; source/CNAME (リダイレクトしないと標準出力にもでてきてちょっとうざいので)
 blog.awairo.net
 (改行したあとctrl+Cを押して終了)
-$ cat source/CNAME
+$ cat source/CNAME (確認)
 blog.awairo.net
-$ cd ..
-$ rake gen_deploy
+$ rake gen_deploy (Push)
 </code></pre>
 
-<p>Webだとあんまり見かけない気がするけど、名前が可愛いので<code>tee</code>コマンド好きです。ちょっとした内容のテキストファイル作るのに、おさわり(<code>touch</code>)してエディタで開くっての、ちょっとめんどくさい。( っ'ω'c)</p>
+<p>名前が可愛いので<code>tee</code>コマンド好きです。Webにある解説じゃあまり見かけないけれど。ほら、ちょっとした内容のテキストファイル作るのによく見かける、おさわり(<code>touch</code>)してからエディタで開いて編集とかっての、ちょっとめんどくさいし。( っ'ω'c)</p>
 
 <p>デプロイが終わったら、<a href="https://github.com/alalwww/alalwww.github.io">GitHubのリポジトリ</a>を確認してCNAMEファイルがちゃんとデプロイされてたら問題なし。</p>
 

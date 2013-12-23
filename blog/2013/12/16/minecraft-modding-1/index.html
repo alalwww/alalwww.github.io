@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>GitHub Pagesで独自ドメインを使う方法 - AwAlog</title>
+  <title>Minecraft modding その1-1 - AwAlog</title>
   <meta name="author" content="alalwww">
 
   
-  <meta name="description" content="ドメインの延長更新のついでに、GitHub Pagesのカスタムドメインの設定したのでメモ。 公式に書いてある事をそのまま実践するだけのコピペ記事。自分がVALUE-DOMAIN使ってるので、そこで管理している人には少しだけ役に立てるかもしれない。 目的 http://blog.awairo. &hellip;">
+  <meta name="description" content="開発環境を準備しよう。Eclipse導入編。(1) 特にPC性能に不満がないなら、普通にPleiadesのJavaをダウンロードしてくればOKです。Modの開発には必要のない、J2EE関連の機能がメインな環境なので、不要なものは沢山入っていますが、動作するなら問題はありません。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages">
+  <link rel="canonical" href="http://blog.awairo.net/blog/2013/12/16/minecraft-modding-1">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
@@ -93,7 +93,7 @@
   
   <header>
     
-      <h1 class="entry-title">GitHub Pagesで独自ドメインを使う方法</h1>
+      <h1 class="entry-title">Minecraft Modding その1-1</h1>
     
     
       <p class="meta">
@@ -109,7 +109,7 @@
   
 
 
-<time datetime="2013-12-14T14:23:00+09:00" pubdate data-updated="true">[12/14(Sat) - 2013] 14:23 (+0900)</time>
+<time datetime="2013-12-16T23:33:00+09:00" pubdate data-updated="true">[12/16(Mon) - 2013] 23:33 (+0900)</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -118,147 +118,77 @@
   </header>
 
 
-<div class="entry-content"><p>ドメインの延長更新のついでに、<a href="http://pages.github.com/">GitHub Pages</a>のカスタムドメインの設定したのでメモ。</p>
+<div class="entry-content"><p>開発環境を準備しよう。Eclipse導入編。(1)</p>
 
 <!--more-->
 
 
-<p><a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">公式に書いてある事</a>をそのまま実践するだけのコピペ記事。自分が<a href="http://www.value-domain.com/">VALUE-DOMAIN</a>使ってるので、そこで管理している人には少しだけ役に立てるかもしれない。</p>
+<p>特にPC性能に不満がないなら、普通に<a href="http://mergedoc.sourceforge.jp/" title="日本語化されたオールインワンEclipse">Pleiades</a>のJavaをダウンロードしてくればOKです。Modの開発には必要のない、J2EE関連の機能がメインな環境なので、不要なものは沢山入っていますが、動作するなら問題はありません。</p>
 
-<h1>目的</h1>
+<p>でもそれじゃ面白くないので、IDEの理解を深めるためと、極力動作を軽くするために、必要最低限のプラグインだけを導入していくって感じで、環境を準備してみたいと思います。平日はあまり時間がとれないので、数回に分けて書いていく予定。</p>
 
-<ol>
-<li><code>http://blog.awairo.net/</code>にアクセスしたら、このblogが表示される。</li>
-<li><code>http://alalwww.github.io/</code>にアクセスしたら、<code>http://blog.awairo.net/</code>にリダイレクトされる。</li>
-</ol>
+<p>マイクラのModの作り方とかは、今のところここにはないです。[くまさんWiki][<a href="http://www4.atwiki.jp/reginn666/">http://www4.atwiki.jp/reginn666/</a>]の更新を待機してて、どうぞ。</p>
 
+<h1>ゴール</h1>
+
+<p>Eclipseが起動でき、必要なプラグインが導入されている状態まで。</p>
+
+<p>導入する予定のプラグイン
+&ndash; JDT(JavaSE開発環境)
+&ndash; Pleiades(動的日本語化プラグイン)
+&ndash; EGit(Gitプラグイン)
+&ndash; GradleIDE(Forge964以降を見越して)</p>
+
+<ul>
+<li>[JStyle]<a href="%E5%85%A8%E8%A7%92%E7%A9%BA%E7%99%BD%E3%82%84%E3%82%BF%E3%83%96%E3%80%81%E6%94%B9%E8%A1%8C%E3%81%AA%E3%81%A9%E3%81%AE%E5%8F%AF%E8%A6%96%E5%8C%96">http://mergedoc.sourceforge.jp/jstyle.html</a></li>
+<li>AnyEdit tools</li>
+<li>JD-Eclipse Realign</li>
+<li>プロパティエディタ</li>
+<li>(YMLエディタ)</li>
+<li>(markdownエディタ)</li>
+<li><p>(Gloovy開発環境)</p></li>
+<li><p>CheckStyle</p></li>
+<li>FindBugs</li>
+</ul>
+
+
+<p>テスト系
+&ndash; QuickJUnit
+&ndash; JUnitHelper
+&ndash; JMockit plugin</p>
 
 <h1>手順</h1>
 
-<p>前提として以下が必要。</p>
+<h2>Eclipseのダウンロード</h2>
 
-<ul>
-<li>自分で管理している(DNSの設定がいじれる)独自ドメインを持っている。</li>
-<li>GitHub-Pagesを利用しており、公開してるサイトがある。</li>
-</ul>
+<p><a href="http://download.eclipse.org/eclipse/downloads/">本家</a>からEclipseをダウンロードしてくるか、<a href="http://mergedoc.sourceforge.jp/" title="日本語化されたオールインワンEclipse">MergeDoc</a>から Pleiades All In One をダウンロードしてくる。</p>
 
+<p>本家のものは、何も入っていないまっさらなEclipseで、Pleiadesは日本語化プラグインとJStyleプラグインが導入済み。日本語化する前提なら、MergeDocでダウンロードした方が手っ取り早いけど、日本語化プラグイン自体がそこそこパフォーマンスを下げるものなので、低スペックPCが前提で、英語に抵抗がないなら、本家から落としてきてもいい。</p>
 
-<p>DNSでGH-Pagesに飛ばす設定と、GH-Pagesから独自ドメインにリダイレクトするための設定を行う。設定は順不同だけど、GitHub側の設定が先に反映されると、まだGH-Pagesが表示出来ない状態の独自ドメインにリダイレクトされるようになるので、サービス停止ができないような状況なら、DNSの設定が終わってからやったほうがいいのかもしれない。ただ、どちらも反映に多少の時間がかかるので、しばらく(10分程度)の間アクセスが止まる事に、特に問題がないなら、平行作業しちゃっても問題ない。</p>
-
-<h2>DNS側</h2>
+<h3>本家の場合</h3>
 
 <ol>
-<li><code>blog.awairo.net</code>の別名として、<code>alalwww.github.io</code>を設定するための、CNAMEレコードを追加する。</li>
+<li><a href="http://download.eclipse.org/eclipse/downloads/">Eclipse Project Donwloads</a>の「Latest Downloads」から、「Latest Release」に書いてある一番新しいやつをクリック。</li>
+<li>上のほうにあるSDKなどは無視し、中ほどにある「Platform Runtime Binary」から、自分の環境用のPlatformのdownload列のhttpのところをクリック。</li>
+<li>メインのダウンロードサーバーと、ミラーサーバーの一覧の画面から、適当に選んでダウンロード。</li>
 </ol>
 
 
-<p>だけ。</p>
-
-<p>具体的には、DNSの設定で以下を追加する。</p>
-
-<pre><code>blog.awairo.net. IN CNAME alalwww.github.io.
-</code></pre>
-
-<p>検索してると、<a href="http://blog.livedoor.jp/techblog/archives/65340720.html" title="livedoor Techブログ : CNAMEの間違った使い方">CNAMEを設定したDNSでは他の設定が無視される(カモシレナイ)</a>って感じの記事を見つけちゃって、上手くいくのか不安だったけど、とりあえずVALUE-DOMAINではできた。というか、一般的なDNSサーバーなら他の設定の無視もしないと思うので、多分大丈夫だと思うけれど、一応気に留めておこう。( っ&#8217;ω&#8217;c)</p>
-
-<h3>実際にやったこと</h3>
-
-<p>VALUE-DOMAINのサイトから、専用の書式でCNAMEレコードを追加する。</p>
+<h3>Pleiadesの場合</h3>
 
 <ol>
-<li>ログイン</li>
-<li>DNSレコード/URL転送の変更</li>
-<li>ドメイン選択</li>
-<li><p>設定フィールドの一番上に、以下を追加。</p>
-
-<p> cname blog alalwww.github.io.</p></li>
+<li><a href="http://mergedoc.sourceforge.jp/" title="日本語化されたオールインワンEclipse">MergeDoc</a>から Eclipse 4.3 Kepler を選択。(2013年12月現在の最新)</li>
+<li>Platformの自環境用のものをダウンロードする。</li>
 </ol>
 
 
-<p>一番上というか、ワイルドカードで全部xreaのWebサーバーに向けてるAレコードがあるので、それより上に設定追加でうまくいった。一番最後のピリオド(<code>.</code>)は忘れやすいので要注意。</p>
+<p>Platformにおいては、「Full Edition」と「Standard Edition」の違いは、JREがついてくるかどうか程度の差しかない。特に理由がなければFullEditionをダウンロードしよう。</p>
 
-<p>設定したら保存するボタンを押して完了。反映までしばらくかかると思うので(たぶん)、カフェオレをすすりながら待つ。</p>
+<h2>Eclipseインストール</h2>
 
-<h3>確認</h3>
+<p>といっても実際のところインストーラーなどはなく、任意のフォルダーにファイルを配置するだけ。</p>
 
-<p>コマンドプロンプトを開いて、<code>nslookup</code>コマンドで自宅のルーターに対し問い合わせて確認。</p>
-
-<pre><code>Microsoft Windows [Version 6.1.7601]
-Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
-
-C:\Users\username&gt; nslookup
-既定のサーバー:  (ルーター名)
-Address:  (ルーターのIP)
-
-&gt;
-</code></pre>
-
-<p>反映されてない状態だと以下のような回答。向けてるxreaのウェブサーバーのIPが返ってくる。</p>
-
-<pre><code>&gt; blog.awairo.net
-サーバー:  (ルーター名)
-Address:  (ルーターのIP)
-
-権限のない回答:
-名前:    blog.awairo.net
-Address:  203.189.105.98 ← メインで使ってるxreaのサーバーのIP
-</code></pre>
-
-<p>しばらくするとこんな感じに変わった。</p>
-
-<pre><code>&gt; blog.awairo.net
-サーバー:  (ルーター名)
-Address:  (ルーターのIP)
-
-権限のない回答:
-名前:    github.map.fastly.net
-Address:  103.245.222.133
-Aliases:  blog.awairo.net
-          alalwww.github.io
-</code></pre>
-
-<p>できたっぽい。</p>
-
-<h2>GitHub側</h2>
-
-<ol>
-<li>リダイレクト先のURL(<a href="http://blog.awairo.net/">http://blog.awairo.net/</a>)を書いた、「CNAME」というファイル名のテキストファイルを配置する。</li>
-</ol>
-
-
-<p>だけ。</p>
-
-<h3>実際にやったこと</h3>
-
-<p>OctopressのリポジトリをおいてるLinuxサーバーで、以下の作業。</p>
-
-<pre><code>$ cd octopress
-$ tee &gt; source/CNAME (リダイレクトしないと標準出力にもでてきてちょっとうざいので)
-blog.awairo.net
-(改行したあとctrl+Cを押して終了)
-$ cat source/CNAME (確認)
-blog.awairo.net
-$ rake gen_deploy (Push)
-</code></pre>
-
-<p>名前が可愛いので<code>tee</code>コマンド好きです。Webにある解説じゃあまり見かけないけれど。ほら、ちょっとした内容のテキストファイル作るのによく見かける、おさわり(<code>touch</code>)してからエディタで開いて編集とかっての、ちょっとめんどくさいし。( っ&#8217;ω&#8217;c)</p>
-
-<p>デプロイが終わったら、<a href="https://github.com/alalwww/alalwww.github.io">GitHubのリポジトリ</a>を確認してCNAMEファイルがちゃんとデプロイされてたら問題なし。</p>
-
-<h3>確認</h3>
-
-<p>Chromeで<code>F12</code>を押して開発用ツールを開いて、<code>Network</code>タブを選んで、<code>http://alalwww.github.io/</code>にアクセスし、<code>http://blog.awairo.net/</code>にリダイレクトされてる事を確認。
-<img src="/images/posts/2013-12-14-custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
-
-<p>できてるできてる。</p>
-
-<h1>参考にさせて頂いたサイト</h1>
-
-<ul>
-<li><a href="http://bekkou68.hatenablog.com/entry/2013/01/05/210902">GitHub Pages に独自のトップレベルドメイン（TLD）を割り当てる &ndash; bekkou68の日記</a></li>
-<li><a href="http://setup.value-domain.com/index.php?p=websrv">Easy Setup for VALUE DOMAIN Users</a></li>
-</ul>
-
+<p>とても長い名前のファイルやフォルダーが含まれるので、ドライブ直下などに配置するとよさげ。また、Pleiadesの場合は、ワークスペース設定のデフォルト</p>
 </div>
 
 
@@ -268,7 +198,7 @@ $ rake gen_deploy (Push)
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/dns/'>DNS</a>, <a class='category' href='/blog/categories/github/'>GitHub</a>, <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+    <a class='category' href='/blog/categories/eclipse/'>eclipse</a>, <a class='category' href='/blog/categories/minecraft/'>minecraft</a>, <a class='category' href='/blog/categories/modding/'>modding</a>
   
 </span>
 
@@ -287,7 +217,7 @@ $ rake gen_deploy (Push)
   
 
 
-<time datetime="2013-12-14T14:23:00+09:00" pubdate data-updated="true">[12/14(Sat) - 2013] 14:23 (+0900)</time>
+<time datetime="2013-12-16T23:33:00+09:00" pubdate data-updated="true">[12/16(Mon) - 2013] 23:33 (+0900)</time>
       
   
 
@@ -297,7 +227,7 @@ $ rake gen_deploy (Push)
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/" data-via="" data-counturl="http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.awairo.net/blog/2013/12/16/minecraft-modding-1/" data-via="" data-counturl="http://blog.awairo.net/blog/2013/12/16/minecraft-modding-1/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -310,10 +240,8 @@ $ rake gen_deploy (Push)
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/" title="Previous Post: Octopressにタグクラウドプラグインを追加">&laquo; Octopressにタグクラウドプラグインを追加</a>
+        <a class="basic-alignment left" href="/blog/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/" title="Previous Post: Eclipse起動時に開くSTSのダッシュボードを無効化">&laquo; Eclipse起動時に開くSTSのダッシュボードを無効化</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/12/14/enable-tweet-button/" title="Next Post: ツイーヨボタン復活">ツイーヨボタン復活 &raquo;</a>
       
     </p>
   </footer>
@@ -459,8 +387,8 @@ $ rake gen_deploy (Push)
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/';
-        var disqus_url = 'http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/';
+        var disqus_identifier = 'http://blog.awairo.net/blog/2013/12/16/minecraft-modding-1/';
+        var disqus_url = 'http://blog.awairo.net/blog/2013/12/16/minecraft-modding-1/';
         var disqus_script = 'embed.js';
       
     (function () {
