@@ -349,17 +349,59 @@ $ rake gen_deploy (Push)
     </ul>
   </nav>
 </section>
+
 <section>
   <h1>Author</h1>
-  <div style="clear:both">
-    <img src="https://pbs.twimg.com/profile_images/378800000771046784/0a4efabedab291e46d2716db8d84b04b_bigger.png" alt="profile icon from twitter" style="float:left;margin-right:5px;"/>
-    <div style="padding:5px">
-      <h2>ある(<a href="http://twitter.com/alalwww">@alalwww</a>)</h2>
-      <p style="padding:10">たぶんマ。おなかすいた。</p>
-    </div>
+  <div id="gravatar-aside-profile" style="clear:both">
+    <div style="height:2em"><span style="color:#ccc;font-size:small">loading profile from gravatar...</span></div>
   </div>
   <div style="clear:both"></div>
+  <script type="text/javascript">
+    $(function(){
+      var url = "http://www.gravatar.com/021a6a7b3d67191382c31d303de832e8.json?callback=?";
+      var $box = $("#gravatar-aside-profile")
+      var $msg = $box.children().children()
+
+      var blink = function(a){a.fadeOut(400).fadeIn(400)};
+      var intervalID = window.setInterval(blink, 1500, $msg)
+
+      var setupProfile = function(data) {
+        var entry = data.entry[0]
+        $box
+          .empty()
+          .css("padding-top", 5)
+          .append($("<img>")
+            .attr("src", entry.thumbnailUrl)
+            .attr("alt", "thumbnail from Gravatar")
+            .css("float", "left")
+            .css("margin-right", 5)
+          )
+          .append($("<div>")
+            .css("padding", "5px 0px")
+            .append($("<h2>")
+              .css("margin-bottom", 5)
+              .append(entry.displayName + "(<a href='" + entry.profileUrl + "'>@" + entry.preferredUsername + "</a>)")
+            )
+            .append($("<p>")
+              .css("padding-left",90)
+              .css("margin", 0)
+              .css("font-size", "90%")
+              .html(entry.aboutMe.replace(/\n/g, "<br/>"))
+            )
+          )
+      }
+
+      var clearInterval = function(){window.clearInterval(intervalID)}
+      var updateMessageToError = function(){$msg.stop().fadeOut().text("profile load failed.").fadeIn()}
+
+      jQuery.getJSON(url)
+        .always(clearInterval)
+        .done(setupProfile)
+        .fail(updateMessageToError)
+    })
+  </script>
 </section>
+
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
