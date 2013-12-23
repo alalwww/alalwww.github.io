@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gravatar | AwAlog]]></title>
+  <link href="http://blog.awairo.net/blog/categories/gravatar/atom.xml" rel="self"/>
+  <link href="http://blog.awairo.net/"/>
+  <updated>2013-12-24T03:03:26+09:00</updated>
+  <id>http://blog.awairo.net/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Gravatarのプロフィールを表示するOctopressのサイドバー]]></title>
+    <link href="http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/"/>
+    <updated>2013-12-24T02:35:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar</id>
+    <content type="html"><![CDATA[<p>つくりました。</p>
+
+<!--more-->
+
+
+<p>右のAuthorの画像を、Twitterのアイコンを直リンクで参照する、とてもお行儀の悪いものにしていたのですが、Twitterのアイコン画像を更新するとURL変わってしまうので、<a href="http://www.gravatar.com/">Gravatar</a>を参照するように変更してみました。</p>
+
+<p>誰か作ってるだろうと思って、コピペ元を探してみたんですが、<a href="https://github.com/joet3ch/gravatar-octopress">見つけれたの</a>は、設定にメアドを書いたらハッシュ生成して画像を参照するもので、ちょっと思ってたのと違う感じがして、自作に至った感じです。</p>
+
+<p>rubyコードを噛ましたりしてないので、メアドのMD5ハッシュの生成はできないですが。</p>
+
+<h1>用意するもの</h1>
+
+<ul>
+<li>GitHubPagesとOctopressの環境</li>
+<li>Gravatarアカウント(GitHubでアバター画像を変えてるなら作ってるはず)と、登録時のメアドのMD5ハッシュ</li>
+</ul>
+
+
+<h1>つくりかた</h1>
+
+<p><a href="http://www.gravatar.com/site/implement/profiles/">GravatarがJSONでプロフィール情報を返すAPIを提供している</a>ので、それを使って情報を持ってきて、画面に反映します。</p>
+
+<p>だけ。</p>
+
+<p>具体的には、<a href="https://github.com/alalwww/gravatar-aside/blob/master/gravatar.html">こんなかんじ</a>。</p>
+
+<p>てぬき。</p>
+
+<h1>コピペ</h1>
+
+<p><a href="https://github.com/alalwww/gravatar-aside">GitHubにリポジトリつくった</a>ので、使いたい人がいたらそこからもってってください。MITです。好きにしてください的な感じです。</p>
+
+<p>pluginとか、カスタムasideも、テーマみたいにサブモジュールとしてcloneできるような感じだと、楽なのになー。</p>
+
+<h2>つかいかた</h2>
+
+<ol>
+<li><code>gravatar.html</code>を<code>/path/to/octopress-repos/source/_includes/custom/asides/</code>にコピーする。</li>
+<li><code>_config.yml</code>を開く。</li>
+<li><code>default_asides</code>プロパティの好きな位置に<code>custom/asides/gravatar.html</code>を追加する。</li>
+<li>サードパーティ設定のあたりに<code>gravatar_hash</code>プロパティを追加し、Gravatarに登録したEメールのMD5ハッシュを設定する。</li>
+<li><code>rake gen_deploy</code>で公開しておしまい。</li>
+</ol>
+
+
+<p>_config.ymlはこんな感じのを足せばいいです</p>
+
+<pre><code>default_asides: [..., custom/asides/gravatar.html, ...]
+
+# Gravatar email hash
+gravatar_hash: 0bc83cb571cd1c50ba6f3e8a78ef1346
+</code></pre>
+
+<p>※<code>0bc83cb571cd1c50ba6f3e8a78ef1346</code>は<code>myemailaddress@example.com</code>のhashです。</p>
+
+<p>Gravatarのヘルプには、連携アプリ向けの<a href="http://www.gravatar.com/site/implement/hash/">md5ハッシュの生成方法とかも書いてありますが</a>、GitHubのアバター画像のURLとかからでも参照できるので、そっからコピペでOK。</p>
+]]></content>
+  </entry>
+  
+</feed>

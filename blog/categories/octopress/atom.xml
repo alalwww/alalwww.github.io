@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Octopress | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2013-12-24T01:18:34+09:00</updated>
+  <updated>2013-12-24T03:03:26+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Gravatarのプロフィールを表示するOctopressのサイドバー]]></title>
+    <link href="http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/"/>
+    <updated>2013-12-24T02:35:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar</id>
+    <content type="html"><![CDATA[<p>つくりました。</p>
+
+<!--more-->
+
+
+<p>右のAuthorの画像を、Twitterのアイコンを直リンクで参照する、とてもお行儀の悪いものにしていたのですが、Twitterのアイコン画像を更新するとURL変わってしまうので、<a href="http://www.gravatar.com/">Gravatar</a>を参照するように変更してみました。</p>
+
+<p>誰か作ってるだろうと思って、コピペ元を探してみたんですが、<a href="https://github.com/joet3ch/gravatar-octopress">見つけれたの</a>は、設定にメアドを書いたらハッシュ生成して画像を参照するもので、ちょっと思ってたのと違う感じがして、自作に至った感じです。</p>
+
+<p>rubyコードを噛ましたりしてないので、メアドのMD5ハッシュの生成はできないですが。</p>
+
+<h1>用意するもの</h1>
+
+<ul>
+<li>GitHubPagesとOctopressの環境</li>
+<li>Gravatarアカウント(GitHubでアバター画像を変えてるなら作ってるはず)と、登録時のメアドのMD5ハッシュ</li>
+</ul>
+
+
+<h1>つくりかた</h1>
+
+<p><a href="http://www.gravatar.com/site/implement/profiles/">GravatarがJSONでプロフィール情報を返すAPIを提供している</a>ので、それを使って情報を持ってきて、画面に反映します。</p>
+
+<p>だけ。</p>
+
+<p>具体的には、<a href="https://github.com/alalwww/gravatar-aside/blob/master/gravatar.html">こんなかんじ</a>。</p>
+
+<p>てぬき。</p>
+
+<h1>コピペ</h1>
+
+<p><a href="https://github.com/alalwww/gravatar-aside">GitHubにリポジトリつくった</a>ので、使いたい人がいたらそこからもってってください。MITです。好きにしてください的な感じです。</p>
+
+<p>pluginとか、カスタムasideも、テーマみたいにサブモジュールとしてcloneできるような感じだと、楽なのになー。</p>
+
+<h2>つかいかた</h2>
+
+<ol>
+<li><code>gravatar.html</code>を<code>/path/to/octopress-repos/source/_includes/custom/asides/</code>にコピーする。</li>
+<li><code>_config.yml</code>を開く。</li>
+<li><code>default_asides</code>プロパティの好きな位置に<code>custom/asides/gravatar.html</code>を追加する。</li>
+<li>サードパーティ設定のあたりに<code>gravatar_hash</code>プロパティを追加し、Gravatarに登録したEメールのMD5ハッシュを設定する。</li>
+<li><code>rake gen_deploy</code>で公開しておしまい。</li>
+</ol>
+
+
+<p>_config.ymlはこんな感じのを足せばいいです</p>
+
+<pre><code>default_asides: [..., custom/asides/gravatar.html, ...]
+
+# Gravatar email hash
+gravatar_hash: 0bc83cb571cd1c50ba6f3e8a78ef1346
+</code></pre>
+
+<p>※<code>0bc83cb571cd1c50ba6f3e8a78ef1346</code>は<code>myemailaddress@example.com</code>のhashです。</p>
+
+<p>Gravatarのヘルプには、連携アプリ向けの<a href="http://www.gravatar.com/site/implement/hash/">md5ハッシュの生成方法とかも書いてありますが</a>、GitHubのアバター画像のURLとかからでも参照できるので、そっからコピペでOK。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ツイーヨボタン復活]]></title>
@@ -483,51 +548,6 @@ Successfully generated site: source -&gt; public
 <hr />
 
 <p>何度かに分けて書いてるので文体バラバラ。っていうか、めんどくさい文章になるのでですます調はやめようと思いつつも、つい使ってしまう…。余計な文章書きすぎるクセも抜けない…。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[下書きがしたい]]></title>
-    <link href="http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts/"/>
-    <updated>2013-12-05T02:57:00+09:00</updated>
-    <id>http://blog.awairo.net/blog/2013/12/05/how-to-use-drafts</id>
-    <content type="html"><![CDATA[<p>Octopressで下書きを行う方法と、記事のテンプレートの修正についてメモ。</p>
-
-<!--more-->
-
-
-<h1>Octopressでも記事の下書きがしたい</h1>
-
-<p>テーマを変更する前に書きかけ記事があったので、そちらを下書きにしたいと思っていたのですが、探してみたら、<a href="http://chopl.in/blog/2012/05/27/how-to-preview-drafts-with-octopress.html">ちょうどいい解説記事</a>がありました。</p>
-
-<p>postのファイルの先頭で、<code>published: false</code>に設定しておくだけで下書きになるみたい。ただしプレビューでは表示される。</p>
-
-<h2>プレビューで下書き記事が出るときと出ない時がある。</h2>
-
-<p><code>rake generate</code>では下書きは生成されないが、<code>rake preview</code>で起動中の再生成時には下書き記事も生成されるみたい。</p>
-
-<p>なので、いきなり<code>rake preview</code>で起動した場合は常に表示される。ただし<code>rake generate</code>を行ってから<code>rake preview</code>を行うと、初回のプレビュー時だけ表示されず、ブラウザでF5を押すと下書きの記事が生成されて見えるようになる。</p>
-
-<h2>やっぱ新規作成時に用意しておいてほしいよね</h2>
-
-<p><code>rake new_post['title']</code>した時に初期値が入っててくれたほうが便利なので、テンプレートを探してみるも見つからない。もしやと思って<code>Rakefile</code>を覗いてみたら、テンプレートがベタ書きされてました。</p>
-
-<p><a href="http://blog.4uing.net/octopress-post/">こちらのサイト</a>によると、<code>published</code>の他に、<code>author</code>と<code>external-url</code>(外部リンクの設定)があるようです。せっかくなので合わせて追加。ただし外部リンクは不要なのでスルー。</p>
-
-<pre><code>post.puts "---"
-post.puts "layout: post"
-post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
-post.puts "author: alalwww"
-post.puts "comments: true"
-post.puts "published: true"
-post.puts "title: \"#{title.gsub(/&amp;/,'&amp;amp;')}\""
-post.puts "categories: "
-post.puts "---"
-post.puts ""
-post.puts "&lt;!--more--&gt;"
-</code></pre>
-
-<p>テーマ変更にあわせて記事に頭で&lt;!&mdash;more&mdash;&gt;を挟むようにしたので、そのあたりも含めてみた。これは結構いいカンジっぽい…？</p>
 ]]></content>
   </entry>
   

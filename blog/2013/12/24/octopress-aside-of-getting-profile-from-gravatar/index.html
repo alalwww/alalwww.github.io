@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ツイーヨボタン復活 - AwAlog</title>
+  <title>Gravatarのプロフィールを表示するOctopressのサイドバー - AwAlog</title>
   <meta name="author" content="alalwww">
 
   
-  <meta name="description" content="需要ないと思うけど、設定忘れで消えてたので復活。 やったこと _config.ymlで有効にしただけ。 twitter_tweet_button: true ">
+  <meta name="description" content="つくりました。 右のAuthorの画像を、Twitterのアイコンを直リンクで参照する、とてもお行儀の悪いものにしていたのですが、Twitterのアイコン画像を更新するとURL変わってしまうので、Gravatarを参照するように変更してみました。 誰か作ってるだろうと思って、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.awairo.net/blog/2013/12/14/enable-tweet-button">
+  <link rel="canonical" href="http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
@@ -93,7 +93,7 @@
   
   <header>
     
-      <h1 class="entry-title">ツイーヨボタン復活</h1>
+      <h1 class="entry-title">Gravatarのプロフィールを表示するOctopressのサイドバー</h1>
     
     
       <p class="meta">
@@ -109,7 +109,7 @@
   
 
 
-<time datetime="2013-12-14T14:43:00+09:00" pubdate data-updated="true">[12/14(Sat) - 2013] 14:43 (+0900)</time>
+<time datetime="2013-12-24T02:35:00+09:00" pubdate data-updated="true">[12/24(Tue) - 2013] 02:35 (+0900)</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -118,17 +118,63 @@
   </header>
 
 
-<div class="entry-content"><p>需要ないと思うけど、設定忘れで消えてたので復活。</p>
+<div class="entry-content"><p>つくりました。</p>
 
 <!--more-->
 
 
-<h1>やったこと</h1>
+<p>右のAuthorの画像を、Twitterのアイコンを直リンクで参照する、とてもお行儀の悪いものにしていたのですが、Twitterのアイコン画像を更新するとURL変わってしまうので、<a href="http://www.gravatar.com/">Gravatar</a>を参照するように変更してみました。</p>
 
-<p>_config.ymlで有効にしただけ。</p>
+<p>誰か作ってるだろうと思って、コピペ元を探してみたんですが、<a href="https://github.com/joet3ch/gravatar-octopress">見つけれたの</a>は、設定にメアドを書いたらハッシュ生成して画像を参照するもので、ちょっと思ってたのと違う感じがして、自作に至った感じです。</p>
 
-<pre><code>twitter_tweet_button: true
+<p>rubyコードを噛ましたりしてないので、メアドのMD5ハッシュの生成はできないですが。</p>
+
+<h1>用意するもの</h1>
+
+<ul>
+<li>GitHubPagesとOctopressの環境</li>
+<li>Gravatarアカウント(GitHubでアバター画像を変えてるなら作ってるはず)と、登録時のメアドのMD5ハッシュ</li>
+</ul>
+
+
+<h1>つくりかた</h1>
+
+<p><a href="http://www.gravatar.com/site/implement/profiles/">GravatarがJSONでプロフィール情報を返すAPIを提供している</a>ので、それを使って情報を持ってきて、画面に反映します。</p>
+
+<p>だけ。</p>
+
+<p>具体的には、<a href="https://github.com/alalwww/gravatar-aside/blob/master/gravatar.html">こんなかんじ</a>。</p>
+
+<p>てぬき。</p>
+
+<h1>コピペ</h1>
+
+<p><a href="https://github.com/alalwww/gravatar-aside">GitHubにリポジトリつくった</a>ので、使いたい人がいたらそこからもってってください。MITです。好きにしてください的な感じです。</p>
+
+<p>pluginとか、カスタムasideも、テーマみたいにサブモジュールとしてcloneできるような感じだと、楽なのになー。</p>
+
+<h2>つかいかた</h2>
+
+<ol>
+<li><code>gravatar.html</code>を<code>/path/to/octopress-repos/source/_includes/custom/asides/</code>にコピーする。</li>
+<li><code>_config.yml</code>を開く。</li>
+<li><code>default_asides</code>プロパティの好きな位置に<code>custom/asides/gravatar.html</code>を追加する。</li>
+<li>サードパーティ設定のあたりに<code>gravatar_hash</code>プロパティを追加し、Gravatarに登録したEメールのMD5ハッシュを設定する。</li>
+<li><code>rake gen_deploy</code>で公開しておしまい。</li>
+</ol>
+
+
+<p>_config.ymlはこんな感じのを足せばいいです</p>
+
+<pre><code>default_asides: [..., custom/asides/gravatar.html, ...]
+
+# Gravatar email hash
+gravatar_hash: 0bc83cb571cd1c50ba6f3e8a78ef1346
 </code></pre>
+
+<p>※<code>0bc83cb571cd1c50ba6f3e8a78ef1346</code>は<code>myemailaddress@example.com</code>のhashです。</p>
+
+<p>Gravatarのヘルプには、連携アプリ向けの<a href="http://www.gravatar.com/site/implement/hash/">md5ハッシュの生成方法とかも書いてありますが</a>、GitHubのアバター画像のURLとかからでも参照できるので、そっからコピペでOK。</p>
 </div>
 
 
@@ -138,7 +184,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+    <a class='category' href='/blog/categories/gravatar/'>Gravatar</a>, <a class='category' href='/blog/categories/octopress/'>Octopress</a>
   
 </span>
 
@@ -157,7 +203,7 @@
   
 
 
-<time datetime="2013-12-14T14:43:00+09:00" pubdate data-updated="true">[12/14(Sat) - 2013] 14:43 (+0900)</time>
+<time datetime="2013-12-24T02:35:00+09:00" pubdate data-updated="true">[12/24(Tue) - 2013] 02:35 (+0900)</time>
       
   
 
@@ -167,7 +213,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/" data-via="" data-counturl="http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/" data-via="" data-counturl="http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -180,10 +226,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/14/custom-domain-for-gh-pages/" title="Previous Post: GitHub Pagesで独自ドメインを使う方法">&laquo; GitHub Pagesで独自ドメインを使う方法</a>
+        <a class="basic-alignment left" href="/blog/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/" title="Previous Post: Eclipse起動時に開くSTSのダッシュボードを無効化">&laquo; Eclipse起動時に開くSTSのダッシュボードを無効化</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/" title="Next Post: Eclipse起動時に開くSTSのダッシュボードを無効化">Eclipse起動時に開くSTSのダッシュボードを無効化 &raquo;</a>
       
     </p>
   </footer>
@@ -376,8 +420,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/';
-        var disqus_url = 'http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/';
+        var disqus_identifier = 'http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/';
+        var disqus_url = 'http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/';
         var disqus_script = 'embed.js';
       
     (function () {

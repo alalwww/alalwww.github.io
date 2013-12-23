@@ -59,8 +59,14 @@
         <lastmod>2013-12-15T06:33:35+09:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/
+        </loc>
+        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.awairo.net/</loc>
-        <lastmod>2013-12-23T17:33:09+09:00</lastmod>
+        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/robots.txt</loc>
@@ -68,10 +74,10 @@
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/archives/</loc>
-        <lastmod>2013-12-23T17:33:09+09:00</lastmod>
+        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/archives/</loc>
-        <lastmod>2013-12-23T17:33:09+09:00</lastmod>
+        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
     </url>
 </urlset>
