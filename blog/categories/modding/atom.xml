@@ -4,7 +4,7 @@
   <title><![CDATA[Category: modding | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/modding/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2013-12-24T01:17:04+09:00</updated>
+  <updated>2013-12-24T01:18:34+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -12,85 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Minecraft modding その1-1]]></title>
-    <link href="http://blog.awairo.net/blog/2013/12/16/minecraft-modding-1/"/>
-    <updated>2013-12-16T23:33:00+09:00</updated>
-    <id>http://blog.awairo.net/blog/2013/12/16/minecraft-modding-1</id>
-    <content type="html"><![CDATA[<p>開発環境を準備しよう。Eclipse導入編。(1)</p>
-
-<!--more-->
-
-
-<p>特にPC性能に不満がないなら、普通に<a href="http://mergedoc.sourceforge.jp/" title="日本語化されたオールインワンEclipse">Pleiades</a>のJavaをダウンロードしてくればOKです。Modの開発には必要のない、J2EE関連の機能がメインな環境なので、不要なものは沢山入っていますが、動作するなら問題はありません。</p>
-
-<p>でもそれじゃ面白くないので、IDEの理解を深めるためと、極力動作を軽くするために、必要最低限のプラグインだけを導入していくって感じで、環境を準備してみたいと思います。平日はあまり時間がとれないので、数回に分けて書いていく予定。</p>
-
-<p>マイクラのModの作り方とかは、今のところここにはないです。[くまさんWiki][<a href="http://www4.atwiki.jp/reginn666/">http://www4.atwiki.jp/reginn666/</a>]の更新を待機してて、どうぞ。</p>
-
-<h1>ゴール</h1>
-
-<p>Eclipseが起動でき、必要なプラグインが導入されている状態まで。</p>
-
-<p>導入する予定のプラグイン
-&ndash; JDT(JavaSE開発環境)
-&ndash; Pleiades(動的日本語化プラグイン)
-&ndash; EGit(Gitプラグイン)
-&ndash; GradleIDE(Forge964以降を見越して)</p>
-
-<ul>
-<li>[JStyle]<a href="%E5%85%A8%E8%A7%92%E7%A9%BA%E7%99%BD%E3%82%84%E3%82%BF%E3%83%96%E3%80%81%E6%94%B9%E8%A1%8C%E3%81%AA%E3%81%A9%E3%81%AE%E5%8F%AF%E8%A6%96%E5%8C%96">http://mergedoc.sourceforge.jp/jstyle.html</a></li>
-<li>AnyEdit tools</li>
-<li>JD-Eclipse Realign</li>
-<li>プロパティエディタ</li>
-<li>(YMLエディタ)</li>
-<li>(markdownエディタ)</li>
-<li><p>(Gloovy開発環境)</p></li>
-<li><p>CheckStyle</p></li>
-<li>FindBugs</li>
-</ul>
-
-
-<p>テスト系
-&ndash; QuickJUnit
-&ndash; JUnitHelper
-&ndash; JMockit plugin</p>
-
-<h1>手順</h1>
-
-<h2>Eclipseのダウンロード</h2>
-
-<p><a href="http://download.eclipse.org/eclipse/downloads/">本家</a>からEclipseをダウンロードしてくるか、<a href="http://mergedoc.sourceforge.jp/" title="日本語化されたオールインワンEclipse">MergeDoc</a>から Pleiades All In One をダウンロードしてくる。</p>
-
-<p>本家のものは、何も入っていないまっさらなEclipseで、Pleiadesは日本語化プラグインとJStyleプラグインが導入済み。日本語化する前提なら、MergeDocでダウンロードした方が手っ取り早いけど、日本語化プラグイン自体がそこそこパフォーマンスを下げるものなので、低スペックPCが前提で、英語に抵抗がないなら、本家から落としてきてもいい。</p>
-
-<h3>本家の場合</h3>
-
-<ol>
-<li><a href="http://download.eclipse.org/eclipse/downloads/">Eclipse Project Donwloads</a>の「Latest Downloads」から、「Latest Release」に書いてある一番新しいやつをクリック。</li>
-<li>上のほうにあるSDKなどは無視し、中ほどにある「Platform Runtime Binary」から、自分の環境用のPlatformのdownload列のhttpのところをクリック。</li>
-<li>メインのダウンロードサーバーと、ミラーサーバーの一覧の画面から、適当に選んでダウンロード。</li>
-</ol>
-
-
-<h3>Pleiadesの場合</h3>
-
-<ol>
-<li><a href="http://mergedoc.sourceforge.jp/" title="日本語化されたオールインワンEclipse">MergeDoc</a>から Eclipse 4.3 Kepler を選択。(2013年12月現在の最新)</li>
-<li>Platformの自環境用のものをダウンロードする。</li>
-</ol>
-
-
-<p>Platformにおいては、「Full Edition」と「Standard Edition」の違いは、JREがついてくるかどうか程度の差しかない。特に理由がなければFullEditionをダウンロードしよう。</p>
-
-<h2>Eclipseインストール</h2>
-
-<p>といっても実際のところインストーラーなどはなく、任意のフォルダーにファイルを配置するだけ。</p>
-
-<p>とても長い名前のファイルやフォルダーが含まれるので、ドライブ直下などに配置するとよさげ。また、Pleiadesの場合は、ワークスペース設定のデフォルト</p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[version.properties メモ]]></title>
