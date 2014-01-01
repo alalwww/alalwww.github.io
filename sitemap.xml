@@ -6,7 +6,7 @@
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/2013/02/18/ignore-java-awt-list/</loc>
-        <lastmod>2013-12-15T06:33:35+09:00</lastmod>
+        <lastmod>2014-01-01T20:04:07+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/2013/02/19/blog-customization1/</loc>
@@ -38,7 +38,7 @@
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/2013/12/09/reinstall-octopress/</loc>
-        <lastmod>2013-12-15T06:33:35+09:00</lastmod>
+        <lastmod>2014-01-01T20:09:24+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/2013/12/09/add-tag-cloud-plugin-on-octopress/</loc>
@@ -46,7 +46,7 @@
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/2013/12/14/custom-domain-for-gh-pages/</loc>
-        <lastmod>2013-12-23T17:33:09+09:00</lastmod>
+        <lastmod>2014-01-01T20:09:54+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/2013/12/14/enable-tweet-button/</loc>
@@ -56,17 +56,21 @@
         <loc>
             http://blog.awairo.net/blog/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/
         </loc>
-        <lastmod>2013-12-15T06:33:35+09:00</lastmod>
+        <lastmod>2014-01-01T20:10:25+09:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.awairo.net/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/
         </loc>
-        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
+        <lastmod>2014-01-01T19:26:14+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/</loc>
+        <lastmod>2014-01-02T01:38:21+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/</loc>
-        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
+        <lastmod>2014-01-02T01:38:21+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/robots.txt</loc>
@@ -74,10 +78,10 @@
     </url>
     <url>
         <loc>http://blog.awairo.net/blog/archives/</loc>
-        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
+        <lastmod>2014-01-02T01:38:21+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.awairo.net/archives/</loc>
-        <lastmod>2013-12-24T03:01:15+09:00</lastmod>
+        <lastmod>2014-01-02T01:38:21+09:00</lastmod>
     </url>
 </urlset>

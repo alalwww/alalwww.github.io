@@ -4,7 +4,7 @@
   <title><![CDATA[AwAlog]]></title>
   <link href="http://blog.awairo.net/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2013-12-24T03:07:45+09:00</updated>
+  <updated>2014-01-02T01:39:41+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OctopressのRakefileのカスタマイズ]]></title>
+    <link href="http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/"/>
+    <updated>2014-01-01T22:27:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile</id>
+    <content type="html"><![CDATA[<p>記事が_posts直下に沢山できてくると邪魔なので、その対策。</p>
+
+<!--more-->
+
+
+<h1>Rakefileカスタマイズ(記事のディレクトリ分け)</h1>
+
+<p>Octopressの使ってるJekyllの機能らしいですが、_posts以下にサブディレクトリがあっても再帰的に検索して、記事ファイルとして処理してくれるようです。</p>
+
+<p>ただし、ファイル名が<code>yyyy-mm-dd-</code>で始まっていなければいけません。最初、どんなファイルでも行けるのかと思ってファイルのリネームまで行ったところ、記事が全滅してしばらくハマりました。</p>
+
+<p>ともあれ、ディレクトリ分けて整理できるようなので、<code>rake new_post['title']</code>した時に、年月ディレクトリを掘って、そこに月ごとにぶちこんでしまうように、Rakefileを修正しました。</p>
+
+<p>こういう機能もOctopress側に用意されてれば楽なんですけどね。</p>
+
+<p>( っ&#8217;ω&#8217;c)ﾀﾞﾚｶPRﾀﾞｼﾃｸﾚﾅｲｶﾅ</p>
+
+<h2>やったこと</h2>
+
+<p>(ついでなので、他にも少し設定値などを修正しました。)</p>
+
+<ul>
+<li>markdownの拡張子を、&#8221;markdown&#8221;から&#8221;md&#8221;に変更。</li>
+<li>記事の新規作成時、_posts以下にyyyy-mm形式のディレクトリを作成。</li>
+<li>上記で作成したディレクトリに記事作成。</li>
+<li>記事を作成した際に、記事用の画像ディレクトリも作成。</li>
+</ul>
+
+
+<p>それだけ。</p>
+
+<h2>変更の差分</h2>
+
+<div><script src='https://gist.github.com/8207758.js'></script>
+<noscript><pre><code>diff --git a/Rakefile b/Rakefile
+index c2f2a78..f9188c8 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -22,9 +22,10 @@ blog_index_dir  = 'source'    # directory for your blog's index page (if you put
+ deploy_dir      = &quot;_deploy&quot;   # deploy directory (for Github pages deployment)
+ stash_dir       = &quot;_stash&quot;    # directory to stash posts for speedy generation
+ posts_dir       = &quot;_posts&quot;    # directory for blog files
++posts_images_dir= &quot;images/posts&quot;
+ themes_dir      = &quot;.themes&quot;   # directory for blog files
+-new_post_ext    = &quot;markdown&quot;  # default new post file extension when using the new_post task
+-new_page_ext    = &quot;markdown&quot;  # default new page file extension when using the new_page task
++new_post_ext    = &quot;md&quot;  # default new post file extension when using the new_post task
++new_page_ext    = &quot;md&quot;  # default new page file extension when using the new_page task
+ server_port     = &quot;4000&quot;      # port for preview server eg. localhost:4000
+
+
+@@ -98,8 +99,12 @@ task :new_post, :title do |t, args|
+     title = get_stdin(&quot;Enter a title for your post: &quot;)
+   end
+   raise &quot;### You haven't set anything up yet. First run `rake install` to set up an Octopress theme.&quot; unless File
+-  mkdir_p &quot;#{source_dir}/#{posts_dir}&quot;
+-  filename = &quot;#{source_dir}/#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}&quot;
++  time_now = Time.now
++  post_dir_of_monthly = &quot;#{source_dir}/#{posts_dir}/#{time_now.strftime('%Y-%m')}&quot;
++  mkdir_p post_dir_of_monthly
++  # create dir of post's images
++  mkdir_p &quot;#{source_dir}/#{posts_images_dir}/#{time_now.strftime('%Y/%m/%d')}/#{title.to_url}&quot;
++  filename = &quot;#{post_dir_of_monthly}/#{time_now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}&quot;
+   if File.exist?(filename)
+     abort(&quot;rake aborted!&quot;) if ask(&quot;#{filename} already exists. Do you want to overwrite?&quot;, ['y', 'n']) == 'n'
+   end</code></pre></noscript></div>
+
+
+<hr />
+
+<p>画像のURL指定するのもめんどくさいので、そのうち記事に紐づくスクリプトみたいなの噛ますようにしないとかなー。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Gravatarのプロフィールを表示するOctopressのサイドバー]]></title>
@@ -91,7 +170,7 @@ gravatar_hash: 0bc83cb571cd1c50ba6f3e8a78ef1346
 <h1>概要</h1>
 
 <p><a href="http://shootingstar.fm/">星を投げつけるタイプのTwitterクライアント</a>ではなくて、<a href="http://spring.io/tools/sts">SpringToolSuite</a>です。
-<img src="http://blog.awairo.net/images/posts/2013-12-15-disable-spring-tool-suite-dashboard-on-eclipse-startup/dashbard.png" title="これが起動時毎回でてくるのでちょっと邪魔に感じてた。" alt="ダッシュボードの画像" /></p>
+<img src="http://blog.awairo.net/images/posts/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/dashbard.png" title="これが起動時毎回でてくるのでちょっと邪魔に感じてた。" alt="ダッシュボードの画像" /></p>
 
 <p>たしかGradleIDEインスコしたとき、Groovyエディタとかもあったほうがいいかなって、Groovyのプラグインを導入したのだけれど、そのときセットで要求されて導入したSTSが、Eclipseの起動時に毎回ダッシュボードを開いてくるので、ちょっと邪魔っぽい。</p>
 
@@ -111,7 +190,7 @@ gravatar_hash: 0bc83cb571cd1c50ba6f3e8a78ef1346
 </ol>
 
 
-<p><img src="http://blog.awairo.net/images/posts/2013-12-15-disable-spring-tool-suite-dashboard-on-eclipse-startup/preferences.png" alt="Eclipseの設定ウィンドウのスクリーンショット" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/preferences.png" alt="Eclipseの設定ウィンドウのスクリーンショット" /></p>
 
 <p>おしまい♪</p>
 ]]></content>
@@ -271,7 +350,7 @@ $ rake gen_deploy (Push)
 <h3>確認</h3>
 
 <p>Chromeで<code>F12</code>を押して開発用ツールを開いて、<code>Network</code>タブを選んで、<code>http://alalwww.github.io/</code>にアクセスし、<code>http://blog.awairo.net/</code>にリダイレクトされてる事を確認。
-<img src="http://blog.awairo.net/images/posts/2013-12-14-custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
+<img src="http://blog.awairo.net/images/posts/2013/12/14/custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
 
 <p>できてるできてる。</p>
 
@@ -478,7 +557,7 @@ To git@bitbucket.org:username/octopress.git
 </code></pre>
 
 <p>Bitbucketサイトのコミットログを確認。
-<img src="http://blog.awairo.net/images/posts/2013-12-09-reinstall-octopress/bitbucket_log.png" alt="Bitbucketのコミットログ画面" /></p>
+<img src="http://blog.awairo.net/images/posts/2013/12/09/reinstall-octopress/bitbucket_log.png" alt="Bitbucketのコミットログ画面" /></p>
 
 <h3>動作の確認など</h3>
 
@@ -1522,11 +1601,11 @@ hatena_bookmark_button: true
 
 <p>java.util.List が使いたいので、list とタイプして…</p>
 
-<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list1.png" alt="listまでタイプしたソースコード画像" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013/02/18/ignore-java-awt-list/list1.png" alt="listまでタイプしたソースコード画像" /></p>
 
 <p>補完で自動インポートをかけようとすると…</p>
 
-<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013/02/18/ignore-java-awt-list/list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
 
 <p>java.awt.List…てめーはダメだ！</p>
 
@@ -1553,7 +1632,7 @@ hatena_bookmark_button: true
 <li>Java</li>
 <li>外観</li>
 <li>型フィルター
-<img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
+<img src="http://blog.awairo.net/images/posts/2013/02/18/ignore-java-awt-list/typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
 </ol>
 
 
@@ -1566,7 +1645,7 @@ hatena_bookmark_button: true
 </ul>
 
 
-<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013/02/18/ignore-java-awt-list/list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
 
 <p>これで邪魔者はいなくなった！</p>
 
@@ -1578,7 +1657,7 @@ hatena_bookmark_button: true
 
 <p>ん…？</p>
 
-<p><img src="http://blog.awairo.net/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
+<p><img src="http://blog.awairo.net/images/posts/2013/02/18/ignore-java-awt-list/typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
 
 <p>き、きっと &ldquo;a&rdquo; で始まるからだよね…(´・ω・｀)</p>
 ]]></content>

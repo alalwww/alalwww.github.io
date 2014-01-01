@@ -4,7 +4,7 @@
   <title><![CDATA[Category: GitHub | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2013-12-24T03:07:45+09:00</updated>
+  <updated>2014-01-02T01:39:41+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -148,7 +148,7 @@ $ rake gen_deploy (Push)
 <h3>確認</h3>
 
 <p>Chromeで<code>F12</code>を押して開発用ツールを開いて、<code>Network</code>タブを選んで、<code>http://alalwww.github.io/</code>にアクセスし、<code>http://blog.awairo.net/</code>にリダイレクトされてる事を確認。
-<img src="/images/posts/2013-12-14-custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
+<img src="/images/posts/2013/12/14/custom-domain-for-gh-pages/chrome_devtools.png" alt="ChromeのDeveloperToolsのキャプチャー画像" /></p>
 
 <p>できてるできてる。</p>
 

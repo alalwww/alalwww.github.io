@@ -4,7 +4,7 @@
   <title><![CDATA[Category: eclipse | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/eclipse/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2013-12-24T03:07:45+09:00</updated>
+  <updated>2014-01-02T01:39:41+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -26,7 +26,7 @@
 <h1>概要</h1>
 
 <p><a href="http://shootingstar.fm/">星を投げつけるタイプのTwitterクライアント</a>ではなくて、<a href="http://spring.io/tools/sts">SpringToolSuite</a>です。
-<img src="/images/posts/2013-12-15-disable-spring-tool-suite-dashboard-on-eclipse-startup/dashbard.png" title="これが起動時毎回でてくるのでちょっと邪魔に感じてた。" alt="ダッシュボードの画像" /></p>
+<img src="/images/posts/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/dashbard.png" title="これが起動時毎回でてくるのでちょっと邪魔に感じてた。" alt="ダッシュボードの画像" /></p>
 
 <p>たしかGradleIDEインスコしたとき、Groovyエディタとかもあったほうがいいかなって、Groovyのプラグインを導入したのだけれど、そのときセットで要求されて導入したSTSが、Eclipseの起動時に毎回ダッシュボードを開いてくるので、ちょっと邪魔っぽい。</p>
 
@@ -46,7 +46,7 @@
 </ol>
 
 
-<p><img src="/images/posts/2013-12-15-disable-spring-tool-suite-dashboard-on-eclipse-startup/preferences.png" alt="Eclipseの設定ウィンドウのスクリーンショット" /></p>
+<p><img src="/images/posts/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/preferences.png" alt="Eclipseの設定ウィンドウのスクリーンショット" /></p>
 
 <p>おしまい♪</p>
 ]]></content>
@@ -66,11 +66,11 @@
 
 <p>java.util.List が使いたいので、list とタイプして…</p>
 
-<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list1.png" alt="listまでタイプしたソースコード画像" /></p>
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/list1.png" alt="listまでタイプしたソースコード画像" /></p>
 
 <p>補完で自動インポートをかけようとすると…</p>
 
-<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
 
 <p>java.awt.List…てめーはダメだ！</p>
 
@@ -97,7 +97,7 @@
 <li>Java</li>
 <li>外観</li>
 <li>型フィルター
-<img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
+<img src="/images/posts/2013/02/18/ignore-java-awt-list/typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
 </ol>
 
 
@@ -110,7 +110,7 @@
 </ul>
 
 
-<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
 
 <p>これで邪魔者はいなくなった！</p>
 
@@ -122,7 +122,7 @@
 
 <p>ん…？</p>
 
-<p><img src="/images/posts/2013-02-18-ignore-java-awt-list/2013-02-18-typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
 
 <p>き、きっと &ldquo;a&rdquo; で始まるからだよね…(´・ω・｀)</p>
 ]]></content>

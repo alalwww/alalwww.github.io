@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: DNS - AwAlog</title>
+  <title>OctopressのRakefileのカスタマイズ - AwAlog</title>
   <meta name="author" content="alalwww">
 
   
-  <meta name="description" content="Category: DNS">
+  <meta name="description" content="記事が_posts直下に沢山できてくると邪魔なので、その対策。 Rakefileカスタマイズ(記事のディレクトリ分け) Octopressの使ってるJekyllの機能らしいですが、_posts以下にサブディレクトリがあっても再帰的に検索して、記事ファイルとして処理してくれるようです。 ただし、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.awairo.netblog/categories/dns">
+  <link rel="canonical" href="http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
@@ -89,36 +89,169 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: DNS</h1>
+    
+      <h1 class="entry-title">OctopressのRakefileのカスタマイズ</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-01T22:27:00+09:00" pubdate data-updated="true">[01/01(Wed) - 2014] 22:27 (+0900)</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>記事が_posts直下に沢山できてくると邪魔なので、その対策。</p>
 
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/12/14/custom-domain-for-gh-pages/">GitHub Pagesで独自ドメインを使う方法</a></h1>
-<time datetime="2013-12-14T14:23:00+09:00" pubdate><span class='month'>Dec</span> <span class='day'>14</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/dns/'>DNS</a>, <a class='category' href='/blog/categories/github/'>GitHub</a>, <a class='category' href='/blog/categories/octopress/'>Octopress</a></span>
-</footer>
+<!--more-->
 
 
-</article>
+<h1>Rakefileカスタマイズ(記事のディレクトリ分け)</h1>
 
+<p>Octopressの使ってるJekyllの機能らしいですが、_posts以下にサブディレクトリがあっても再帰的に検索して、記事ファイルとして処理してくれるようです。</p>
+
+<p>ただし、ファイル名が<code>yyyy-mm-dd-</code>で始まっていなければいけません。最初、どんなファイルでも行けるのかと思ってファイルのリネームまで行ったところ、記事が全滅してしばらくハマりました。</p>
+
+<p>ともあれ、ディレクトリ分けて整理できるようなので、<code>rake new_post['title']</code>した時に、年月ディレクトリを掘って、そこに月ごとにぶちこんでしまうように、Rakefileを修正しました。</p>
+
+<p>こういう機能もOctopress側に用意されてれば楽なんですけどね。</p>
+
+<p>( っ&#8217;ω&#8217;c)ﾀﾞﾚｶPRﾀﾞｼﾃｸﾚﾅｲｶﾅ</p>
+
+<h2>やったこと</h2>
+
+<p>(ついでなので、他にも少し設定値などを修正しました。)</p>
+
+<ul>
+<li>markdownの拡張子を、&#8221;markdown&#8221;から&#8221;md&#8221;に変更。</li>
+<li>記事の新規作成時、_posts以下にyyyy-mm形式のディレクトリを作成。</li>
+<li>上記で作成したディレクトリに記事作成。</li>
+<li>記事を作成した際に、記事用の画像ディレクトリも作成。</li>
+</ul>
+
+
+<p>それだけ。</p>
+
+<h2>変更の差分</h2>
+
+<div><script src='https://gist.github.com/8207758.js'></script>
+<noscript><pre><code>diff --git a/Rakefile b/Rakefile
+index c2f2a78..f9188c8 100644
+--- a/Rakefile
++++ b/Rakefile
+@@ -22,9 +22,10 @@ blog_index_dir  = 'source'    # directory for your blog's index page (if you put
+ deploy_dir      = &quot;_deploy&quot;   # deploy directory (for Github pages deployment)
+ stash_dir       = &quot;_stash&quot;    # directory to stash posts for speedy generation
+ posts_dir       = &quot;_posts&quot;    # directory for blog files
++posts_images_dir= &quot;images/posts&quot;
+ themes_dir      = &quot;.themes&quot;   # directory for blog files
+-new_post_ext    = &quot;markdown&quot;  # default new post file extension when using the new_post task
+-new_page_ext    = &quot;markdown&quot;  # default new page file extension when using the new_page task
++new_post_ext    = &quot;md&quot;  # default new post file extension when using the new_post task
++new_page_ext    = &quot;md&quot;  # default new page file extension when using the new_page task
+ server_port     = &quot;4000&quot;      # port for preview server eg. localhost:4000
+
+
+@@ -98,8 +99,12 @@ task :new_post, :title do |t, args|
+     title = get_stdin(&quot;Enter a title for your post: &quot;)
+   end
+   raise &quot;### You haven't set anything up yet. First run `rake install` to set up an Octopress theme.&quot; unless File
+-  mkdir_p &quot;#{source_dir}/#{posts_dir}&quot;
+-  filename = &quot;#{source_dir}/#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}&quot;
++  time_now = Time.now
++  post_dir_of_monthly = &quot;#{source_dir}/#{posts_dir}/#{time_now.strftime('%Y-%m')}&quot;
++  mkdir_p post_dir_of_monthly
++  # create dir of post's images
++  mkdir_p &quot;#{source_dir}/#{posts_images_dir}/#{time_now.strftime('%Y/%m/%d')}/#{title.to_url}&quot;
++  filename = &quot;#{post_dir_of_monthly}/#{time_now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}&quot;
+   if File.exist?(filename)
+     abort(&quot;rake aborted!&quot;) if ask(&quot;#{filename} already exists. Do you want to overwrite?&quot;, ['y', 'n']) == 'n'
+   end</code></pre></noscript></div>
+
+
+<hr />
+
+<p>画像のURL指定するのもめんどくさいので、そのうち記事に紐づくスクリプトみたいなの噛ますようにしないとかなー。</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
+
+<span class="categories">
   
+    <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-01T22:27:00+09:00" pubdate data-updated="true">[01/01(Wed) - 2014] 22:27 (+0900)</time>
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">alalwww</span></span>
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/" data-via="" data-counturl="http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/" title="Previous Post: Gravatarのプロフィールを表示するOctopressのサイドバー">&laquo; Gravatarのプロフィールを表示するOctopressのサイドバー</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -300,7 +433,10 @@
       var disqus_shortname = 'awalog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/';
+        var disqus_url = 'http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
