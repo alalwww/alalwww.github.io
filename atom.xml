@@ -4,7 +4,7 @@
   <title><![CDATA[AwAlog]]></title>
   <link href="http://blog.awairo.net/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-02T12:18:52+09:00</updated>
+  <updated>2014-01-02T12:23:28+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -259,7 +259,7 @@ F:\mod\TestMod&gt;git commit -m "initial commit"
 
 <p>以降、上記ファイルが変更されたか、新しいファイルが追加された場合、差分などが簡単に追いかけれるようになります。</p>
 
-<p>※サンプルModは、あとでどのみち削除するので、コミットする意味はないです。<code>git add ～</code>で対象を選んでステージングするか、全部追加したあと<code>git rm --cached ～</code>などでステージングから削除してから、コミットした方がいいかもしれません。</p>
+<p>※サンプルModは、あとでどのみち削除するので、コミットする意味はないです。<code>git add ～</code>で対象を選んでステージングするか、一旦全部追加したあとに<code>git rm --cached ～</code>などでステージからサンプルModだけを削除し、コミットした方がいいかもしれません。</p>
 
 <h2>3. EclipseでインポートしてMOD開発を行う</h2>
 
