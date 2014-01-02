@@ -4,7 +4,7 @@
   <title><![CDATA[AwAlog]]></title>
   <link href="http://blog.awairo.net/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-02T11:45:28+09:00</updated>
+  <updated>2014-01-02T11:58:32+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -621,7 +621,7 @@ index aec9973..88f1f51 100644
 
 <p>PleiadesのPlatformは、PleiadesのJavaと同じ方法で入手できるので端折ります。</p>
 
-<p>素のEclipseは、<a href="http://www.eclipse.org/">公式サイト</a>からダウンロードしてきます。この選択をする人なら事故解決できそうなので詳細は端折ります。</p>
+<p>素のEclipseは、<a href="http://www.eclipse.org/">公式サイト</a>からダウンロードしてきます。この選択をする人なら自己解決できそうなので詳細は端折ります。</p>
 
 <p>おわったおわった！</p>
 
