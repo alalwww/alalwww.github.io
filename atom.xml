@@ -4,7 +4,7 @@
   <title><![CDATA[AwAlog]]></title>
   <link href="http://blog.awairo.net/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-02T11:58:32+09:00</updated>
+  <updated>2014-01-02T12:18:52+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -191,7 +191,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 
 <h4>3. 余計な物が多いので無視設定を追加</h4>
 
-<p>外部後悔する場合を想定し、.gitignoreファイルを作成して、無視対象を追加していきます。</p>
+<p>外部公開する場合を想定し、.gitignoreファイルを作成して、無視対象を追加していきます。</p>
 
 <pre><code>F:\mod&gt;cd TestMod
 F:\mod\TestMod&gt;echo /.classpath&gt;&gt;.gitignore
