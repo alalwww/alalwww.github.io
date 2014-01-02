@@ -4,7 +4,7 @@
   <title><![CDATA[Category: MinecraftForge | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/minecraftforge/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-02T02:32:06+09:00</updated>
+  <updated>2014-01-02T11:45:28+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -12,6 +12,446 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ちゃちゃっとマイクラMOD開発環境をつくる(2)]]></title>
+    <link href="http://blog.awairo.net/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/"/>
+    <updated>2014-01-02T11:45:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding2</id>
+    <content type="html"><![CDATA[<p>MinecraftのModding環境の構築手順についてのメモ。</p>
+
+<p>後編的なやつで、Forgeを導入してリリースファイル作成まで。</p>
+
+<!--more-->
+
+
+<p>Eclipseの準備などは1つ前の記事を参照してください。</p>
+
+<h1>対象</h1>
+
+<ul>
+<li>Javaで開発ができる</li>
+<li>IDE(Eclipse)が使える</li>
+<li>Google先生と仲がいい</li>
+</ul>
+
+
+<p>あと、Gitについても少しだけ書いています。</p>
+
+<h1>準備するもの</h1>
+
+<ul>
+<li><a href="/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding1">EclipseとJDK</a></li>
+<li>MnecraftForgeのsrc版(開発用)</li>
+</ul>
+
+
+<h2>やだやだEclipseやだIntelliJ IDEA使いたい</h2>
+
+<p>開発用ワークスペースを作成後、<code>gradlew idea</code>コマンドでそれ用の開発環境が生成されます。あとはインポートして使ってください。起動構成などは自分で作成する必要がありますが、<a href="http://goo.gl/ZrMEuZ">検索すれば沢山情報は見つかります</a>。</p>
+
+<p>それか、最近IDEAわいわいしていた <a href="http://nk0t.hatenablog.com/entry/2013/12/01/142608" title="ﾝｺﾂﾁｬﾝ">この</a> <a href="http://reginn666.hatenablog.com/entry/2013/12/25/031356" title="ｸﾏｰ">あたり</a> を見たり、チュートリアル作成の進捗確認をしてきて、どうぞ。</p>
+
+<h2>GradleIDEは要らないの？</h2>
+
+<p>リリースファイル生成や、ライブラリやForgeの更新時に、コマンドプロンプトでの操作が殆ど不要になるので、あったほうが便利です。ですが、使い方の日本語情報がまだ少ないようなのと、自分自身、説明書けるほど使いこなせていないので、今回は説明を端折りました。使えるなら導入をおすすめします。マーケットプレイスからインストールできるので、導入自体は簡単です。</p>
+
+<p>プラグインをインストールしたら、Eclipse上でプロジェクトを右クリックし、「構成」→「Convert to Gradle Project」でプロジェクト構成をGradleプロジェクトにできます。</p>
+
+<p>インストール直後のままだと、JDKがみつからなかったり、日本語を含むソースのコンパイルで文字コードが原因で失敗する事があります。その場合、build.gradleを修正したり、Eclipseの設定からJDKの指定や、JVM引数を足してあげれば、Eclipse上からビルドしてくれるようになります。</p>
+
+<p>build.gradleを更新して保存するだけで、自動で依存関係が解決されるのは、ちょっとワクワクする感じでした。(maven未経験)</p>
+
+<ul>
+<li>手前味噌な参考情報
+
+<ul>
+<li><a href="https://twitter.com/alalwww/status/411868768550137856">https://twitter.com/alalwww/status/411868768550137856</a></li>
+<li><a href="https://twitter.com/alalwww/status/411868963593670656">https://twitter.com/alalwww/status/411868963593670656</a></li>
+<li><a href="https://twitter.com/alalwww/status/411871400035504128">https://twitter.com/alalwww/status/411871400035504128</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h1>Forgeのインストール</h1>
+
+<p>以下の順で、簡単に解説します</p>
+
+<ol>
+<li>Forgeのファイルを任意のフォルダーに配置</li>
+<li>コマンドプロンプトからGradleを実行しEclipse用の環境を生成</li>
+<li>EclipseでインポートしてMOD開発を行う</li>
+<li>デバッグ起動してみる</li>
+</ol>
+
+
+<h2>1. Forgeのファイルを任意のフォルダーに配置</h2>
+
+<p>好きなフォルダーにForgeのsrc版のZIPファイルを展開します。</p>
+
+<p>Javaはファイル名が冗長になりやすいため、ドライブ直下など、あまり階層の深くない場所に配置するのをおすすめします。</p>
+
+<p>今回は、Fドライブの直下にMod用フォルダーを作成し、その下に対象Modの開発環境を作成しました。
+<img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/1_unzip.png" title="画像から生み出される安心感" alt="ZIP展開直後のフォルダーのスクリーンショット" /></p>
+
+<p>なお、ライセンスやクレジット、changelogは今後必要としないファイルなので、削除してOKです。</p>
+
+<h2>2. コマンドプロンプトからGradleを実行しEclipse用の環境を生成</h2>
+
+<p>以下、<code>F:\mod\TestMod</code>に展開したものとし、説明していきます。</p>
+
+<p>コマンドプロンプトを開いて、上記のフォルダーに移動します。</p>
+
+<pre><code>Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\username&gt;f:
+
+F:\&gt;cd mod\TestMod
+
+F:\mod\TestMod&gt;
+</code></pre>
+
+<p><code>gradlew eclipse</code>コマンドを実行し、Eclipse用の開発環境を準備します。</p>
+
+<pre><code>F:\mod\TestMod&gt;gradlew eclipse
+****************************
+ Powered By MCP:
+ http://mcp.ocean-labs.de/
+ Searge, ProfMobius, Fesh0r,
+ R4wk, ZeuX, IngisKahn
+ MCP Data version : unknown
+****************************
+
+(以下必要なファイルがなければダウンロードが行われ、必要なファイルが生成され、開発環境が構築される)
+
+BUILD SUCCESSFUL
+
+Total time: xx.xxx secs
+F:\mod\TestMod&gt;
+</code></pre>
+
+<p>ForgeのGitHubのREADMEや、その他環境構築の解説記事などでは、最初に<code>setupDevWorkspace</code>タスクを実行する手順として書かれて居ることが多いです。</p>
+
+<p>しかし実は<code>setupDevWorkspace</code>タスクは、<code>eclipse</code>タスクの依存タスクなので、明示的に指定しなくても勝手に実行されます。なので個別に実行する必要はなかったりします。(でも<code>idea</code>タスクは依存してないみたいなので、両方実行しないとダメっぽい。なんで統一されてないんだろう…。)</p>
+
+<p>フォルダーの中は、こんな感じになりました。</p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/2_setup.png" alt="gradleコマンド実行後のフォルダーのスクリーンショット" /></p>
+
+<p>増えたファイルやフォルダーは、Gradle(ForgeGradle)によって自動生成されたものです。また、元からあったeclipseフォルダーの中に、assetsフォルダーなんかも生成されています。</p>
+
+<p>これで、Eclipseを使った開発用の環境が生成されました。</p>
+
+<h3>ついでにソース管理もやっちゃう？</h3>
+
+<p>ソース管理を行うのであれば、このあたりで一度コミットをしておくとよいかもしれません。何も変更してない状態のコミットがあれば、途中でなにかやらかしても、最初まで立ち戻るときに役立ちます。</p>
+
+<p>ここでは、Gitの導入方法については特に説明しませんが、ソース管理にGitを使う場合を、簡単に紹介しておきます。Guiツールを使ってやったほうが楽ちんですが、スクリーンショットの準備が面倒だったので、コマンドプロンプトからやっちゃいます。</p>
+
+<p>また、Gitリポジトリを作成したあとに、Eclipseでプロジェクトを右クリックし、「チーム」→「プロジェクトの共用」から、EclipseでGitに接続できるように設定出来ます。こうすることで、変更したファイルがわかるようになり、Eclipse上からコミットなども行えるようになります。</p>
+
+<h4>1. リポジトリ作成</h4>
+
+<pre><code>F:\mod\TestMod&gt;cd ..
+
+F:\mod&gt;git init TestMod
+Initialized empty Git repository in F:/mod/TestMod/.git/
+</code></pre>
+
+<h4>2. コミット対象を確認してみる。</h4>
+
+<pre><code>F:\mod\TestMod&gt;git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
+#
+#       .classpath
+#       .gitignore
+#       .gradle/
+#       .project
+#       .settings/
+#       build.gradle
+#       build/
+#       eclipse/
+#       gradle/
+#       gradlew
+#       gradlew.bat
+#       src/
+nothing added to commit but untracked files present (use "git add" to track)
+</code></pre>
+
+<p>管理不要な、自動生成されたファイルなどローカル開発環境固有のものがいっぱいあります。</p>
+
+<p>リポジトリを外部公開しないのであれば、ローカル依存の設定ファイルなどもコミットしてしまったほうが、変更の追跡や設定のロールバックなどもしやすく、便利な場合もあります。しかし、GitHubなどにPushし外部公開するのであれば、ローカル依存なファイルはコミットしないほうがいいでしょう。</p>
+
+<h4>3. 余計な物が多いので無視設定を追加</h4>
+
+<p>外部後悔する場合を想定し、.gitignoreファイルを作成して、無視対象を追加していきます。</p>
+
+<pre><code>F:\mod&gt;cd TestMod
+F:\mod\TestMod&gt;echo /.classpath&gt;&gt;.gitignore
+F:\mod\TestMod&gt;echo /.project&gt;&gt;.gitignore
+F:\mod\TestMod&gt;echo /.settings/&gt;&gt;.gitignore
+F:\mod\TestMod&gt;echo /.gradle/&gt;&gt;.gitignore
+F:\mod\TestMod&gt;echo /bin/&gt;&gt;.gitignore
+F:\mod\TestMod&gt;echo /build/&gt;&gt;.gitignore
+F:\mod\TestMod&gt;echo /eclipse/&gt;&gt;.gitignore
+</code></pre>
+
+<p>ものぐさなので、コマンドプロンプトから直接書き出していきました。</p>
+
+<p>&ldquo;.classpath"、&rdquo;.project"、および".settings/&ldquo;フォルダーは、eclipse用のプロジェクト設定ファイル、または設定ファイル用のフォルダーです。いずれも自分専用の開発環境用の設定なので、このあたりは個々の開発者が管理すべき内容であり、公開予定のリポジトリにはコミットするべきではありません。</p>
+
+<p>&ldquo;.gradle/"フォルダーは名前の通りgradle用で、一時ファイルやログなどが出力されます。これもバージョン管理を行うべきではないため、無視対象に含めます。</p>
+
+<p>&ldquo;bin/"フォルダーは、今はフォルダーも作成されていませんが、Eclipseで自動ビルドを行った際にクラスファイルが生成される場所になります。クラスファイルはソースがあれば生成でき、バージョン管理対象ではありません。</p>
+
+<p>&ldquo;build/"フォルダーは、Gradleでビルドを行う際の、一時ファイルや生成したファイルの出力先になっています。</p>
+
+<p>&ldquo;eclipse/"フォルダーは、ダウンロードしてきたassetsや、Eclipse上でサーバーやクライアントを起動した際の、セーブデータファイルなどが生成される場所です。</p>
+
+<p>.gitignoreファイルが生成できたら、もう一度確認。</p>
+
+<pre><code>F:\mod\TestMod&gt;git status
+# On branch master
+#
+# Initial commit
+#
+# Untracked files:
+#   (use "git add &lt;file&gt;..." to include in what will be committed)
+#
+#       .gitignore
+#       build.gradle
+#       gradle/
+#       gradlew
+#       gradlew.bat
+#       src/
+nothing added to commit but untracked files present (use "git add" to track)
+</code></pre>
+
+<p>これで必要なファイルだけが変更対象になりました。</p>
+
+<h4>4. ステージに追加しコミット</h4>
+
+<p>さくっとステージングしてコミット。</p>
+
+<pre><code>F:\mod\TestMod&gt;git add .
+
+F:\mod\TestMod&gt;git commit -m "initial commit"
+[master (root-commit) 42591b1] initial commit
+ 10 files changed, 904 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 build.gradle
+ create mode 100644 gradle/wrapper/gradle-wrapper.jar
+ create mode 100644 gradle/wrapper/gradle-wrapper.properties
+ create mode 100644 gradlew
+ create mode 100644 gradlew.bat
+ create mode 100644 src/main/java/com/example/examplemod/ExampleMod.java
+ create mode 100644 src/main/resources/mcmod.info
+</code></pre>
+
+<p>これで、最初のコミットが作成されました。</p>
+
+<p>以降、上記ファイルが変更されたか、新しいファイルが追加された場合、差分などが簡単に追いかけれるようになります。</p>
+
+<p>※サンプルModは、あとでどのみち削除するので、コミットする意味はないです。<code>git add ～</code>で対象を選んでステージングするか、全部追加したあと<code>git rm --cached ～</code>などでステージングから削除してから、コミットした方がいいかもしれません。</p>
+
+<h2>3. EclipseでインポートしてMOD開発を行う</h2>
+
+<p>ここからは、Eclipseでの作業です。</p>
+
+<p>個人的にはこの方法は好みでないので、自前でワークスペースを用意し、起動構成などを作成するつもりですが、簡単な導入ってことで、今回はForgeについているワークスペースを使っていきます。</p>
+
+<p>Eclipseを起動し、<code>F:\mod\TestMod\eclipse</code>フォルダーをワークスペースに指定します。</p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/3-1_select_workspace.png" alt="ワークスペース選択ダイアログ" /></p>
+
+<p>ワークスペース設定は新規作成になるため、これまで開発に使っていたワークスペース設定がある場合、諸々の再設定が必要となります。(エディタ背景を黒にしたりとか！)</p>
+
+<p>一部の設定は、設定エクスポート→インポートで引き継いだり、パースペクティブの設定などワークスペース切り替え時にコピーし持ち越すことも出来ますが、できないものは手動で設定するか、ワークスペースの<code>.metadata/</code>フォルダー以下の設定ファイルを、手作業でコピーすることで引き継げます。ただしコピーは、設定値をみて必要なファイルのコピーや設定値のマージを行う必要があり、項目多数で説明のしようもないので、詳細は省略します。多分、よくわからなければ、一から再設定したほうが楽です。</p>
+
+<p>Eclipseが起動したら、こんなかんじの表示です。ただし、ビューやツールバーなど、パースペクティブ内の状態は、個々の環境で異なるかと思います。</p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/3-2_eclipse.png" alt="Forgeのワークスペースに切り替えた直後のEclipse" />
+※この画像では、パースペクティブをJavaに切り替えてあります。</p>
+
+<p>あとは、プロジェクト名"Minecraft"を、Mod名など任意の名前に変更し、ソースフォルダーの、サンプルModを参考に、自分独自のModを作成していくだけです。(サンプルModは不要になったら、パッケージごと削除しちゃてOK)</p>
+
+<p>なお、ソースコード内に日本語を含める場合は、文字コードをUTF-8にするようにしてください。MS932で突き進みたい場合、ビルド時の文字コード問題を頑張って解決する必要があります。</p>
+
+<p>また、おそらくFMLの修正漏れだと思いますが、Forge977付属のワークスペースを使うと、以下の不要なリンクフォルダーが生成されてしまいました。</p>
+
+<ul>
+<li>common</li>
+<li>jars</li>
+<li>lib</li>
+</ul>
+
+
+<p>これらのリンクフォルダーはに参照されず、リンク先も見つからない状態になっているため、削除してしまって問題はありません。(タブン)</p>
+
+<h2>4. デバッグ起動してみる</h2>
+
+<p>テスト実行は、Eclipse上の緑色の三角のボタン、またはデバッグ実行用の虫のマークのボタンから行えます。</p>
+
+<p>なお、ForgeGradle対応後のForgeにも、マイクラを起動できるまでのワークスペース設定が付属しています。</p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/4-1_launch-configuration.png" alt="Eclipseの起動構成" /></p>
+
+<p>もちろん自前で起動構成の作成を行ってもいいのですが、その手順はあちこちで紹介されているみたいなので、省略します。また、ここで使用されている起動構成を真似れば、自分で作成することも出来ます。</p>
+
+<h3>クライアントの起動</h3>
+
+<p>上記からClientを選択するだけです。</p>
+
+<p>参考までに、起動構成(上記画像の「実行の構成」または隣のボタンの「デバッグの構成」)のキャプチャーを紹介しておきます。</p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/4-2_launch_client_mein.png" alt="実行の構成ウィンドウでClientの構成のメインタブ内容" /></p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/4-3_launch_client_args.png" alt="実行の構成ウィンドウでClientの構成の引数タブ内容" /></p>
+
+<p>なお、クライアントの生成するセーブデータなどのファイル群は、全てeclipseフォルダー直下にぶちまけられてしまいます。</p>
+
+<p>2つ目の画像の一番した、「引数」タブの、「作業ディレクトリー」を任意の場所に修正することで、出力されるファイルの場所は変更できます。ただし、assetsへの参照ができなくなり、正しく動作しなくなる可能性があるため、おすすめはしません。</p>
+
+<p>assetsもきちんと動かせば、タブンいけるんじゃないかな？(試してはないですが、<a href="https://github.com/HeisenBugDev/QuantumCraft/blob/develop/build.gradle">おそらくrunフォルダーに変更してそうなModのbuild.gradleを見た感じ</a>、build.gradleでassetDirを変えれば、いけそう…？)</p>
+
+<p>なお、同じ名前の起動構成が複数表示されていますが、どちらも同じファイルを指しているので、気にしなくてOKです。これは、現状とプロジェクトの中にワークスペースが存在する、不思議な構成になってしまっているため、Eclipseがeclipse/.metadata/フォルダーの中にある、ローカルファイルに保管されている起動構成の設定ファイルの実態を、見つけてしまっているために起きているのだと思われます。</p>
+
+<p>なので、ローカルファイル保管の起動構成を修正した場合、構成ウィンドウを開き直すと、ファイルを参照している起動構成も更新されます。</p>
+
+<p>※ただし、逆は開きなおしても更新されていませんでした。起動構成を修正する場合は、「共通」タブの「保管」先が、ローカルファイルになっているものを修正したほうが、よさそうです。</p>
+
+<p>※あと、自環境では起動中に何かエラーメッセージが出ていました。起動はでき、Modもロードされてるっぽいので、とりあえず忘れることにしました。</p>
+
+<h3>サーバーの起動</h3>
+
+<p>クライアントと同じですが、初回のみ、一度起動したあとに生成されたサーバー設定を変更し、起動し直す必要があります。</p>
+
+<p>クライアントと同様に、サーバーの起動時にも、eclipseフォルダー以下に、サーバーの設定ファイル群がぶちまけられます。そのなかにあるserver.propertiesファイルで、<code>online-mode</code>の値が、デフォルト値の<code>true</code>(有効)になっているので、ここを<code>false</code>(無効)に設定してください。</p>
+
+<p><code>online-mode</code>を無効にしたあと、Eclipseからサーバーを起動して、クライアントを実行し、<code>localhost</code>に接続を行うことでマルチプレイでのテストも行えます。</p>
+
+<p>起動構成はこんなかんじになっています。</p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/4-4_launch_server_main.png" alt="実行の構成ウィンドウでServerの構成のメインタブ内容" /></p>
+
+<p><img src="/images/posts/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/4-5_launch_server_args.png" alt="実行の構成ウィンドウでServerの構成の引数タブ内容" /></p>
+
+<h1>リリースファイル作成</h1>
+
+<ol>
+<li>自分のMod用に、build.gradleファイルを編集する。</li>
+<li>gradlewでビルドタスクを実行する。</li>
+</ol>
+
+
+<h2>build.gradleの編集</h2>
+
+<p>サンプルModをそのまま残しているため、以下のように修正してみました。</p>
+
+<pre><code>--- a/build.gradle
++++ b/build.gradle
+@@ -18,8 +18,8 @@
+ buildscript {
+ apply plugin: 'forge'
+
+ version = "1.0"
+-group= "com.yourname.modid"
+-archivesBaseName = "modid"
++group= "com.example.examplemod"
++archivesBaseName = "examplemod"
+
+ minecraft {
+     version = "1.7.2-10.12.0.977"
+</code></pre>
+
+<p>groupには通常Modのルートパッケージを、archivesBaseNameにはリリースファイルにつけるファイル名の接頭辞を設定します。</p>
+
+<p>GroupIDの詳細については、<a href="http://maven.apache.org/guides/mini/guide-naming-conventions.html">build.gradleにコメントで記載されている、Mavenのガイド</a>や、Mavenについて説明しているサイトなどを参照してください。</p>
+
+<h2>Gladleラッパーの設定を修正</h2>
+
+<p>Javaのソースコードに日本語が含まれる場合、エンコード設定を変更する必要が有るかもしれません。デフォルトのエンコードは環境のデフォルトとなっており、Windows環境ではMS932(Shift_JIS互換のエンコード)になってしまいます。</p>
+
+<h3>「エラー: この文字は、エンコーディングMS932にマップできません」</h3>
+
+<p>このメッセージが出る場合、build.gradleに以下を追加すると、Javaのコンパイルがutf-8になり、エラーを回避できるようになります。ただし、JavaのソースコードがUTF-8でないといけません。</p>
+
+<pre><code>[compileJava, compileTestJava].each{ it.options.encoding = 'UTF-8' }
+</code></pre>
+
+<h3>build.gradleに日本語が含まれてるとタスクが実行できなくなった</h3>
+
+<p>日本語を含む場合、その前後行が読めなくなったりして、正しくタスクが実行できなくなったり、ビルドスクリプト自体が読めなくなったりします。</p>
+
+<p>もし日本語を含めるのであれば、build.gradleをUTF-8で保存し、gradlew.batの<code>DEFAULT_JVM_OPTS</code>に、<code>-Dfile.encoding=UTF-8</code>を追加することで回避できます。</p>
+
+<pre><code>diff --git a/gradlew.bat b/gradlew.bat
+index aec9973..88f1f51 100644
+--- a/gradlew.bat
++++ b/gradlew.bat
+@@ -9,7 +9,7 @@
+ if "%OS%"=="Windows_NT" setlocal
+
+ @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+-set DEFAULT_JVM_OPTS=
++set DEFAULT_JVM_OPTS=-Dfile.encoding=UTF-8
+
+ set DIRNAME=%~dp0
+ if "%DIRNAME%" == "" set DIRNAME=.
+</code></pre>
+
+<p>gradlewファイルは、Windows環境では影響ありませんが、リポジトリを公開する予定があるなら、あわせて修正しておくほうがいいかもしれません。</p>
+
+<h2>ビルドタスクの実行</h2>
+
+<p>コマンドプロンプトから、<code>build</code>タスクを実行してください。</p>
+
+<pre><code>F:\mod\TestMod&gt;gradlew build
+</code></pre>
+
+<p>作成されたjarファイルは<code>build/libs</code>以下に、Jarファイルとして生成されます。(たぶん)</p>
+
+<p>なお、2014/01/02の11時時点で、Forge977および982、ForgeGradle1.1のSNAPSHOTな環境で試してみましたが、再難読化(reobf)のタスクで失敗してビルドが成功しませんでした。ForgeやFGのIssue、Forgeのフォーラムでは解決済みという回答が見つかるのですが、上手く行きません。</p>
+
+<p>後日ちゃんと動作したらこの部分は書きなおそうかとおもいます。</p>
+
+<h1>Forgeの更新</h1>
+
+<p>build.gradleを任意のテキストエディタ開いてください。</p>
+
+<p>以下の箇所を、更新したいForgeのバージョンに修正します。</p>
+
+<pre><code> minecraft {
+     version = "1.7.2-10.12.0.982"
+}
+</code></pre>
+
+<p>build.gradleを修正したら、再度<code>gradlew eclipse</code>を実行して、.classpathなどを更新し、最新の状態をプロジェクトに反映させてください。</p>
+
+<p>これマジで神ですね。٩(๑╹ヮ╹)۶</p>
+
+<hr />
+
+<hr />
+
+<p>( っ'ω'c)ﾞ</p>
+
+<h1>あとがき</h1>
+
+<p>また余計な情報足しすぎて長文になってしまった。ビルドこけるのにハマってめっちゃ時間もかかったし。成長ない氏…。</p>
+
+<p>上記とは関係ない、めっちゃ余談だけど、環境構築中にEclipseプラグインLimyのライセンスがGPLになってるのに気づいた。EPLとGPLって非互換だから、プラグインをGPLで公開してもEclipseじゃ使えないんじゃ…って思ったけれど、<a href="http://nippondanji.blogspot.jp/2010/05/eclipsegpl.html">例外規定</a>ってのがあるみたい。</p>
+
+<p>Limyがそうなのかはわからないけど、なるほどそういうのもあるのかーって勉強になったので、カテゴリ外だけどついでにメモ。(･ω･)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[version.properties メモ]]></title>
