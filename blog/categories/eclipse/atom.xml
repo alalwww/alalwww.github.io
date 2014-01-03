@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Eclipse | AwAlog]]></title>
+  <title><![CDATA[Category: eclipse | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/eclipse/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-02T12:23:28+09:00</updated>
+  <updated>2014-01-04T02:04:17+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -286,6 +286,121 @@
 <p>Eclipseプラグインはまだいろいろ試してないので、今後も追加や削除などをしていきながら検討していこうかと思ってます。</p>
 
 <p>っていうかいい加減環境おちつけて開発にシフトしてかないと冬休み終わっちゃうネ。ﾔﾊﾞｰｲ。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Eclipse起動時に開くSTSのダッシュボードを無効化]]></title>
+    <link href="http://blog.awairo.net/blog/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/"/>
+    <updated>2013-12-15T02:43:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup</id>
+    <content type="html"><![CDATA[<p>STSのダッシュボードが起動時に開くの邪魔いのでメモ。</p>
+
+<!--more-->
+
+
+<h1>概要</h1>
+
+<p><a href="http://shootingstar.fm/">星を投げつけるタイプのTwitterクライアント</a>ではなくて、<a href="http://spring.io/tools/sts">SpringToolSuite</a>です。
+<img src="/images/posts/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/dashbard.png" title="これが起動時毎回でてくるのでちょっと邪魔に感じてた。" alt="ダッシュボードの画像" /></p>
+
+<p>たしかGradleIDEインスコしたとき、Groovyエディタとかもあったほうがいいかなって、Groovyのプラグインを導入したのだけれど、そのときセットで要求されて導入したSTSが、Eclipseの起動時に毎回ダッシュボードを開いてくるので、ちょっと邪魔っぽい。</p>
+
+<p>設定を探すのが面倒だったので<a href="http://goo.gl/kcpQOO">グーグル先生</a>にきいてみた。</p>
+
+<p>一発目でHit。<a href="http://stackoverflow.com/questions/5158116/can-i-disable-the-dashboard-window-when-springsource-tool-suite-starts-up" title="ide - Can I disable the Dashboard window when SpringSource Tool Suite starts up? - Stack Overflow">StackOverflow</a>に書いてあった。備忘録を兼ねてメモ。</p>
+
+<h1>手順</h1>
+
+<p>以下はPleiadesで日本語化されたKepler(Eclipse4.3)での説明。</p>
+
+<ol>
+<li>メニューから「ウィンドウ」→「設定」で設定ウィンドウを開く。</li>
+<li>「SpringSource」選択。</li>
+<li>「Dashboard」選択。</li>
+<li>「Show Dashboard On Startup」のチェックを外す。</li>
+</ol>
+
+
+<p><img src="/images/posts/2013/12/15/disable-spring-tool-suite-dashboard-on-eclipse-startup/preferences.png" alt="Eclipseの設定ウィンドウのスクリーンショット" /></p>
+
+<p>おしまい♪</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[java.awt.List とお別れする方法]]></title>
+    <link href="http://blog.awairo.net/blog/2013/02/18/ignore-java-awt-list/"/>
+    <updated>2013-02-18T01:28:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2013/02/18/ignore-java-awt-list</id>
+    <content type="html"><![CDATA[<p>Eclipseの使い方的な内容</p>
+
+<!-- more -->
+
+
+<h1>Modderあるあるｗｗｗ</h1>
+
+<p>java.util.List が使いたいので、list とタイプして…</p>
+
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/list1.png" alt="listまでタイプしたソースコード画像" /></p>
+
+<p>補完で自動インポートをかけようとすると…</p>
+
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/list2.png" alt="コンテンツアシストに java.util.List と java.awt.List が表示されているソースコード画像" /></p>
+
+<p>java.awt.List…てめーはダメだ！</p>
+
+<p>Eclipse で Java コーディングしてるとき、同じような経験をした事がある人は少なくないと思います。StringUtil(s) クラスあたりは、単純クラス名重複率のトップクラスなんじゃないでしょうか。プロジェクト毎、ライブラリ毎にいたりして、使うのはプロジェクト用のものと決まっているのに、毎度対話を求められたりすると、地味にめんどくさくて気になります。</p>
+
+<h1>使わないクラスはフィルタしちゃおう</h1>
+
+<p>実はちょうど Twitter でこの話題が出てたのと、前から気になってたので、調べてみました。</p>
+
+<h2>参考にしたサイト</h2>
+
+<p><a href="http://d.hatena.ne.jp/Yamashiro0217/20090322/1237707686" title="Yamashiro0217の日記">Eclipse のコード補完 (Complete) で java.awt.List とかを補完候補から除外したい場合の設定 &ndash; Yamashiro0217の日記</a></p>
+
+<p>やっぱ同じこと思う人いますよね。一発でみつかりました。</p>
+
+<h2>設定方法</h2>
+
+<p>すごく簡単。
+型フィルタの設定に、除外したいクラスの完全修飾名か、パッケージ名にワイルドカードを付けて追加するだけ。</p>
+
+<ol>
+<li>ウィンドウ</li>
+<li>設定</li>
+<li>Java</li>
+<li>外観</li>
+<li>型フィルター
+<img src="/images/posts/2013/02/18/ignore-java-awt-list/typefilter.png" alt="型フィルタのウィンドウイメージ" /></li>
+</ol>
+
+
+<p>とりあえず、私は Entity や Point なども除外したかったので、以下を追加しました。</p>
+
+<ul>
+<li>java.awt.*</li>
+<li>javax.swing.*</li>
+<li>org.w3c.dom.*</li>
+</ul>
+
+
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/list3.png" alt="java.awt.Listが表示されなくなったソースコード画像" /></p>
+
+<p>これで邪魔者はいなくなった！</p>
+
+<p>参考にしたサイトにも書いてありましたが、プロジェクト単位での設定ができないので、同一ワークスペース内でプロジェクトごとに変えることができない、ってのが難点ってとこでしょうか。でもまぁそのあたりは、コードテンプレートなんかを駆使し、完全修飾名を補完できるようにしてしまえば、多分困ることはないかなって気がします。</p>
+
+<p>むしろそっちの方がクラスごとにインポートしてるクラスがちがう、なんてことも起きにくくなっていいのかも…？</p>
+
+<hr />
+
+<p>ん…？</p>
+
+<p><img src="/images/posts/2013/02/18/ignore-java-awt-list/typefilter-example.png" alt="型フィルタのウィンドウイメージ" /></p>
+
+<p>き、きっと &ldquo;a&rdquo; で始まるからだよね…(´・ω・｀)</p>
 ]]></content>
   </entry>
   

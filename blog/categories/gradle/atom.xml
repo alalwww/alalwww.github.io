@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gradle | AwAlog]]></title>
+  <link href="http://blog.awairo.net/blog/categories/gradle/atom.xml" rel="self"/>
+  <link href="http://blog.awairo.net/"/>
+  <updated>2014-01-04T02:04:17+09:00</updated>
+  <id>http://blog.awairo.net/</id>
+  <author>
+    <name><![CDATA[alalwww]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Gradle上でJava7用にコンパイルする]]></title>
+    <link href="http://blog.awairo.net/blog/2014/01/04/using-java7-on-gradle/"/>
+    <updated>2014-01-04T02:05:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2014/01/04/using-java7-on-gradle</id>
+    <content type="html"><![CDATA[<p>Gradleで、Java7以上向けにコンパイルする方法メモ。</p>
+
+<!--more-->
+
+
+<h1>発端はJavaコンパイル時の警告</h1>
+
+<p>ForgeGradle環境で、特に何も指定せずにただJavaコンパイルをすると、以下の様なエラーメッセージが出てしまいました。</p>
+
+<pre><code>警告: [options] ブートストラップ・クラスパスが-source 1.6と一緒に設定されていません
+</code></pre>
+
+<p>この警告自体はよく見るやつで、<code>javac</code>に<code>-source</code>を指定しておけば、でなくなります。</p>
+
+<p>ついでなので、<code>-target</code>もJava7で明示し、Java6環境とはバイバイしてますよって感じにしちゃおうかと思います。</p>
+
+<h1><code>source</code>も<code>target</code>もないんだよ！</h1>
+
+<p>最初、「<code>encoding</code>みたいにoptionsにコンパイラー引数足せば終わりやろｗ」と思ってたんですが、<a href="http://www.gradle.org/docs/current/groovydoc/org/gradle/api/tasks/compile/CompileOptions.html"><code>CompileOptions</code>クラスのドキュメント</a>には、<code>source()</code>メソッドも<code>setSource()</code>メソッドも見当たらず、肝心の<code>-source</code>オプションが設定できませんでした。</p>
+
+<p>もちろん<code>target</code>の方も見当たらない。つらい。( っ╯•﹏•╰c)</p>
+
+<p>でもまさか、追加する手段が用意されてないわけはないよなー、つってGroovyDocとにらめっこしてたら、ありました。</p>
+
+<h1>やりかた</h1>
+
+<p><code>compilerArgs()</code>メソッドで取得できるString型のリストに、コンパイラー引数をスペースごとに分けて追加してあげれば、目的は達成できました。</p>
+
+<p>ソースファイルのエンコードとあわせ、以下のように設定して、警告はでないようになり、Java7用のクラスファイルが生成されるようになりました。</p>
+
+<pre><code>[compileJava, compileTestJava].each{
+    it.options.encoding = 'UTF-8'
+    it.options.compilerArgs += ['-source', '1.7', '-target', '1.7']
+}
+</code></pre>
+
+<p>おしまい。</p>
+
+<hr />
+
+<p>ちなみに、<code>options.compilerArgs += ['-source', '1.7', '-target', '1.7']</code>の部分をJavaのコードになおすと、こんな感じ。</p>
+
+<pre><code>options.compilerArgs().add("-source");
+options.compilerArgs().add("1.7");
+options.compilerArgs().add("-target");
+options.compilerArgs().add("1.7");
+</code></pre>
+
+<p>Groooooooooooovy!</p>
+]]></content>
+  </entry>
+  
+</feed>
