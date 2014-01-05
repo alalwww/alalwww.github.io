@@ -4,7 +4,7 @@
   <title><![CDATA[AwAlog]]></title>
   <link href="http://blog.awairo.net/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-05T23:51:12+09:00</updated>
+  <updated>2014-01-05T23:54:52+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -30,6 +30,10 @@
 <p>先日のポスト、<a href="http://blog.awairo.net/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding1/">ちゃちゃっとマイクラMOD開発環境をつくる(1)</a>、<a href="http://blog.awairo.net/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/">ちゃちゃっとマイクラMOD開発環境をつくる(2)</a>にも少しだけ書いた気がしますが、Eclipse上からAntを実行するような感じで、Gradleのタスクを実行したりできるようになるプラグインで、ForgeGradleを使う上でも結構便利です。</p>
 
 <p><a href="http://news.mynavi.jp/column/ide/153/index.html">日本語、画像つきで簡単に解説してあるサイト</a>もあるので、知らない人はそちらもどうぞ。</p>
+
+<p>英語ですが、<a href="ttps://github.com/spring-projects/eclipse-integration-gradle/wiki/Gradle-Import-Wizard">GradleIDEのwiki</a>にも解説があります。</p>
+
+<p>(まだほとんど読んでません)</p>
 
 <h1>Forgeの更新のしかた</h1>
 
@@ -138,17 +142,6 @@
 <p><img src="http://blog.awairo.net/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-2_refresh-all.png" alt="img3-2" /></p>
 
 <p>これで、Forgeの最新版がダウンロードされ、開発環境が更新されます。</p>
-
-<hr />
-
-<p>追記(23:50)
-[GradleIDEのwiki][(<a href="https://github.com/spring-projects/eclipse-integration-gradle/wiki/Gradle-Import-Wizard">https://github.com/spring-projects/eclipse-integration-gradle/wiki/Gradle-Import-Wizard</a>)に解説がありました。</p>
-
-<ul>
-<li>Run Before/Afterの説明の文面を少しだけ修正しました。</li>
-<li>参考にしたサイトは、別の時に参照してたとこで、あまり関係がなかったので消しました。</li>
-</ul>
-
 ]]></content>
   </entry>
   
