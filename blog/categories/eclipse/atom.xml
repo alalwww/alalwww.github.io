@@ -4,7 +4,7 @@
   <title><![CDATA[Category: eclipse | AwAlog]]></title>
   <link href="http://blog.awairo.net/blog/categories/eclipse/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-04T02:04:17+09:00</updated>
+  <updated>2014-01-05T23:28:58+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -12,6 +12,139 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GradleIDEでForgeを更新する方法]]></title>
+    <link href="http://blog.awairo.net/blog/2014/01/05/how-to-update-forge-on-gradleide/"/>
+    <updated>2014-01-05T23:28:00+09:00</updated>
+    <id>http://blog.awairo.net/blog/2014/01/05/how-to-update-forge-on-gradleide</id>
+    <content type="html"><![CDATA[<p>Eclipse上からForgeを更新する方法</p>
+
+<!--more-->
+
+
+<h1>GradleIDEって？</h1>
+
+<p>Eclipseプラグインの<a href="https://marketplace.eclipse.org/content/gradle-integration-eclipse">Gradle Integration for Eclipse</a>(<a href="https://github.com/spring-projects/eclipse-integration-gradle/">GitHub</a>)です。</p>
+
+<p>先日のポスト、<a href="/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding1/">ちゃちゃっとマイクラMOD開発環境をつくる(1)</a>、<a href="/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/">ちゃちゃっとマイクラMOD開発環境をつくる(2)</a>にも少しだけ書いた気がしますが、Eclipse上からAntを実行するような感じで、Gradleのタスクを実行したりできるようになるプラグインで、ForgeGradleを使う上でも結構便利です。</p>
+
+<p><a href="http://news.mynavi.jp/column/ide/153/index.html">日本語、画像つきで簡単に解説してあるサイト</a>もあるので、知らない人はそちらもどうぞ。</p>
+
+<h1>Forgeの更新のしかた</h1>
+
+<h2>前提条件</h2>
+
+<ul>
+<li>Eclipse
+
+<ul>
+<li>GradleIDEプラグインを導入済み</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>事前準備</h2>
+
+<p>プロジェクトをGradleプロジェクトとして構成しておきます。</p>
+
+<p>以下2ケースを紹介します。</p>
+
+<ul>
+<li>既にプロジェクトを作成している場合</li>
+<li>新規にForge開発環境を作成する場合</li>
+</ul>
+
+
+<h3>既にプロジェクトを作成している場合</h3>
+
+<p>Eclipseのエクスプローラーより、プロジェクトを右クリックし、構成からGradleプロジェクトに変換してください。</p>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/1_context-menu.png" alt="コンテキストメニューからGradleプロジェクトに変換を選んでいる画像" /></p>
+
+<h3>新規にForge開発環境を作成する場合</h3>
+
+<p>Forgeを落としてきただけで、プロジェクトをインポートしていない場合は、インポート時にGradleプロジェクトとしてインポートする方法が使えます。</p>
+
+<p>こちらの手順のほうが、細かい設定を最初に指定することができます。</p>
+
+<ol>
+<li>Forgeのsrcを展開する。</li>
+<li>コンテキストメニューからインポートを選ぶ。</li>
+<li>開いたインポートウィンドウからGradleProjectを選択。</li>
+<li>1のフォルダーへのパスを入力し、「BuildModel」ボタンを押下。</li>
+</ol>
+
+
+<h3>Forgeのsrcを展開する</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-1_start.png" alt="Forgeのsrcを展開したフォルダーの画像" /></p>
+
+<h3>コンテキストメニューからインポートを選ぶ</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-2_import.png" alt="コンテキストメニューからインポートを選んでいる画像" /></p>
+
+<h3>開いたインポートウィンドウからGradleProjectを選択</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-3_import-gradle-project.png" alt="インポートウィンドウの画像" /></p>
+
+<h3>フォルダーへのパスを入力し、「BuildModel」ボタンを押下</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-4_build-model.png" alt="GradleProjectのインポートウィンドウの上部" /></p>
+
+<ul>
+<li>GradleProjectインポートウィンドウの下部はこんな感じ。</li>
+</ul>
+
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-5_project-configure.png" alt="GradleProjectのインポートウィンドウの下部" /></p>
+
+<ul>
+<li>Run Beforeが全てリフレッシュ時に実行されるタスク。スペースで複数指定可能。例えば、<code>setupDecompWorkspace</code>タスクも実行したい場合は、ここに足そう。</li>
+<li>Run Afterが上記の後に実行されるタスク。<a href="https://issuetracker.springsource.com/browse/STS-3057"><code>.classpath</code>ファイルのカスタマイズなどに使える</a>みたい。</li>
+<li>依存関係管理はそのまんまの意味、だと思うので有効にしておいたほうが良さそう。</li>
+<li>Create resource filtersはよくわからないのでデフォルトのままにしました。</li>
+<li>Create workingset &lsquo;<your project name>&rsquo; はそのまんま。不要なのでチェック外しました。</li>
+<li>Enable DSL Suportはきちんと理解していないですが、有効だと、build.gradleのエディターで、一部のタイプのマークアップや参照検索が有効になったので、チェックを入れておいたほうが良さそうな感じです。</li>
+<li>Use hierarchical project names はよくわからないのでチェックしませんでした。</li>
+</ul>
+
+
+<p>これで完了を押すと、GradleProjectの構成になった状態でインポートされます。</p>
+
+<p>依存関係管理、DSLサポートなんかは後からも変更できるみたいですが、他の設定は、後からGUI上で変更する方法が見当たらなかったため、rubBeforeなどを変更しておきた場合は、こちらの方法でプロジェクトを構成しておいたほうがよさそうかも。</p>
+
+<p>設定値の意味は、時間がないので調べきれていません。また後日気が向いたら調べてみます。</p>
+
+<p>もう眠い( っ'ω'c)</p>
+
+<h2>更新手順</h2>
+
+<ol>
+<li>Forgeのバージョンを調べbuild.gradleに反映する。</li>
+<li>コンテキストメニューのGradleからすべてリフレッシュを選択する。</li>
+</ol>
+
+
+<h3>Forgeのバージョンを調べbuild.gradleに反映する</h3>
+
+<p><a href="http://files.minecraftforge.net/">ダウンロードのページ</a>から、更新したいForgeのバージョンを調べ、build.gradleファイルを更新します。</p>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-1_build.gradle.png" alt="img3-1" /></p>
+
+<h3>コンテキストメニューのGradleからすべてリフレッシュを選択</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-2_refresh-all.png" alt="img3-2" /></p>
+
+<p>これで、Forgeの最新版がダウンロードされ、開発環境が更新されます。</p>
+
+<hr />
+
+<p>参考:
+&ndash; <a href="http://www.glamenv-septzen.net/index.php?id=1216_1">Groovy/Gradle/Eclipseとの連携/SpringのEclipsePlugin使用メモ (v1) &ndash; Glamenv-Septzen.net</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ちゃちゃっとマイクラMOD開発環境をつくる(1)]]></title>

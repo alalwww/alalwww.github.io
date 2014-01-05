@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="ja"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>OctopressのRakefileのカスタマイズ - AwAlog</title>
+  <title>GradleIDEでForgeを更新する方法 - AwAlog</title>
   <meta name="author" content="alalwww">
 
   
-  <meta name="description" content="記事が_posts直下に沢山できてくると邪魔なので、その対策。 Rakefileカスタマイズ(記事のディレクトリ分け) Octopressの使ってるJekyllの機能らしいですが、_posts以下にサブディレクトリがあっても再帰的に検索して、記事ファイルとして処理してくれるようです。 ただし、 &hellip;">
+  <meta name="description" content="Eclipse上からForgeを更新する方法 GradleIDEって？ EclipseプラグインのGradle Integration for Eclipse(GitHub)です。 先日のポスト、ちゃちゃっとマイクラMOD開発環境をつくる(1)、ちゃちゃっとマイクラMOD開発環境をつくる(2) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile">
+  <link rel="canonical" href="http://blog.awairo.net/blog/2014/01/05/how-to-update-forge-on-gradleide">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="AwAlog" type="application/atom+xml">
@@ -93,7 +93,7 @@
   
   <header>
     
-      <h1 class="entry-title">OctopressのRakefileのカスタマイズ</h1>
+      <h1 class="entry-title">GradleIDEでForgeを更新する方法</h1>
     
     
       <p class="meta">
@@ -109,7 +109,7 @@
   
 
 
-<time datetime="2014-01-01T22:27:00+09:00" pubdate data-updated="true">[01/01(Wed) - 2014] 22:27 (+0900)</time>
+<time datetime="2014-01-05T23:28:00+09:00" pubdate data-updated="true">[01/05(Sun) - 2014] 23:28 (+0900)</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -118,77 +118,131 @@
   </header>
 
 
-<div class="entry-content"><p>記事が_posts直下に沢山できてくると邪魔なので、その対策。</p>
+<div class="entry-content"><p>Eclipse上からForgeを更新する方法</p>
 
 <!--more-->
 
 
-<h1>Rakefileカスタマイズ(記事のディレクトリ分け)</h1>
+<h1>GradleIDEって？</h1>
 
-<p>Octopressの使ってるJekyllの機能らしいですが、_posts以下にサブディレクトリがあっても再帰的に検索して、記事ファイルとして処理してくれるようです。</p>
+<p>Eclipseプラグインの<a href="https://marketplace.eclipse.org/content/gradle-integration-eclipse">Gradle Integration for Eclipse</a>(<a href="https://github.com/spring-projects/eclipse-integration-gradle/">GitHub</a>)です。</p>
 
-<p>ただし、ファイル名が<code>yyyy-mm-dd-</code>で始まっていなければいけません。最初、どんなファイルでも行けるのかと思ってファイルのリネームまで行ったところ、記事が全滅してしばらくハマりました。</p>
+<p>先日のポスト、<a href="/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding1/">ちゃちゃっとマイクラMOD開発環境をつくる(1)</a>、<a href="/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding2/">ちゃちゃっとマイクラMOD開発環境をつくる(2)</a>にも少しだけ書いた気がしますが、Eclipse上からAntを実行するような感じで、Gradleのタスクを実行したりできるようになるプラグインで、ForgeGradleを使う上でも結構便利です。</p>
 
-<p>ともあれ、ディレクトリ分けて整理できるようなので、<code>rake new_post['title']</code>した時に、年月ディレクトリを掘って、そこに月ごとにぶちこんでしまうように、Rakefileを修正しました。</p>
+<p><a href="http://news.mynavi.jp/column/ide/153/index.html">日本語、画像つきで簡単に解説してあるサイト</a>もあるので、知らない人はそちらもどうぞ。</p>
 
-<p>こういう機能もOctopress側に用意されてれば楽なんですけどね。</p>
+<h1>Forgeの更新のしかた</h1>
 
-<p>( っ&#8217;ω&#8217;c)ﾀﾞﾚｶPRﾀﾞｼﾃｸﾚﾅｲｶﾅ</p>
-
-<h2>やったこと</h2>
-
-<p>(ついでなので、他にも少し設定値などを修正しました。)</p>
+<h2>前提条件</h2>
 
 <ul>
-<li>markdownの拡張子を、&#8221;markdown&#8221;から&#8221;md&#8221;に変更。</li>
-<li>記事の新規作成時、_posts以下にyyyy-mm形式のディレクトリを作成。</li>
-<li>上記で作成したディレクトリに記事作成。</li>
-<li>記事を作成した際に、記事用の画像ディレクトリも作成。</li>
+<li>Eclipse
+
+<ul>
+<li>GradleIDEプラグインを導入済み</li>
+</ul>
+</li>
 </ul>
 
 
-<p>それだけ。</p>
+<h2>事前準備</h2>
 
-<h2>変更の差分</h2>
+<p>プロジェクトをGradleプロジェクトとして構成しておきます。</p>
 
-<div><script src='https://gist.github.com/8207758.js'></script>
-<noscript><pre><code>diff --git a/Rakefile b/Rakefile
-index c2f2a78..f9188c8 100644
---- a/Rakefile
-+++ b/Rakefile
-@@ -22,9 +22,10 @@ blog_index_dir  = 'source'    # directory for your blog's index page (if you put
- deploy_dir      = &quot;_deploy&quot;   # deploy directory (for Github pages deployment)
- stash_dir       = &quot;_stash&quot;    # directory to stash posts for speedy generation
- posts_dir       = &quot;_posts&quot;    # directory for blog files
-+posts_images_dir= &quot;images/posts&quot;
- themes_dir      = &quot;.themes&quot;   # directory for blog files
--new_post_ext    = &quot;markdown&quot;  # default new post file extension when using the new_post task
--new_page_ext    = &quot;markdown&quot;  # default new page file extension when using the new_page task
-+new_post_ext    = &quot;md&quot;  # default new post file extension when using the new_post task
-+new_page_ext    = &quot;md&quot;  # default new page file extension when using the new_page task
- server_port     = &quot;4000&quot;      # port for preview server eg. localhost:4000
+<p>以下2ケースを紹介します。</p>
+
+<ul>
+<li>既にプロジェクトを作成している場合</li>
+<li>新規にForge開発環境を作成する場合</li>
+</ul>
 
 
-@@ -98,8 +99,12 @@ task :new_post, :title do |t, args|
-     title = get_stdin(&quot;Enter a title for your post: &quot;)
-   end
-   raise &quot;### You haven't set anything up yet. First run `rake install` to set up an Octopress theme.&quot; unless File
--  mkdir_p &quot;#{source_dir}/#{posts_dir}&quot;
--  filename = &quot;#{source_dir}/#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}&quot;
-+  time_now = Time.now
-+  post_dir_of_monthly = &quot;#{source_dir}/#{posts_dir}/#{time_now.strftime('%Y-%m')}&quot;
-+  mkdir_p post_dir_of_monthly
-+  # create dir of post's images
-+  mkdir_p &quot;#{source_dir}/#{posts_images_dir}/#{time_now.strftime('%Y/%m/%d')}/#{title.to_url}&quot;
-+  filename = &quot;#{post_dir_of_monthly}/#{time_now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}&quot;
-   if File.exist?(filename)
-     abort(&quot;rake aborted!&quot;) if ask(&quot;#{filename} already exists. Do you want to overwrite?&quot;, ['y', 'n']) == 'n'
-   end</code></pre></noscript></div>
+<h3>既にプロジェクトを作成している場合</h3>
 
+<p>Eclipseのエクスプローラーより、プロジェクトを右クリックし、構成からGradleプロジェクトに変換してください。</p>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/1_context-menu.png" alt="コンテキストメニューからGradleプロジェクトに変換を選んでいる画像" /></p>
+
+<h3>新規にForge開発環境を作成する場合</h3>
+
+<p>Forgeを落としてきただけで、プロジェクトをインポートしていない場合は、インポート時にGradleプロジェクトとしてインポートする方法が使えます。</p>
+
+<p>こちらの手順のほうが、細かい設定を最初に指定することができます。</p>
+
+<ol>
+<li>Forgeのsrcを展開する。</li>
+<li>コンテキストメニューからインポートを選ぶ。</li>
+<li>開いたインポートウィンドウからGradleProjectを選択。</li>
+<li>1のフォルダーへのパスを入力し、「BuildModel」ボタンを押下。</li>
+</ol>
+
+
+<h3>Forgeのsrcを展開する</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-1_start.png" alt="Forgeのsrcを展開したフォルダーの画像" /></p>
+
+<h3>コンテキストメニューからインポートを選ぶ</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-2_import.png" alt="コンテキストメニューからインポートを選んでいる画像" /></p>
+
+<h3>開いたインポートウィンドウからGradleProjectを選択</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-3_import-gradle-project.png" alt="インポートウィンドウの画像" /></p>
+
+<h3>フォルダーへのパスを入力し、「BuildModel」ボタンを押下</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-4_build-model.png" alt="GradleProjectのインポートウィンドウの上部" /></p>
+
+<ul>
+<li>GradleProjectインポートウィンドウの下部はこんな感じ。</li>
+</ul>
+
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-5_project-configure.png" alt="GradleProjectのインポートウィンドウの下部" /></p>
+
+<ul>
+<li>Run Beforeが全てリフレッシュ時に実行されるタスク。スペースで複数指定可能。例えば、<code>setupDecompWorkspace</code>タスクも実行したい場合は、ここに足そう。</li>
+<li>Run Afterが上記の後に実行されるタスク。<a href="https://issuetracker.springsource.com/browse/STS-3057"><code>.classpath</code>ファイルのカスタマイズなどに使える</a>みたい。</li>
+<li>依存関係管理はそのまんまの意味、だと思うので有効にしておいたほうが良さそう。</li>
+<li>Create resource filtersはよくわからないのでデフォルトのままにしました。</li>
+<li>Create workingset &lsquo;<your project name>&rsquo; はそのまんま。不要なのでチェック外しました。</li>
+<li>Enable DSL Suportはきちんと理解していないですが、有効だと、build.gradleのエディターで、一部のタイプのマークアップや参照検索が有効になったので、チェックを入れておいたほうが良さそうな感じです。</li>
+<li>Use hierarchical project names はよくわからないのでチェックしませんでした。</li>
+</ul>
+
+
+<p>これで完了を押すと、GradleProjectの構成になった状態でインポートされます。</p>
+
+<p>依存関係管理、DSLサポートなんかは後からも変更できるみたいですが、他の設定は、後からGUI上で変更する方法が見当たらなかったため、rubBeforeなどを変更しておきた場合は、こちらの方法でプロジェクトを構成しておいたほうがよさそうかも。</p>
+
+<p>設定値の意味は、時間がないので調べきれていません。また後日気が向いたら調べてみます。</p>
+
+<p>もう眠い( っ&#8217;ω&#8217;c)</p>
+
+<h2>更新手順</h2>
+
+<ol>
+<li>Forgeのバージョンを調べbuild.gradleに反映する。</li>
+<li>コンテキストメニューのGradleからすべてリフレッシュを選択する。</li>
+</ol>
+
+
+<h3>Forgeのバージョンを調べbuild.gradleに反映する</h3>
+
+<p><a href="http://files.minecraftforge.net/">ダウンロードのページ</a>から、更新したいForgeのバージョンを調べ、build.gradleファイルを更新します。</p>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-1_build.gradle.png" alt="img3-1" /></p>
+
+<h3>コンテキストメニューのGradleからすべてリフレッシュを選択</h3>
+
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-2_refresh-all.png" alt="img3-2" /></p>
+
+<p>これで、Forgeの最新版がダウンロードされ、開発環境が更新されます。</p>
 
 <hr />
 
-<p>画像のURL指定するのもめんどくさいので、そのうち記事に紐づくスクリプトみたいなの噛ますようにしないとかなー。</p>
+<p>参考:
+&ndash; <a href="http://www.glamenv-septzen.net/index.php?id=1216_1">Groovy/Gradle/Eclipseとの連携/SpringのEclipsePlugin使用メモ (v1) &ndash; Glamenv-Septzen.net</a></p>
 </div>
 
 
@@ -198,7 +252,7 @@ index c2f2a78..f9188c8 100644
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+    <a class='category' href='/blog/categories/minecraftforge/'>MinecraftForge</a>, <a class='category' href='/blog/categories/eclipse/'>eclipse</a>, <a class='category' href='/blog/categories/modding/'>modding</a>
   
 </span>
 
@@ -217,7 +271,7 @@ index c2f2a78..f9188c8 100644
   
 
 
-<time datetime="2014-01-01T22:27:00+09:00" pubdate data-updated="true">[01/01(Wed) - 2014] 22:27 (+0900)</time>
+<time datetime="2014-01-05T23:28:00+09:00" pubdate data-updated="true">[01/05(Sun) - 2014] 23:28 (+0900)</time>
       
   
 
@@ -227,7 +281,7 @@ index c2f2a78..f9188c8 100644
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/" data-via="" data-counturl="http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.awairo.net/blog/2014/01/05/how-to-update-forge-on-gradleide/" data-via="" data-counturl="http://blog.awairo.net/blog/2014/01/05/how-to-update-forge-on-gradleide/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -240,10 +294,8 @@ index c2f2a78..f9188c8 100644
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/12/24/octopress-aside-of-getting-profile-from-gravatar/" title="Previous Post: Gravatarのプロフィールを表示するOctopressのサイドバー">&laquo; Gravatarのプロフィールを表示するOctopressのサイドバー</a>
+        <a class="basic-alignment left" href="/blog/2014/01/04/using-java7-on-gradle/" title="Previous Post: Gradle上でJava7用にコンパイルする">&laquo; Gradle上でJava7用にコンパイルする</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/01/02/shortcut-of-making-workspace-for-mc-modding1/" title="Next Post: ちゃちゃっとマイクラMOD開発環境をつくる(1)">ちゃちゃっとマイクラMOD開発環境をつくる(1) &raquo;</a>
       
     </p>
   </footer>
@@ -436,8 +488,8 @@ index c2f2a78..f9188c8 100644
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/';
-        var disqus_url = 'http://blog.awairo.net/blog/2014/01/01/customizing-octopress-rakefile/';
+        var disqus_identifier = 'http://blog.awairo.net/blog/2014/01/05/how-to-update-forge-on-gradleide/';
+        var disqus_url = 'http://blog.awairo.net/blog/2014/01/05/how-to-update-forge-on-gradleide/';
         var disqus_script = 'embed.js';
       
     (function () {
