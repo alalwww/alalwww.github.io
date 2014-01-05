@@ -4,7 +4,7 @@
   <title><![CDATA[AwAlog]]></title>
   <link href="http://blog.awairo.net/atom.xml" rel="self"/>
   <link href="http://blog.awairo.net/"/>
-  <updated>2014-01-05T23:28:58+09:00</updated>
+  <updated>2014-01-05T23:51:12+09:00</updated>
   <id>http://blog.awairo.net/</id>
   <author>
     <name><![CDATA[alalwww]]></name>
@@ -101,8 +101,8 @@
 <p><img src="http://blog.awairo.net/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-5_project-configure.png" alt="GradleProjectのインポートウィンドウの下部" /></p>
 
 <ul>
-<li>Run Beforeが全てリフレッシュ時に実行されるタスク。スペースで複数指定可能。例えば、<code>setupDecompWorkspace</code>タスクも実行したい場合は、ここに足そう。</li>
-<li>Run Afterが上記の後に実行されるタスク。<a href="https://issuetracker.springsource.com/browse/STS-3057"><code>.classpath</code>ファイルのカスタマイズなどに使える</a>みたい。</li>
+<li>Run Beforeが全てリフレッシュ時に実行されるタスク。開始タスクで、afterと対になっている。スペースで複数指定可能。例えば、<code>setupDecompWorkspace</code>タスクも実行したい場合は、ここに足そう。</li>
+<li>Run Afterが上記の後に実行されるタスク。終了タスク。例えば、<a href="https://issuetracker.springsource.com/browse/STS-3057">.classpathファイルのカスタマイズをするために使ったり</a>するみたい。標準で定義されているタスクではないけど、<a href="https://github.com/spring-projects/eclipse-integration-gradle/wiki/Gradle-Import-Wizard#use-case-2-execute-aftereclipseimport-task">初期値のタスクのまま有効にしておいたほうがいい</a>、っぽい。</li>
 <li>依存関係管理はそのまんまの意味、だと思うので有効にしておいたほうが良さそう。</li>
 <li>Create resource filtersはよくわからないのでデフォルトのままにしました。</li>
 <li>Create workingset &lsquo;<your project name>&rsquo; はそのまんま。不要なのでチェック外しました。</li>
@@ -111,11 +111,11 @@
 </ul>
 
 
-<p>これで完了を押すと、GradleProjectの構成になった状態でインポートされます。</p>
+<p>上記の設定をおこない、完了を押すと、GradleProjectの構成になった状態でインポートされます。</p>
 
 <p>依存関係管理、DSLサポートなんかは後からも変更できるみたいですが、他の設定は、後からGUI上で変更する方法が見当たらなかったため、rubBeforeなどを変更しておきた場合は、こちらの方法でプロジェクトを構成しておいたほうがよさそうかも。</p>
 
-<p>設定値の意味は、時間がないので調べきれていません。また後日気が向いたら調べてみます。</p>
+<p>設定値の意味は、時間がないので調べきれていません。また後日、気が向いたらGradleIDEのWiki読みなおしてみます。</p>
 
 <p>もう眠い( っ&#8217;ω&#8217;c)</p>
 
@@ -141,8 +141,14 @@
 
 <hr />
 
-<p>参考:
-&ndash; <a href="http://www.glamenv-septzen.net/index.php?id=1216_1">Groovy/Gradle/Eclipseとの連携/SpringのEclipsePlugin使用メモ (v1) &ndash; Glamenv-Septzen.net</a></p>
+<p>追記(23:50)
+[GradleIDEのwiki][(<a href="https://github.com/spring-projects/eclipse-integration-gradle/wiki/Gradle-Import-Wizard">https://github.com/spring-projects/eclipse-integration-gradle/wiki/Gradle-Import-Wizard</a>)に解説がありました。</p>
+
+<ul>
+<li>Run Before/Afterの説明の文面を少しだけ修正しました。</li>
+<li>参考にしたサイトは、別の時に参照してたとこで、あまり関係がなかったので消しました。</li>
+</ul>
+
 ]]></content>
   </entry>
   
