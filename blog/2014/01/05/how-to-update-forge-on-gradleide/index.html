@@ -205,13 +205,16 @@
 <p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/2-5_project-configure.png" alt="GradleProjectのインポートウィンドウの下部" /></p>
 
 <ul>
-<li>Run Beforeが全てリフレッシュ時に実行されるタスク。開始タスクで、afterと対になっている。スペースで複数指定可能。例えば、<code>setupDecompWorkspace</code>タスクも実行したい場合は、ここに足そう。</li>
+<li><del>Run Beforeが全てリフレッシュ時に実行されるタスク。開始タスクで、afterと対になっている。スペースで複数指定可能。例えば、setupDecompWorkspaceタスクも実行したい場合は、ここに足そう。</del></li>
+<li>Run Beforeが全てリフレッシュ時に実行されるタスク。スペースで区切って複数タスクを指定可能。gradlewコマンド同様にタスク名は順不同。Forgeの更新を行う場合、setupタスクの再実行が必要なので、<code>setupDecompWorkspace</code>タスクを足しておくといい。なお余談だが、過去のForgeGradleで、IDE系のタスクとsetup系のタスクの同時実行ができなくなっていた時期があり、ここにsetup系タスクを足すと正常に動かないことがあった(たしかFG1.1のころで一時期だけ)。おそらくFG1.2では大丈夫そう。</li>
 <li>Run Afterが上記の後に実行されるタスク。終了タスク。例えば、<a href="https://issuetracker.springsource.com/browse/STS-3057">.classpathファイルのカスタマイズをするために使ったり</a>するみたい。標準で定義されているタスクではないけど、<a href="https://github.com/spring-projects/eclipse-integration-gradle/wiki/Gradle-Import-Wizard#use-case-2-execute-aftereclipseimport-task">初期値のタスクのまま有効にしておいたほうがいい</a>、っぽい。</li>
-<li>依存関係管理はそのまんまの意味、だと思うので有効にしておいたほうが良さそう。</li>
+<li><del>依存関係管理はそのまんまの意味、だと思うので有効にしておいたほうが良さそう。</del></li>
+<li>ForgeGradleがローカルでソースなどを生成するためか、GradleIDEでの依存関係管理を有効にするとForgeのソースなどが設定されなくなる。無効にしたほうがよさげ。</li>
 <li>Create resource filtersはよくわからないのでデフォルトのままにしました。</li>
 <li>Create workingset &lsquo;<your project name>&rsquo; はそのまんま。不要なのでチェック外しました。</li>
-<li>Enable DSL Suportはきちんと理解していないですが、有効だと、build.gradleのエディターで、一部のタイプのマークアップや参照検索が有効になったので、チェックを入れておいたほうが良さそうな感じです。</li>
-<li>Use hierarchical project names はよくわからないのでチェックしませんでした。</li>
+<li><del>Enable DSL Suportはきちんと理解していないですが、有効だと、build.gradleのエディターで、一部のタイプのマークアップや参照検索が有効になったので、チェックを入れておいたほうが良さそうな感じです。</del></li>
+<li>ライブラリが増えてうざったいかもしれない。この設定の意味がわかっていないなら、OFFのままでよさげ。</li>
+<li>Use hierarchical project names はよくわからないのでチェックしませんでした。階層的なプロジェクト名…？</li>
 </ul>
 
 
@@ -226,7 +229,17 @@
 <h2>更新手順</h2>
 
 <ol>
+<li><del>Forgeのバージョンを調べbuild.gradleに反映する。</del></li>
+<li><del>コンテキストメニューのGradleからすべてリフレッシュを選択する。</del></li>
+</ol>
+
+
+<p>(Jun 19, 2014 修正)</p>
+
+<ol>
 <li>Forgeのバージョンを調べbuild.gradleに反映する。</li>
+<li>必要であれば、build.gradleファイルの、buildscriptで指定しているForgeGradleのバージョンを更新する。</li>
+<li>必要であれば、gradle/wrapper/gradle-wrapper.propertiesの、使用するgradleのバージョンも更新する。</li>
 <li>コンテキストメニューのGradleからすべてリフレッシュを選択する。</li>
 </ol>
 
@@ -237,9 +250,19 @@
 
 <p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-1_build.gradle.png" alt="img3-1" /></p>
 
+<h3>ForgeGradleのバージョンを更新</h3>
+
+<p>Forgeをダウンロードして確認するか、最新Forgeであれば<a href="https://github.com/MinecraftForge/FML/blob/master/install/build.gradle">FMLのGitHub</a>を見ればわかるかと思います。(未リリースの場合もあるのでForgeをダウンロードして確認するのが確実)
+<img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-2_build.gradle.png" alt="img3-2" /></p>
+
+<h3>gradle-wrapper.propertiesの更新</h3>
+
+<p>ForgeGradleのバージョンチェックと同じように、ダウンロードするか、FMLのリポジトリを確認すればわかる。指定バージョンのForgeGradleが対応していれば、違っても動きはする。
+<img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-3_gradle-wrapper.properties.png" alt="img3-3" /></p>
+
 <h3>コンテキストメニューのGradleからすべてリフレッシュを選択</h3>
 
-<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-2_refresh-all.png" alt="img3-2" /></p>
+<p><img src="/images/posts/2014/01/05/how-to-update-forge-on-gradleide/3-4_refresh-all.png" alt="img3-4" /></p>
 
 <p>これで、Forgeの最新版がダウンロードされ、開発環境が更新されます。</p>
 </div>
